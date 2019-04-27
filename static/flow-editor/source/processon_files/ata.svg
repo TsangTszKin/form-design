@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 id="svg2" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="80px" height="42px"
+	 viewBox="0 0 80 42" enable-background="new 0 0 80 42" xml:space="preserve">
+<g id="g12" transform="scale(0.1,0.1)">
+	<path id="path22" fill="#087BBB" d="M0,200.386L241.812,4.526h558.184L599.937,200.386H0"/>
+	<path id="path24" fill="none" stroke="#FFFFFF" stroke-width="3.9999" d="M0,200.386L241.812,4.526h558.184L599.937,200.386H0z"/>
+	<path id="path26" fill="#087BBB" d="M599.937,395.063l200.059-197.09V-0.005L599.937,200.386V395.063"/>
+	<path id="path28" fill="none" stroke="#FFFFFF" stroke-width="3.9999" d="M599.937,395.063l200.059-197.09V-0.005L599.937,200.386
+		V395.063z"/>
+	<path id="path30" fill="#087BBB" d="M0.811,395.366h599.126v-194.98H0.811V395.366z"/>
+	<path id="path32" fill="none" stroke="#FFFFFF" stroke-width="3.9999" d="M0.811,395.366h599.126v-194.98H0.811V395.366z"/>
+	<path id="path34" fill="#FFFFFF" d="M355.835,230.62c0,0,7.969-0.869,9.805,7.334l1.816,30.693l53.516,8.828l5.352-11.631
+		l-13.555-36.953c-68.555-17.041-114.326-11.641-114.326-11.641h2.671c0,0-36.182-5.4-104.873,11.641l-13.34,36.953l5.371,11.631
+		l53.521-8.828l1.709-30.693c1.816-8.203,9.907-7.334,9.907-7.334H355.835"/>
+	<path id="path36" fill="#231F20" d="M248.428,376.518H360.64V261.587H248.428V376.518z"/>
+	<path id="path38" fill="none" stroke="#FFFFFF" stroke-width="3.9999" stroke-miterlimit="1" d="M248.428,376.518H360.64V261.587
+		H248.428V376.518z"/>
+	<g id="g40" transform="scale(10,10)">
+		<text transform="matrix(0.9981 0 0 1 26.5191 36.851)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="13.6764">      </text>
+		<text transform="matrix(0.9981 0 0 1 26.5191 36.851)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="13.6764">V</text>
+		<text transform="matrix(0.9981 0 0 1 35.6216 36.851)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="13.6764">     </text>
+	</g>
+	<path id="path46" fill="#A7A5A6" d="M224.658,154.135c0,11.631-24.355,21.025-54.429,21.025c-30.083,0-54.517-9.395-54.517-21.025
+		c0-11.533,24.434-20.938,54.517-20.938C200.303,133.198,224.658,142.602,224.658,154.135"/>
+	<path id="path48" fill="#FFFFFF" d="M224.658,140.795c0,11.631-24.355,21.025-54.429,21.025c-30.083,0-54.517-9.395-54.517-21.025
+		c0-11.543,24.434-21.025,54.517-21.025C200.303,119.77,224.658,129.252,224.658,140.795"/>
+</g>
+</svg>

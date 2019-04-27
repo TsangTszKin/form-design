@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>任务流程图</title>
+	<link type="text/css" rel="stylesheet" href="../../../js/layui/dist/css/layui.css" />
+	<link type="text/css" rel="stylesheet" href="../../../css/font-awesome/css/font-awesome.min.css" />
+	<link type="text/css" rel="stylesheet" href="../../../js/plugin/flow/global.css" type="text/css">
+	<link type="text/css" rel="stylesheet" href="../../../js/plugin/flow/designer.css">
+	<link type="text/css" rel="stylesheet" href="../../../js/plugin/flow/ui.css">
+</head>
+
+<body>
+	<canvas id="support_canvas" style="display: none;"></canvas>
+	<script type="text/javascript">
+		if (!document.getElementById("support_canvas").getContext) {
+			UI.showTip('您的浏览器不支持canvas特性，请使用谷歌或火狐浏览器。');
+		}
+	</script>
+	<div id="designer">
+		<!-- <div class="flow-tool">
+			<div class="middle">
+				<a class="plus" style="float:left;" href="#"><img src="/static/processon/img/node/plus.png"
+						style="height: 15px;margin-top: -3px;"> <span>放大</span></a>
+				<a class="minus" style="float:left;" href="#"><img src="/static/processon/img/node/sub.png"
+						style="height: 15px;margin-top: -3px;"> <span>缩小</span></a>
+			</div>
+		</div> -->
+		<div id="shape_panel" class="layout" style="height: calc(100%);"></div>
+		<div id="designer_viewport">
+			<div id="designer_layout" class="layout">
+				<div id="canvas_container" style="cursor: default;width: 100%;">
+					<div id="designer_canvas" style="background-color: rgb(48, 242, 242);">
+						<ul id="designer_contextmenu" class="menu list options_menu">
+							<li ac="selectall">
+								<div class="ico fa fa-font"></div>全选<div class="extend">Ctrl+A</div>
+							</li>
+							<li ac="delete">
+								<div class="ico remove"></div>删除<div class="extend">Delete/Backspace</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div id="shape_img_container"></div>
+				<div id="layout_block"></div>
+			</div>
+
+			<div id="dock" style="right: 9px;">
+				<div class="dock_header"></div>
+				<div class="dock_buttons">
+					<div id="dock_btn_navigator" title="导航" disabletitle="true" class="toolbar_button"
+						onclick="Dock.showView(&#39;navigator&#39;, true)">
+						<div class="ico ico_dock_nav"></div>
+					</div>
+				</div>
+			</div>
+			<div id="navigation_view" class="dock_view dock_view_navigator" style="right: 45px; display: none;">
+				<div class="dock_view_header">导航
+					<div class="ico ico_dock_collapse"></div>
+				</div>
+				<div class="navigation_bounding">
+					<div class="navigation_view_container">
+						<canvas id="navigation_canvas" width="120px" height="160px"></canvas>
+						<div id="navigation_eye" style="left: -1px; top: -1px; width: 0px; height: 0px;"></div>
+					</div>
+				</div>
+				<div class="dock_devider" style="margin: 0px 10px"></div>
+				<div class="navigation_view_bar">缩放：
+					<div id="dock_zoom" class="spinner active" min="50" max="200" old="50%">
+						<div class="spinner_input"><input></div>
+						<div class="buttons">
+							<div class="spinner_up"></div>
+							<div class="spinner_down"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="configure">
+			<form class="layui-form">
+				<div class="layui-tab layui-tab-brief" style="margin: 0;">
+					<ul class="layui-tab-title">
+						<li class="layui-this" style="width: 40%;">配置</li>
+						<li style="width: 35%;">描述</li>
+					</ul>
+					<div class="layui-tab-content">
+						<div class="layui-tab-item layui-show"></div>
+						<div class="layui-tab-item">
+							<input type="hidden" name="nodeId" class="layui-hide" />
+							<textarea name="remark" lay-verify="remark" style="height: 280px;" class="layui-textarea"
+								placeholder="请描述组件涉及的业务"></textarea>
+						</div>
+					</div>
+				</div>
+				<div style="text-align: center;">
+					<button type="button" class="layui-btn layui-btn-danger layui-btn-small" id="confiSave" lay-submit
+						lay-filter="nodesave">保存</button>
+					<button type="button" class="layui-btn layui-btn-primary layui-btn-small" id="cancel">关闭</button>
+				</div>
+			</form>
+			<div class="template layui-hide"></div>
+		</div>
+		<div id="addJob" style="display: none;">
+			<form class="layui-form" style="padding: 20px 40px 0 0;">
+				<div class="layui-form-item">
+					<label class="layui-form-label">任务名称 <font>*</font></label>
+					<div class="layui-input-block">
+						<input type="text" name="name" lay-verify="required|name" placeholder="请输入任务名称"
+							class="layui-input" />
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">任务描述 <font>*</font></label>
+					<div class="layui-input-block">
+						<textarea name="remark" lay-verify="required|remark" class="layui-textarea"
+							placeholder="请输入任务描述"></textarea>
+					</div>
+				</div>
+				<button class="layui-addJob layui-hide" lay-submit="" lay-filter="addJob">submit</button>
+				<button class="layui-reset layui-hide" type="reset">reset</button>
+			</form>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" charset="UTF-8" src="../../../js/plugin/flow/analytics.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../../../js/plugin/flow/jquery.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../../../js/plugin/flow/util.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../../../js/plugin/flow/schema.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../../../js/plugin/flow/themes.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../../../js/layui/dist/layui.js" js></script>
+<script type="text/javascript" charset="UTF-8" src="../../../js/dmp/pub/pub.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../../../js/dmp/index/flow/flow.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../../../js/plugin/flow/collaboration.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../../../js/plugin/flow/designer.core.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../../../js/plugin/flow/export.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../../../js/plugin/flow/designer.methods.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../../../js/plugin/flow/designer.events.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../../../js/plugin/flow/designer.ui.js"></script>
+<script>
+	//回调函数
+	function receiveMessageFromIndex(event) {
+		console.log('我是iframe,我接受到了：', event.data);
+		switch (event.data.code) {
+			case 0://code:0更新UI数据
+				localStorage["def_local_" + chartId] = JSON.stringify(event.data.value);
+				localStorage["def_" + chartId] = JSON.stringify(event.data.value);
+				localStorage["title_local_" + chartId] = '';
+				Designer.open(event.data.value);
+				break;
+			case 1://code:1工具栏方法触发
+				switch (event.data.value) {
+					case 'undo':
+						MessageSource.undo();
+						break;
+					case 'redo':
+						MessageSource.redo();
+						break;
+					case 'copy':
+						Designer.clipboard.copy();
+						break;
+					case 'paste':
+						Designer.clipboard.paste();
+						break;
+					case 'cut':
+						Designer.clipboard.cut();
+					case 'delete':
+						Designer.op.removeShape();
+						break;
+					case 'selectAll':
+						Designer.selectAll();
+						break;
+					case 'duplicate':
+						Designer.clipboard.duplicate();
+						break;
+					case 'zoomIn':
+						Designer.zoomIn();
+						break;
+					case 'zoomOut':
+						Designer.zoomOut();
+						break;
+						break;
+					default:
+						break;
+				}
+				break;
+
+			default:
+				break;
+		}
+	}
+
+	//监听message事件
+	window.addEventListener("message", receiveMessageFromIndex, false);
+
+	var a = { n: 1 }
+	var b = a;
+	a.x = a = { n: 2 }
+	console.log(a.x);
+	console.log(b.x)
+</script>
+
+</html>

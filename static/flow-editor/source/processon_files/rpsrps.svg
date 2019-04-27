@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 id="svg2" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="77px" height="50px"
+	 viewBox="0 0 77 50" enable-background="new 0 0 77 50" xml:space="preserve">
+<g id="g12" transform="scale(0.1,0.1)">
+	<path id="path22" fill="#036998" d="M0,499.995h687.5V99.663H0V499.995z"/>
+	<path id="path24" fill="none" stroke="#FFFFFF" stroke-width="3.9999" d="M0,499.995h687.5V99.663H0V499.995z"/>
+	<path id="path26" fill="#036998" d="M770,379.917l-82.5,120.078V99.668L770,0V379.917"/>
+	<path id="path28" fill="none" stroke="#FFFFFF" stroke-width="3.9999" d="M770,379.917l-82.5,120.078V99.668L770,0V379.917z"/>
+	<path id="path30" fill="#036998" d="M123.599,0H770l-82.5,99.668H0L123.599,0"/>
+	<path id="path32" fill="none" stroke="#FFFFFF" stroke-width="3.9999" d="M123.599,0H770l-82.5,99.668H0L123.599,0z"/>
+	<g id="g34" transform="scale(10,10)" style="font-variant:normal;font-weight:bold;font-size:14.4114px;font-family:Helvetica;-inkscape-font-specification:Helvetica-Bold;writing-mode:lr-tb;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none">
+		<text transform="matrix(1.0025 0 0 1 19.649 25.6596)">R</text>
+		<text transform="matrix(1.0025 0 0 1 30.0782 25.6596)">P</text>
+		<text transform="matrix(1.0025 0 0 1 39.7168 25.6596)">S</text>
+	</g>
+	<path id="path40" fill="#FFFFFF" d="M339.61,380.053c0.195-0.02,89.189-4.727,89.189-4.727s-109.541-41.797-130.225-48.867
+		c1.426-0.664,99.951-1.973,99.951-1.973L99.732,242.26l196.499,72.129c-1.045,0.273-72.222,4.902-72.222,4.902
+		s72.554,35.664,92.642,42.637c-3.018,1.348-65.967,19.316-65.967,19.316l354.57,98.34L339.61,380.053"/>
+</g>
+</svg>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 id="svg2" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="78px" height="56px"
+	 viewBox="0 0 78 56" enable-background="new 0 0 78 56" xml:space="preserve">
+<g id="g12" transform="scale(0.1,0.1)">
+	<path id="path22" fill="#036998" d="M10,550.002h706.606V63.289H10V550.002z"/>
+	<path id="path24" fill="none" stroke="#FFFFFF" stroke-width="3.9999" d="M10,550.002h706.606V63.289H10V550.002z"/>
+	<path id="path26" fill="#036998" d="M10,63.289l53.389-53.286h706.616l-53.398,53.286H10"/>
+	<path id="path28" fill="none" stroke="#FFFFFF" stroke-width="3.9999" d="M10,63.289l53.389-53.286h706.616l-53.398,53.286H10z"/>
+	<path id="path30" fill="#036998" d="M716.606,550.002l53.398-52.979V10.002l-53.398,53.286V550.002"/>
+	<path id="path32" fill="none" stroke="#FFFFFF" stroke-width="3.9999" d="M716.606,550.002l53.398-52.979V10.002l-53.398,53.286
+		V550.002z"/>
+	<path id="path34" fill="#FFFFFF" d="M423.188,359.875c15.254-16.074,20.43-42.627,20.43-68.877c0-26.572-5.176-53.135-20.43-69.053
+		l20.43-37.08c20.742,26.572,36.27,63.643,31.094,106.133c0,42.324-10.352,79.385-31.094,105.927L423.188,359.875"/>
+	<path id="path36" fill="#FFFFFF" d="M542.056,386.135c15.547-21.006,20.742-52.813,20.742-89.893
+		c0-31.816-5.195-69.033-20.742-90.215l20.742-42.314c20.703,37.08,30.781,84.795,30.781,132.529
+		c0,47.559-10.078,95.156-30.781,132.246L542.056,386.135"/>
+	<path id="path38" fill="#FFFFFF" d="M298.999,359.875c-10.361-16.074-20.713-42.627-20.713-68.877
+		c0-26.572,10.352-53.135,20.713-69.053l-20.713-37.08c-20.742,26.572-31.094,63.643-31.094,106.133
+		c0,42.324,10.352,79.385,31.094,105.927L298.999,359.875"/>
+	<path id="path40" fill="#FFFFFF" d="M195.522,386.135c-10.356-21.006-20.713-52.813-20.713-89.893
+		c0-31.816,10.356-69.033,20.713-90.215l-20.713-42.314c-20.737,37.08-30.952,84.795-30.952,132.529
+		c0,47.559,10.215,95.156,30.952,132.246L195.522,386.135"/>
+	<path id="path42" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="1" d="M358.853,306.75v158.789"/>
+	<path id="path44" fill="#FFFFFF" d="M370.747,290.53c0,7.285-5.869,13.174-13.027,13.174c-7.148,0-13.047-5.889-13.047-13.174
+		c0-7.139,5.898-13.008,13.047-13.008C364.878,277.522,370.747,283.391,370.747,290.53"/>
+</g>
+</svg>

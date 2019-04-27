@@ -1,0 +1,23 @@
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="75px" height="75px" viewBox="0 0 75 75" enable-background="new 0 0 75 75" xml:space="preserve">
+<g id="Layer_1">
+	<g>
+		<g enable-background="new    ">
+			<g>
+				<rect x="8.032" fill="#876929" width="58.927" height="75"/>
+			</g>
+		</g>
+	</g>
+	<path fill="#D9A741" d="M8.032,0v71.921h58.927V0H8.032z"/>
+	<polygon fill="#D9A741" points="2.677,18.613 11.787,28.665 2.677,38.697 	"/>
+	<path fill="#FFFFFF" d="M1.343,42.188V15.131l12.18,13.533L1.343,42.188z M4.021,22.094v13.13l5.894-6.56L4.021,22.094z"/>
+	<polygon fill="#D9A741" points="72.313,38.697 63.35,28.665 72.313,18.613 	"/>
+	<path fill="#FFFFFF" d="M73.666,42.188L61.468,28.665l12.198-13.533V42.188z M65.095,28.665l5.885,6.56v-13.13L65.095,28.665z"/>
+	<rect x="14.729" y="7.1" fill="#FFFFFF" width="45.541" height="6.698"/>
+	<rect x="14.729" y="17.279" fill="#FFFFFF" width="45.541" height="6.698"/>
+	<rect x="14.729" y="27.458" fill="#FFFFFF" width="45.541" height="6.698"/>
+	<rect x="14.729" y="37.637" fill="#FFFFFF" width="45.541" height="6.688"/>
+	<rect x="14.729" y="47.816" fill="#FFFFFF" width="45.541" height="6.688"/>
+	<rect x="14.729" y="57.995" fill="#FFFFFF" width="45.541" height="6.688"/>
+</g>
+</svg>

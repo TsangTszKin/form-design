@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="69px" height="75px" viewBox="0 0 69 75" enable-background="new 0 0 69 75" xml:space="preserve">
+<g id="Layer_1">
+	<g>
+		<rect y="50.704" fill="#8C3123" width="69" height="24.296"/>
+	</g>
+	<g>
+		<rect x="16.259" y="9.375" fill="#8C3123" width="35.556" height="17.033"/>
+	</g>
+	<g>
+		<g>
+			<path id="SVGID_1_" fill="#8C3123" d="M69,14.921V39.35c-6.081-2.773-14.276-5.415-24.718-6.207V8.715
+				C54.724,9.639,62.919,12.147,69,14.921z"/>
+		</g>
+		<g>
+			<g>
+				<defs>
+					<path id="SVGID_2_" d="M69,14.921V39.35c-6.081-2.773-14.276-5.415-24.718-6.207V8.715C54.724,9.639,62.919,12.147,69,14.921z"
+						/>
+				</defs>
+				<clipPath id="SVGID_4_">
+					<use xlink:href="#SVGID_2_"  overflow="visible"/>
+				</clipPath>
+				<g clip-path="url(#SVGID_4_)" enable-background="new    ">
+					<path fill="#8C3123" d="M69,35.255v4.226c-6.081-2.772-14.276-5.414-24.718-6.206V29.05C54.724,29.842,62.919,32.482,69,35.255
+						"/>
+				</g>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path id="SVGID_3_" fill="#8C3123" d="M23.793,15.581v18.222C13.88,35.387,5.816,38.688,0,41.725V10.827
+				C5.816,7.791,13.879,17.166,23.793,15.581z"/>
+		</g>
+		<g>
+			<g>
+				<defs>
+					<path id="SVGID_5_" d="M23.793,15.581v18.222C13.88,35.387,5.816,38.688,0,41.725V10.827
+						C5.816,7.791,13.879,17.166,23.793,15.581z"/>
+				</defs>
+				<clipPath id="SVGID_6_">
+					<use xlink:href="#SVGID_5_"  overflow="visible"/>
+				</clipPath>
+				<g clip-path="url(#SVGID_6_)" enable-background="new    ">
+					<path fill="#8C3123" d="M23.793,29.578v4.226C13.88,35.388,5.816,38.689,0,41.727V37.5
+						C5.816,34.463,13.879,31.162,23.793,29.578"/>
+				</g>
+			</g>
+		</g>
+	</g>
+	<g>
+		<path fill="#E05243" d="M69,0v37.632v-2.377c-6.081-2.772-14.276-5.413-24.718-6.206v-6.734H23.793v7.263
+			C13.879,31.162,5.816,34.463,0,37.5V0H69z"/>
+	</g>
+	<g>
+		<path fill="#E05243" d="M44.282,36.047c10.441,0.924,18.637,3.564,24.717,6.338v28.389H0V44.366
+			c5.684-3.036,13.747-6.206,23.793-7.791v8.317h20.489V36.047L44.282,36.047z"/>
+	</g>
+</g>
+</svg>

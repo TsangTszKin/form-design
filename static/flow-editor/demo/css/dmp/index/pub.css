@@ -1,0 +1,39 @@
+
+.layui-layer-content .layui-form{padding: 20px 40px 0 0;}
+.layui-btn-danger{background-color: #f71e3e;}
+.layui-table-tool{height: 35px; padding: 4px; border-width: 1px 0 0 0;overflow: hidden;}
+.layui-laypage .layui-laypage-curr .layui-laypage-em{border-radius: 15px;}
+.layui-table-tips-main{max-height: 200px; overflow-y: auto;}
+/*
+.layui-layer-content .layui-form-selected dl{position: fixed;left: auto;top: auto;min-width: 200px;}
+*/
+.layui-search .layui-elem-field.layui-field-title{margin: 5px 0;}
+.layui-search .layui-elem-field legend{font-size: 14px; font-weight: normal;}
+.layui-search .layui-form-item{margin-bottom: 0; margin-top: 5px;}
+.layui-search .layui-form-item .layui-inline{margin-bottom: 5;margin-right: 0;}
+.layui-search .layui-form-label{padding: 9px; width: auto;}
+
+.layui-list {margin-top: -10px;}
+.layui-list .layui-table-view{margin: 0;}
+.layui-list .layui-table-view .layui-table td, .layui-list .layui-table-view .layui-table th{padding:3px 15px;}
+.layui-list .layui-table-body{margin-right: 0;}
+.layui-list .layui-table-fixed-l .layui-table-body tr{background-color: #fff;}
+
+
+
+::-webkit-scrollbar {
+	width: 9px;
+	height: 9px;
+	background: white;
+	border-left: 0px solid #e8e8e8;
+}
+::-webkit-scrollbar-thumb {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #fff;
+	border-radius: 6px;
+	background: #c9c9c9;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #b5b5b5;
+}

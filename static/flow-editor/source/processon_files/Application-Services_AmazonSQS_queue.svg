@@ -1,0 +1,16 @@
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="77px" height="50px" viewBox="0 0 77 50" enable-background="new 0 0 77 50" xml:space="preserve">
+<g id="Layer_1">
+	<g>
+		<rect fill="#876929" width="77" height="50"/>
+	</g>
+	<g>
+		<path fill="#D9A741" d="M0,0h77v46.6H0V0z"/>
+	</g>
+	<rect x="21.328" y="6.219" fill="#FFFFFF" width="8.207" height="35.212"/>
+	<rect x="34.336" y="6.219" fill="#FFFFFF" width="8.208" height="35.212"/>
+	<rect x="47.351" y="6.219" fill="#FFFFFF" width="8.202" height="35.212"/>
+	<polygon fill="#FFFFFF" points="9.49,16.196 9.49,31.459 16.527,23.827 	"/>
+	<polygon fill="#FFFFFF" points="60.36,16.196 60.36,31.459 67.387,23.827 	"/>
+</g>
+</svg>
