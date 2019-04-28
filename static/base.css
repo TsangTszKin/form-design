@@ -1,0 +1,125 @@
+/*项目所有页面要用到的css初始化文件*/
+
+/*清除内外边距  */
+body,
+html,
+ul,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+dl,
+dt,
+dd {
+    margin: 0;
+    padding: 0
+}
+/*让所有斜体 不倾斜*/
+em,
+i {
+    font-style: normal
+}
+/*去掉列表前面的小点*/
+li {
+    list-style: none
+}
+/*图片没有边框   去掉图片底侧的空白缝隙*/
+img {
+    border: 0;  /*ie6*/
+    vertical-align: middle;
+}
+/*让button 按钮 变成小手*/
+button {
+    cursor: pointer
+}
+/*取消链接的下划线*/
+a {
+    color: #666;
+    text-decoration: none
+}
+
+a:hover {
+    color: #e33333;
+}
+
+button,
+input {
+    font-family: Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, \\5B8B\4F53, sans-serif;
+    outline: none;
+    border: none;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    background-color: #fff;
+    font: 12px Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, \\5B8B\4F53, sans-serif;
+    color: #666;
+
+
+    /*font-size: 30px;*/
+    /*line-height: 20px;*/
+    /*font: 30px/2 'simsun';*/
+}
+
+.hide,
+.none {
+    display: none
+}
+/*清除浮动*/
+.clearfix::after {
+    display: block;
+    visibility: hidden;
+    clear: both;
+    content: ".";
+    height: 0
+}
+
+.clearfix {
+    *zoom: 1
+}
+
+.fl {
+    float: left
+}
+
+.fr {
+    float: right
+}
+
+.al {
+    text-align: left
+}
+
+.ac {
+    text-align: center
+}
+
+.ar {
+    text-align: right
+}
+.pr {
+  position: relative;
+}
+@font-face {
+    font-family: 'iconfont';
+    src: url('../font/iconfont.eot');
+    src: url('../font/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../font/iconfont.woff') format('woff'),
+    url('../font/iconfont.ttf') format('truetype'),
+    url('../font/iconfont.svg#iconfont') format('svg');
+  }
+  .iconfont{
+    font-family:"iconfont";
+  }
+
+
+/*版心 居中对齐*/
+.w {
+    margin: auto;
+    width: 1200px;
+}

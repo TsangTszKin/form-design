@@ -182,7 +182,7 @@ var categorys = {
 				},
 			},
 			{
-				name: 'start',
+				name: '日期选择器',
 				title: 'date',
 				icon: '<img class="icon" src="../../../img/form-design/日期.png" style="height: 15px;">',
 				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
