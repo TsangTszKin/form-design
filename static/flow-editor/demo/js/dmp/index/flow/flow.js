@@ -155,36 +155,9 @@ var categorys = {
 				},
 			},
 			{
-				name: 'time',
-				title: '时间选择器',
+				name: 'dateTime',
+				title: '时间日期选择器',
 				icon: '<img class="icon" src="../../../img/form-design/时间选择器.png" style="height: 15px;">',
-				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
-				status: 0,
-				fontStyle: {
-					fontFamily: "微软雅黑",
-					size: 13,
-					color: "255,255,255",
-					bold: false,
-					italic: false,
-					underline: false,
-					textAlign: "center",
-					vAlign: "middle",
-					orientation: "vertical"
-				},
-				lineStyle: {
-					lineWidth: 1,
-					lineColor: "228,75,78",
-					lineStyle: "solid"
-				},
-				fillStyle: {
-					type: "solid",
-					color: "228,75,78"
-				},
-			},
-			{
-				name: '日期选择器',
-				title: 'date',
-				icon: '<img class="icon" src="../../../img/form-design/日期.png" style="height: 15px;">',
 				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
 				status: 0,
 				fontStyle: {
