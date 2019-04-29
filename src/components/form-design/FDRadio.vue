@@ -9,6 +9,16 @@
     <el-form-item label="数据绑定key">
       <el-input v-model="key" size="small"></el-input>
     </el-form-item>
+    <el-form-item label="数据绑定key">
+      <el-radio-group v-model="value">
+        <div v-for="(item, i) in option" :key="i" style="clearfix">
+          <el-radio :label="item.value" style="float: left;">
+            <el-input size="small" style="width:80px;" v-model="item.label"></el-input>
+            <el-input size="small" style="width:80px;" v-model="item.value"></el-input>
+          </el-radio>
+        </div>
+      </el-radio-group>
+    </el-form-item>
     <el-form-item label="是否必填">
       <el-switch v-model="required" active-color="#13ce66" inactive-color="#EEEEEE"></el-switch>
     </el-form-item>
@@ -22,14 +32,27 @@
 export default {
   data() {
     return {
-      name: '计数器',
-      width: '',
-      key: '',
+      name: "计数器",
+      width: "",
+      key: "",
       required: false,
       disabled: false,
-      option: [{
-      }]
-    }
+      value: "1",
+      option: [
+        {
+          label: "1",
+          value: "选项1"
+        },
+        {
+          label: "2",
+          value: "选项2"
+        },
+        {
+          label: "3",
+          value: "选项3"
+        }
+      ]
+    };
   },
   methods: {
     packData() {
@@ -40,11 +63,11 @@ export default {
         max: this.max,
         key: this.key,
         required: this.required,
-        disabled: this.disabled,
-      }
+        disabled: this.disabled
+      };
     }
   }
-}
+};
 </script>
 
 <style>
