@@ -342,8 +342,12 @@ var Designer = {
                         Designer.op.hideLinkPoint();
                         Designer.op.hideSnapLine();
                         $("#canvas_container").unbind("mouseup.create").unbind("mousemove.create");
-                        console.log("l = ", l);
+                        console.log("l = ", l);//l:当前画布节点
                         console.log("q = ", q);
+
+                        window.parent.postMessage(JSON.stringify({ code: 0, value: l }), "*");
+
+
 
                         if (l != null) {
                             if (n == false) {
@@ -4835,11 +4839,11 @@ var Designer = {
             n.translate(-(j.props.w / 2), -(j.props.h / 2));
             n.globalAlpha = j.shapeStyle.alpha;
             n.lineJoin = "round";
-            this.renderShapePath(n, j, false, function () {
-                var q = j.id;
-                var r = Model.getShapeById(q);
-                Designer.painter.renderShape(r)
-            });
+            // this.renderShapePath(n, j, false, function () {
+            //     var q = j.id;
+            //     var r = Model.getShapeById(q);
+            //     Designer.painter.renderShape(r)
+            // });
             this.renderMarkers(n, j);
             var p = j.getPath();
             var l = Utils.copy(p[p.length - 1]);

@@ -38,7 +38,7 @@
 export default {
   data() {
     return {
-      name: "单选框组",
+      name: "下拉选择框",
       width: "",
       key: "",
       required: false,
@@ -74,7 +74,7 @@ export default {
     },
     addOption() {
       this.option.push({
-        value: `值${this.option.length + 1}`,
+        value: String(this.option.length + 1),
         label: `选项${this.option.length + 1}`
       });
     },

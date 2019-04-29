@@ -43,18 +43,18 @@ export default {
       key: "",
       required: false,
       disabled: false,
-      value: ["1"],
+      value: ["值1"],
       option: [
         {
-          value: "1",
+          value: "值1",
           label: "选项1"
         },
         {
-          value: "2",
+          value: "值2",
           label: "选项2"
         },
         {
-          value: "3",
+          value: "值3",
           label: "选项3"
         }
       ]
@@ -74,7 +74,7 @@ export default {
     },
     addOption() {
       this.option.push({
-        value: String(this.option.length + 1),
+        value: `值${this.option.length + 1}`,
         label: `选项${this.option.length + 1}`
       });
     },

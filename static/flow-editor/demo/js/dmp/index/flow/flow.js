@@ -236,6 +236,68 @@ var categorys = {
 				},
 			}
 		]
+	},
+	'senior': {
+		title: '高级字段', child: [
+			{
+				name: 'img',
+				title: '图片上传',
+				icon: '<img class="icon" src="../../../img/form-design/图片上传.png" style="height: 15px;">',
+				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
+				status: 0,
+				fontStyle: {
+					fontFamily: "微软雅黑",
+					size: 13,
+					color: "255,255,255",
+					bold: false,
+					italic: false,
+					underline: false,
+					textAlign: "center",
+					vAlign: "middle",
+					orientation: "vertical"
+				},
+				lineStyle: {
+					lineWidth: 1,
+					lineColor: "228,75,78",
+					lineStyle: "solid"
+				},
+				fillStyle: {
+					type: "solid",
+					color: "228,75,78"
+				},
+			}
+		]
+	},
+	'layout': {
+		title: '布局字段', child: [
+			{
+				name: 'grid',
+				title: '栅格布局',
+				icon: '<img class="icon" src="../../../img/form-design/布局.png" style="height: 15px;">',
+				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
+				status: 0,
+				fontStyle: {
+					fontFamily: "微软雅黑",
+					size: 13,
+					color: "255,255,255",
+					bold: false,
+					italic: false,
+					underline: false,
+					textAlign: "center",
+					vAlign: "middle",
+					orientation: "vertical"
+				},
+				lineStyle: {
+					lineWidth: 1,
+					lineColor: "228,75,78",
+					lineStyle: "solid"
+				},
+				fillStyle: {
+					type: "solid",
+					color: "228,75,78"
+				},
+			}
+		]
 	}
 
 	
