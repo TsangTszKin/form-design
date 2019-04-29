@@ -16,8 +16,9 @@
       <el-tab-pane label="字段属性" name="1">
         <!-- <FDInput/> -->
         <!-- <FDTextArea /> -->
-        <FDRadio />
+        <!-- <FDRadio /> -->
         <!-- <FDNumber /> -->
+        <FDCheckbox />
       </el-tab-pane>
       <el-tab-pane label="表单属性" name="2">
         <el-form label-position="top" label-width="80px" :model="formLabelAlign">
@@ -41,13 +42,15 @@ import FDInput from '@/components/form-design/FDInput';
 import FDTextArea from '@/components/form-design/FDTextArea';
 import FDNumber from '@/components/form-design/FDNumber';
 import FDRadio from '@/components/form-design/FDRadio';
+import FDCheckbox from '@/components/form-design/FDCheckbox';
 
 export default {
   components: {
     FDInput,
     FDTextArea,
     FDNumber,
-    FDRadio
+    FDRadio,
+    FDCheckbox
   },
   data() {
     return {

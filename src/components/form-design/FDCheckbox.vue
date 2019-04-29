@@ -11,17 +11,17 @@
     </el-form-item>
 
     <el-form-item label="选项">
-      <el-radio-group v-model="value">
+      <el-checkbox-group v-model="value" class="clearfix">
         <div v-for="(item, i) in option" :key="i" style="clearfix">
-          <el-radio :label="item.value" style="float: left;">
+          <el-checkbox :label="item.value" style="float: left;">
             <el-input size="small" style="width:80px;" v-model="item.label" title="删除选项"></el-input>
             <el-input size="small" style="width:80px;" v-model="item.value" title="删除选项"></el-input>
             <i class="el-icon-circle-close" style="color: red;" @click="subOption(i)"></i>
-          </el-radio>
+          </el-checkbox>
         </div>
-      </el-radio-group>
+      </el-checkbox-group>
 
-      <div>
+      <div style="width: 100%;">
         <i class="el-icon-circle-plus" style="color: #17B3A3;" title="增加选项" @click="addOption"></i>
       </div>
     </el-form-item>
@@ -38,12 +38,12 @@
 export default {
   data() {
     return {
-      name: "单选框组",
+      name: "多选框组",
       width: "",
       key: "",
       required: false,
       disabled: false,
-      value: "1",
+      value: ["1"],
       option: [
         {
           value: "1",
