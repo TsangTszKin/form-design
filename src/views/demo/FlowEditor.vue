@@ -7,6 +7,7 @@
       id="iframe"
     ></iframe>
 
+    <FDCell />
 
     <el-tabs
       v-show="showType"
@@ -59,6 +60,7 @@ import FDDateTime from '@/components/form-design/FDDateTime';
 import FDSelect from '@/components/form-design/FDSelect';
 import FDSwitch from '@/components/form-design/FDSwitch';
 import FDImg from '@/components/form-design/FDImg';
+import FDCell from '@/components/form-design/Cell';
 
 export default {
   components: {
@@ -70,7 +72,8 @@ export default {
     FDDateTime,
     FDSelect,
     FDSwitch,
-    FDImg
+    FDImg,
+    FDCell
   },
   data() {
     return {
