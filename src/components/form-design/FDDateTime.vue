@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       name: '时间日期选择器',
-      width: '',
+      width: '100%',
       placeholder: '',
       type: ['ymd', 'yyyy-MM-dd'],
       key: '',

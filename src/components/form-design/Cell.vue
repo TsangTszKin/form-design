@@ -1,12 +1,224 @@
 <template>
-  <el-form-item label="标题">
-    <el-input size="small"></el-input>
-  </el-form-item>
+  <div class="cell" :class="{'cell-active': data.key === $store.state.formDesign.activeKey}">
+    <div @click="activeCell">
+      <el-form-item v-if="data.type" :label="data.title">
+        <el-input
+          v-if="data.type === 'input'"
+          v-model="data.options.defaultValue"
+          :placeholder="data.options.placeholder"
+          :disabled="data.options.disabled"
+          :readonly="data.options.readonly"
+        ></el-input>
+        <el-input
+          v-if="data.type === 'textarea'"
+          v-model="data.options.defaultValue"
+          :placeholder="data.options.placeholder"
+          :disabled="data.options.disabled"
+          :readonly="data.options.readonly"
+          type="textarea"
+          :rows="5"
+        ></el-input>
+        <el-input-number
+          v-if="data.type === 'number'"
+          v-model="data.options.defaultValue"
+          :disabled="data.options.disabled"
+          :readonly="data.options.readonly"
+          :min="data.options.min"
+          :max="data.options.max"
+        ></el-input-number>
+        <el-radio-group
+          v-if="data.type === 'radio'"
+          v-model="data.options.defaultValue"
+          :disabled="data.options.disabled"
+          :readonly="data.options.readonly"
+        >
+          <el-radio
+            v-for="(item, i) in data.options.option"
+            :label="item.value"
+            :key="i"
+          >{{item.label}}</el-radio>
+        </el-radio-group>
+        <el-checkbox-group
+          v-if="data.type === 'checkbox'"
+          v-model="data.options.defaultValue"
+          :disabled="data.options.disabled"
+          :readonly="data.options.readonly"
+        >
+          <el-checkbox
+            v-for="(item, i) in data.options.option"
+            :label="item.value"
+            :key="i"
+          >{{item.label}}</el-checkbox>
+        </el-checkbox-group>
+        <el-select
+          v-if="data.type === 'select'"
+          v-model="data.options.defaultValue"
+          :placeholder="data.options.placeholder"
+        >
+          <el-option
+            v-for="(item, i) in data.options.option"
+            :key="i"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+        <el-switch
+          v-if="data.type === 'switch'"
+          v-model="data.options.defaultValue"
+          active-color="#13ce66"
+          inactive-color="#EEEEEE"
+        ></el-switch>
+      </el-form-item>
+    </div>
+    <i
+      class="action-copy"
+      title="复制"
+      v-show="data.key === $store.state.formDesign.activeKey"
+      @click="copyForm"
+    ></i>
+    <i
+      class="action-delete"
+      title="删除"
+      v-show="data.key === $store.state.formDesign.activeKey"
+      @click="deleteForm"
+    ></i>
+  </div>
 </template>
 
 <script>
-export default {};
+import common from '@/utils/common';
+
+export default {
+  props: {
+    data: {
+      type: Object,
+      default: function () {
+        // return {
+        //   name: '',
+        //   value: '',
+        //   placeholder: '',
+        //   disabled: false,
+        //   readonly: false,
+        //   min: 0,
+        //   max: 100,
+        //   radioOption: [{
+        //     value: "值1",
+        //     label: "选项1"
+        //   }],
+        //   checkboxOption: [{
+        //     value: "值1",
+        //     label: "选项1"
+        //   }],
+        //   selectOption: [{
+        //     value: "值1",
+        //     label: "选项1"
+        //   }]
+        // }
+
+        return {
+          "type": "",
+          "name": "",
+          "options": {
+            "width": "100%",
+            "defaultValue": "",
+            "required": false,
+            "dataType": "string",
+            "placeholder": ""
+          },
+          "key": "1556775967000_4898"
+        }
+      }
+    }
+  },
+  methods: {
+    copyForm() {
+      let formList = common.deepClone(this.$store.state.formDesign.formList);
+      let newIndex;
+      for (let i = 0; i < formList.length; i++) {
+        const element = formList[i];
+        if (element.key === this.data.key) {
+          newIndex = i;
+          break;
+        }
+      }
+      let copyForm = common.deepClone(formList[newIndex]);
+      copyForm.key = common.getGuid();
+      formList.splice(newIndex + 1, 0, copyForm);
+      this.$store.dispatch("formDesign/setFormList", formList);
+      this.$emit("syncList", formList);
+      this.$store.commit('formDesign/updateActiveKey', copyForm.key)
+    },
+    deleteForm() {
+      let formList = common.deepClone(this.$store.state.formDesign.formList);
+      let newIndex;
+      for (let i = 0; i < formList.length; i++) {
+        const element = formList[i];
+        if (element.key === this.data.key) {
+          newIndex = i;
+          break;
+        }
+      }
+      formList.splice(newIndex, 1);
+      this.$store.dispatch("formDesign/setFormList", formList);
+      this.$emit("syncList", formList);
+      this.$store.commit('formDesign/updateActiveKey', formList[newIndex].key);
+    },
+    activeCell() {
+      this.$store.commit('formDesign/updateActiveKey', this.data.key);
+      this.$store.commit('formDesign/updateShowType', this.data.type);
+    }
+  }
+};
 </script>
 
-<style>
+<style lang="css" scoped>
+.cell {
+  background-color: #eee;
+  padding: 10px 10px 20px 10px;
+  position: relative;
+}
+.cell-active {
+  background-color: #b3d8ff;
+  border-left: 5px solid #409eff;
+}
+.el-form-item {
+  margin-bottom: 0;
+}
+.action-copy {
+  position: absolute;
+  bottom: -15px;
+  right: 60px;
+  height: 30px;
+  width: 30px;
+  background: url("../../assets/img/copy.png") no-repeat center;
+  background-size: 18px 18px;
+  background-color: #ecf5ff;
+  border-color: #409eff;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #409eff;
+  z-index: 1;
+}
+.action-copy:hover {
+  background: url("../../assets/img/copy-active.png") no-repeat center;
+  background-color: #409eff;
+}
+.action-delete {
+  position: absolute;
+  bottom: -15px;
+  right: 15px;
+  height: 30px;
+  width: 30px;
+  background: url("../../assets/img/delete.png") no-repeat center;
+  background-size: 15px 15px;
+  background-color: #fef0f0;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #f56c6c;
+  z-index: 1;
+}
+.action-delete:hover {
+  background: url("../../assets/img/delete-active.png") no-repeat center;
+  background-color: #f56c6c;
+}
 </style>

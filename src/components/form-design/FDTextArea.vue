@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       name: '多行文本',
-      width: '',
+      width: '100%',
       placeholder: '',
       defaultValue: '',
       type: '',

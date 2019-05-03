@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       name: '计数器',
-      width: '',
+      width: '100%',
       min: 0,
       max: 1,
       key: '',

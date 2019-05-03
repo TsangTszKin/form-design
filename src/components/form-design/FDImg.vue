@@ -27,7 +27,7 @@ export default {
     return {
       name: '图片上传',
       url: '',
-      width: '',
+      width: '100%',
       height: '',
       key: '',
       required: false,

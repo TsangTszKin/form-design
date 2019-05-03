@@ -12,7 +12,7 @@
 
     <el-form-item label="选项">
       <el-radio-group v-model="value">
-        <div v-for="(item, i) in option" :key="i" style="clearfix">
+        <div v-for="(item, i) in radioOption" :key="i" style="clearfix">
           <el-radio :label="item.value" style="float: left;">
             <el-input size="small" style="width:80px;" v-model="item.label" title="删除选项"></el-input>
             <el-input size="small" style="width:80px;" v-model="item.value" title="删除选项"></el-input>
@@ -39,12 +39,12 @@ export default {
   data() {
     return {
       name: "单选框组",
-      width: "",
+      width: '100%',
       key: "",
       required: false,
       disabled: false,
       value: "值1",
-      option: [
+      radioOption: [
         {
           value: "值1",
           label: "选项1"
@@ -69,17 +69,17 @@ export default {
         required: this.required,
         disabled: this.disabled,
         value: this.value,
-        option: this.option
+        radioOption: this.radioOption
       };
     },
     addOption() {
-      this.option.push({
-        value: `值${this.option.length + 1}`,
-        label: `选项${this.option.length + 1}`
+      this.radioOption.push({
+        value: `值${this.radioOption.length + 1}`,
+        label: `选项${this.radioOption.length + 1}`
       });
     },
     subOption(index) {
-      this.option.splice(index, 1);
+      this.radioOption.splice(index, 1);
     }
   }
 };

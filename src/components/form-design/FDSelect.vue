@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       name: "下拉选择框",
-      width: "",
+      width: '100%',
       key: "",
       required: false,
       disabled: false,

@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       name: "多选框组",
-      width: "",
+      width: '100%',
       key: "",
       required: false,
       disabled: false,
