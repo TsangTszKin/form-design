@@ -1,18 +1,18 @@
 <template>
   <el-form label-position="top" label-width="80px">
     <el-form-item label="标题">
-      <el-input v-model="name" size="small"></el-input>
+      <el-input v-model="data.title" size="small"></el-input>
     </el-form-item>
     <el-form-item label="宽度">
-      <el-input v-model="width" size="small"></el-input>
+      <el-input v-model="data.options.width" size="small"></el-input>
     </el-form-item>
     <el-form-item label="数据绑定key">
-      <el-input v-model="key" size="small"></el-input>
+      <el-input v-model="data.key" size="small" :disabled="true"></el-input>
     </el-form-item>
 
     <el-form-item label="选项">
-      <el-radio-group v-model="value">
-        <div v-for="(item, i) in option" :key="i" style="clearfix">
+      <el-radio-group>
+        <div v-for="(item, i) in data.options.option" :key="i" style="clearfix">
           <el-radio :label="item.value" style="float: left;">
             <el-input size="small" style="width:80px;" v-model="item.label" title="删除选项"></el-input>
             <el-input size="small" style="width:80px;" v-model="item.value" title="删除选项"></el-input>
@@ -26,60 +26,111 @@
       </div>
     </el-form-item>
     <el-form-item label="是否必填">
-      <el-switch v-model="required" active-color="#13ce66" inactive-color="#EEEEEE"></el-switch>
+      <el-switch v-model="data.options.required" active-color="#13ce66" inactive-color="#EEEEEE"></el-switch>
     </el-form-item>
     <el-form-item label="是否禁用">
-      <el-switch v-model="disabled" active-color="#13ce66" inactive-color="#EEEEEE"></el-switch>
+      <el-switch v-model="data.options.disabled" active-color="#13ce66" inactive-color="#EEEEEE"></el-switch>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
+import common from '@/utils/common';
+import bus from '@/utils/bus';
+
 export default {
+  props: {
+    propData: {
+      type: Object,
+      default: function () {
+        return {
+          title: '下拉选择框',
+          type: 'select',
+          icon: '/src/assets/img/form-design/select.png',
+          options: {
+            width: "100%",
+            defaultValue: "",
+            required: false,
+            disabled: false,
+            placeholder: "",
+            option: [{
+              value: "值1",
+              label: "选项1"
+            }, {
+              value: "值2",
+              label: "选项2"
+            }, {
+              value: "值3",
+              label: "选项3"
+            }]
+          },
+          key: common.getGuid()
+        }
+      }
+    }
+  },
   data() {
     return {
-      name: "下拉选择框",
-      width: '100%',
-      key: "",
-      required: false,
-      disabled: false,
-      value: "值1",
-      option: [
-        {
-          value: "值1",
-          label: "选项1"
+      data: {
+        title: '下拉选择框',
+        type: 'select',
+        icon: '/src/assets/img/form-design/select.png',
+        options: {
+          width: "100%",
+          defaultValue: "",
+          required: false,
+          disabled: false,
+          placeholder: "",
+          option: [{
+            value: "值1",
+            label: "选项1"
+          }, {
+            value: "值2",
+            label: "选项2"
+          }, {
+            value: "值3",
+            label: "选项3"
+          }]
         },
-        {
-          value: "值2",
-          label: "选项2"
-        },
-        {
-          value: "值3",
-          label: "选项3"
-        }
-      ]
+        key: common.getGuid()
+      }
     };
   },
   methods: {
-    packData() {
-      return {
-        name: this.name,
-        width: this.width,
-        key: this.key,
-        required: this.required,
-        disabled: this.disabled,
-        value: this.value,
-        option: this.option
-      };
-    },
     addOption() {
-      this.option.push({
-        value: String(this.option.length + 1),
-        label: `选项${this.option.length + 1}`
+      this.data.options.option.push({
+        value: `值${this.data.options.option.length + 1}`,
+        label: `选项${this.data.options.option.length + 1}`
       });
     },
     subOption(index) {
-      this.option.splice(index, 1);
+      this.data.options.option.splice(index, 1);
+    }
+  },
+  watch: {
+    data: {
+      handler: function (value, oldValue) {
+        let newFormList = common.deepClone(this.$store.state.formDesign.formList);
+        let activeIndex;
+        for (let i = 0; i < newFormList.length; i++) {
+          const element = newFormList[i];
+          if (element.key === this.$store.state.formDesign.activeKey) {
+            activeIndex = i;
+          }
+        }
+        newFormList[activeIndex] = value;
+        bus.$emit('formDesign.syncList', common.deepClone(newFormList));
+        this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList));
+        this.$store.commit('formDesign/updateActiveKey', value.key);
+      },
+      deep: true
+    },
+    propData: {
+      handler: function (value) {
+        this.data = common.deepClone(value);
+      },
+      deep: true,
+      // immediate: true
     }
   }
 };

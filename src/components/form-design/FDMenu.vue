@@ -48,7 +48,6 @@
 <script>
 import draggable from "vuedraggable";
 import common from '@/utils/common';
-import { fail } from 'assert';
 
 export default {
   components: {
@@ -68,7 +67,27 @@ export default {
             required: false,
             disabled: false,
             dataType: "string",
-            placeholder: ""
+            placeholder: "",
+            regEx: '',
+            option: [{
+              value: 'string',
+              label: '字符串'
+            }, {
+              value: 'bool',
+              label: '布尔值'
+            }, {
+              value: 'int',
+              label: '整数'
+            }, {
+              value: 'float',
+              label: '浮点数'
+            }, {
+              value: 'url',
+              label: 'URL地址'
+            }, {
+              value: 'email',
+              label: '邮箱地址'
+            }]
           },
           key: common.getGuid()
         },
@@ -81,7 +100,8 @@ export default {
             defaultValue: "",
             required: false,
             disabled: false,
-            placeholder: ""
+            placeholder: "",
+            regEx: '',
           },
           key: common.getGuid()
         },
@@ -90,7 +110,7 @@ export default {
           type: 'number',
           icon: '/src/assets/img/form-design/number.png',
           options: {
-            width: "100%",
+            width: "120px",
             min: 0,
             max: 100,
             required: false,
@@ -177,7 +197,8 @@ export default {
           },
           key: common.getGuid()
 
-        }, {
+        },
+        {
           title: '开关',
           type: 'switch',
           icon: '/src/assets/img/form-design/switch.png',

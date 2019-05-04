@@ -2,10 +2,11 @@
   <div class="main">
     <el-form
       ref="form"
-      :label-position="align"
-      label-width="80px"
-      size="mini"
+      :label-position="formAttr.align"
+      :label-width="formAttr.labelWidth | labelWidth"
+      :size="formAttr.size"
       :class="{'dragArea-empty':$store.state.formDesign.formList.length > 0}"
+      :rules="$store.getters.getFormRules"
     >
       <draggable class="dragArea" @change="log" :list="list" :group="{ name: 'form-design'}">
         <Cell
@@ -31,14 +32,20 @@
 import Cell from '@/components/form-design/Cell.vue';
 import draggable from "vuedraggable";
 import common from '@/utils/common';
+import bus from '@/utils/bus';
 
 export default {
   props: {
-    align: {
-      type: String,
-      default: 'top'
+    formAttr: {
+      type: Object,
+      default: function () {
+        return {
+          align: 'top',
+          size: 'medium',
+          labelWidth: 80
+        }
+      }
     }
-
   },
   components: {
     Cell,
@@ -46,15 +53,16 @@ export default {
   },
   mounted() {
     window.localStorage.formList = [];
+    bus.$on('formDesign.syncList', (list) => {
+      this.syncList(list);
+    })
   },
   data() {
     return {
       "list": [
       ],
-      "config": {
-        "labelWidth": 100,
-        "labelPosition": "top",
-        "size": "small"
+      rules:{
+        e878f1c6_3c5c_b1b3_b785_9897b52a904f: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
       }
     }
   },
@@ -72,7 +80,8 @@ export default {
         form.key = common.getGuid();
         newFormList.splice(newIndex, 0, form);
         this.$store.commit('formDesign/updateShowType', form.type);
-        this.$store.commit('formDesign/updateActiveKey', form.key)
+        this.$store.commit('formDesign/updateActiveKey', form.key);
+        this.$store.commit('formDesign/updateActiveForm', common.deepClone(form));
         this.$store.dispatch('formDesign/setFormList', newFormList);
       }
       if (evt.moved) {
@@ -83,9 +92,16 @@ export default {
         // newFormList.splice(newIndex, 0, form);
         // newFormList.splice(oldIndex, oldIndex + 1);
         this.$store.commit('formDesign/updateShowType', form.type);
-        this.$store.commit('formDesign/updateActiveKey', form.key)
+        this.$store.commit('formDesign/updateActiveKey', form.key);
+        this.$store.commit('formDesign/updateActiveForm', common.deepClone(form));
         this.$store.dispatch('formDesign/setFormList', common.deepClone(this.list));
       }
+      // let rules = {};
+      // this.$store.state.formDesign.formList.forEach(element => {
+      //   rules[element.key] = [{ required: element.options.required, message: '必填项不能为空', trigger: 'blur' }]
+      // });
+      // console.log("rules", rules);
+      // this.$store.commit('formDesign/updateRules', common.deepClone(rules));
     },
     syncList(value) {
       this.list = common.deepClone(value);
@@ -98,6 +114,11 @@ export default {
         // this.$store.dispatch('formDesign/setFormList', common.deepClone(value));
       },
       deep: true
+    }
+  },
+  filters: {
+    labelWidth(value) {
+      return `${value}px`
     }
   }
 }

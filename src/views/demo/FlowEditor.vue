@@ -2,10 +2,10 @@
   <div>
     <el-row>
       <el-col :span="6">
-        <FDMenu />
+        <FDMenu/>
       </el-col>
       <el-col :span="12" style="height:100%;">
-        <Panel/>
+        <Panel :formAttr="formAttr"/>
 
         <!-- <nestedExample /> -->
       </el-col>
@@ -18,32 +18,62 @@
           style="border-left: 1px solid #eee;padding: 0 10px;overflow: scroll;height: 100%;"
         >
           <el-tab-pane label="字段属性" name="1">
-            <FDInput v-show="$store.state.formDesign.showType === 'input'"/>
-            <FDTextArea v-show="$store.state.formDesign.showType === 'textarea'"/>
-            <FDRadio v-show="$store.state.formDesign.showType === 'radio'"/>
-            <FDNumber v-show="$store.state.formDesign.showType === 'number'"/>
-            <FDCheckbox v-show="$store.state.formDesign.showType === 'checkbox'"/>
-            <FDDateTime v-show="$store.state.formDesign.showType === 'dateTime'"/>
-            <FDSelect v-show="$store.state.formDesign.showType === 'select'"/>
-            <FDSwitch v-show="$store.state.formDesign.showType === 'switch'"/>
-            <FDImg v-show="$store.state.formDesign.showType === 'img'"/>
+            <FDInput
+              v-show="$store.state.formDesign.showType === 'input'"
+              :propData="$store.state.formDesign.activeForm"
+            />
+            <FDTextArea
+              v-show="$store.state.formDesign.showType === 'textarea'"
+              :propData="$store.state.formDesign.activeForm"
+            />
+            <FDRadio
+              v-show="$store.state.formDesign.showType === 'radio'"
+              :propData="$store.state.formDesign.activeForm"
+            />
+            <FDNumber
+              v-show="$store.state.formDesign.showType === 'number'"
+              :propData="$store.state.formDesign.activeForm"
+            />
+            <FDCheckbox
+              v-show="$store.state.formDesign.showType === 'checkbox'"
+              :propData="$store.state.formDesign.activeForm"
+            />
+            <FDDateTime
+              v-show="$store.state.formDesign.showType === 'datetime'"
+              :propData="$store.state.formDesign.activeForm"
+            />
+            <FDSelect
+              v-show="$store.state.formDesign.showType === 'select'"
+              :propData="$store.state.formDesign.activeForm"
+            />
+            <FDSwitch
+              v-show="$store.state.formDesign.showType === 'switch'"
+              :propData="$store.state.formDesign.activeForm"
+            />
+            <FDImg
+              v-show="$store.state.formDesign.showType === 'img'"
+              :propData="$store.state.formDesign.activeForm"
+            />
           </el-tab-pane>
           <el-tab-pane label="表单属性" name="2">
-            <el-form label-position="top" label-width="80px">
+            <el-form label-position="top" label-width="80px" size="mini">
               <el-form-item label="标签对齐方式">
                 <el-radio-group v-model="formAttr.align">
-                  <el-radio label="left">左对齐</el-radio>
-                  <el-radio label="right">右对齐</el-radio>
-                  <el-radio label="top">顶部对齐</el-radio>
+                  <el-radio-button label="left">左对齐</el-radio-button>
+                  <el-radio-button label="right">右对齐</el-radio-button>
+                  <el-radio-button label="top">顶部对齐</el-radio-button>
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="组件尺寸">
                 <el-radio-group v-model="formAttr.size">
-                  <el-radio label="large">大</el-radio>
-                  <el-radio label="medium">中等</el-radio>
-                  <el-radio label="small ">小</el-radio>
-                  <el-radio label="mini ">迷你</el-radio>
+                  <el-radio-button label="large">大</el-radio-button>
+                  <el-radio-button label="medium">中等</el-radio-button>
+                  <el-radio-button label="small ">小</el-radio-button>
+                  <el-radio-button label="mini ">迷你</el-radio-button>
                 </el-radio-group>
+              </el-form-item>
+              <el-form-item label="表单字段宽度">
+                <el-input-number v-model="formAttr.labelWidth" :min="80" :max="200"></el-input-number>
               </el-form-item>
             </el-form>
           </el-tab-pane>
@@ -89,7 +119,8 @@ export default {
       activeName: '1',
       formAttr: {
         align: 'top',
-        size: 'medium'
+        size: 'medium',
+        labelWidth: 80
       }
     }
   },
@@ -102,7 +133,7 @@ export default {
     }
   },
   mounted() {
-   
+
   },
 
 }

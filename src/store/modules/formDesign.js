@@ -5,7 +5,9 @@ export default {
   state: {
     showType: '',
     activeKey: '',
-    formList: []
+    formList: [],
+    activeForm: null,
+    rules: {}
   },
   mutations: {
     updateShowType(state, value) {
@@ -16,6 +18,12 @@ export default {
     },
     updateFormList(state, value) {
       state.formList = value;
+    },
+    updateActiveForm(state, value) {
+      state.activeForm = value;
+    },
+    updateRules(state, value) {
+      state.rules = value;
     }
   },
   actions: {
@@ -27,7 +35,7 @@ export default {
       console.log("addFormList")
       // let newFormList = JSON.parse(window.localStorage.formList).push(form);
 
-      
+
       let newFormList = common.deepClone(state.formList);
       newFormList.push(form);
       window.localStorage.formList = JSON.stringify(newFormList);
@@ -54,6 +62,13 @@ export default {
     },
   },
   getters: {
-
+    getFormRules(state) {
+      let rules = {};
+      state.formList.forEach(element => {
+        rules[element.key] = [{ required: element.options.required, message: '必填项不能为空', trigger: 'blur' }]
+      });
+      // console.log("rules", rules)
+      return rules
+    },
   }
 }

@@ -1,36 +1,41 @@
 <template>
   <div class="cell" :class="{'cell-active': data.key === $store.state.formDesign.activeKey}">
     <div @click="activeCell">
-      <el-form-item v-if="data.type" :label="data.title">
+      <el-form-item
+        v-if="data.type"
+        :label="data.title+`${data.options.required?'（必填）':''}`"
+        :prop="data.key"
+      >
         <el-input
           v-if="data.type === 'input'"
           v-model="data.options.defaultValue"
           :placeholder="data.options.placeholder"
           :disabled="data.options.disabled"
-          :readonly="data.options.readonly"
+          :readonly="true"
+          :style="{width: data.options.width}"
         ></el-input>
         <el-input
           v-if="data.type === 'textarea'"
           v-model="data.options.defaultValue"
           :placeholder="data.options.placeholder"
           :disabled="data.options.disabled"
-          :readonly="data.options.readonly"
+          :readonly="true"
           type="textarea"
           :rows="5"
+          :style="{width: data.options.width}"
         ></el-input>
         <el-input-number
           v-if="data.type === 'number'"
-          v-model="data.options.defaultValue"
           :disabled="data.options.disabled"
-          :readonly="data.options.readonly"
-          :min="data.options.min"
-          :max="data.options.max"
+          :readonly="true"
+          :style="{width: data.options.width}"
         ></el-input-number>
         <el-radio-group
           v-if="data.type === 'radio'"
           v-model="data.options.defaultValue"
           :disabled="data.options.disabled"
-          :readonly="data.options.readonly"
+          :readonly="true"
+          :style="{width: data.options.width}"
         >
           <el-radio
             v-for="(item, i) in data.options.option"
@@ -42,7 +47,8 @@
           v-if="data.type === 'checkbox'"
           v-model="data.options.defaultValue"
           :disabled="data.options.disabled"
-          :readonly="data.options.readonly"
+          :readonly="true"
+          :style="{width: data.options.width}"
         >
           <el-checkbox
             v-for="(item, i) in data.options.option"
@@ -52,8 +58,10 @@
         </el-checkbox-group>
         <el-select
           v-if="data.type === 'select'"
-          v-model="data.options.defaultValue"
           :placeholder="data.options.placeholder"
+          :style="{width: data.options.width}"
+          :readonly="true"
+          :disabled="data.options.disabled"
         >
           <el-option
             v-for="(item, i) in data.options.option"
@@ -67,7 +75,17 @@
           v-model="data.options.defaultValue"
           active-color="#13ce66"
           inactive-color="#EEEEEE"
+          :style="{width: data.options.width}"
+          :readonly="true"
+          :disabled="data.options.disabled"
         ></el-switch>
+        <el-date-picker
+          type="datetime"
+          v-if="data.type === 'datetime'"
+          :placeholder="data.options.placeholder"
+          :style="{width: data.options.width}"
+          :disabled="data.options.disabled"
+        ></el-date-picker>
       </el-form-item>
     </div>
     <i
@@ -93,28 +111,6 @@ export default {
     data: {
       type: Object,
       default: function () {
-        // return {
-        //   name: '',
-        //   value: '',
-        //   placeholder: '',
-        //   disabled: false,
-        //   readonly: false,
-        //   min: 0,
-        //   max: 100,
-        //   radioOption: [{
-        //     value: "值1",
-        //     label: "选项1"
-        //   }],
-        //   checkboxOption: [{
-        //     value: "值1",
-        //     label: "选项1"
-        //   }],
-        //   selectOption: [{
-        //     value: "值1",
-        //     label: "选项1"
-        //   }]
-        // }
-
         return {
           "type": "",
           "name": "",
@@ -128,7 +124,8 @@ export default {
           "key": "1556775967000_4898"
         }
       }
-    }
+    },
+
   },
   methods: {
     copyForm() {
@@ -147,6 +144,8 @@ export default {
       this.$store.dispatch("formDesign/setFormList", formList);
       this.$emit("syncList", formList);
       this.$store.commit('formDesign/updateActiveKey', copyForm.key)
+      this.$store.commit('formDesign/updateActiveForm', common.deepClone(copyForm))
+
     },
     deleteForm() {
       let formList = common.deepClone(this.$store.state.formDesign.formList);
@@ -161,13 +160,22 @@ export default {
       formList.splice(newIndex, 1);
       this.$store.dispatch("formDesign/setFormList", formList);
       this.$emit("syncList", formList);
-      this.$store.commit('formDesign/updateActiveKey', formList[newIndex].key);
+      if (newIndex != 0) {
+        this.$store.commit('formDesign/updateActiveKey', formList[newIndex - 1].key);
+        this.$store.commit('formDesign/updateActiveForm', common.deepClone(formList[newIndex - 1]));
+      } else {
+        if (formList.length > 0) {
+          this.$store.commit('formDesign/updateActiveKey', formList[0].key);
+          this.$store.commit('formDesign/updateActiveForm', common.deepClone(formList[0]));
+        }
+      }
     },
     activeCell() {
       this.$store.commit('formDesign/updateActiveKey', this.data.key);
       this.$store.commit('formDesign/updateShowType', this.data.type);
+      this.$store.commit('formDesign/updateActiveForm', common.deepClone(this.data))
     }
-  }
+  },
 };
 </script>
 
@@ -176,6 +184,7 @@ export default {
   background-color: #eee;
   padding: 10px 10px 20px 10px;
   position: relative;
+  cursor: move;
 }
 .cell-active {
   background-color: #b3d8ff;
