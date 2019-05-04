@@ -2,7 +2,7 @@
   <div class="cell" :class="{'cell-active': data.key === $store.state.formDesign.activeKey}">
     <div @click="activeCell">
       <el-form-item
-        v-if="data.type !== 'grid'"
+        v-if="data.type"
         :label="data.title+`${data.options.required?'（必填）':''}`"
         :prop="data.key"
       >
@@ -87,7 +87,6 @@
           :disabled="data.options.disabled"
         ></el-date-picker>
       </el-form-item>
-      <FDGridPanel v-else :data="data" :formAttr="formAttr"/>
     </div>
     <i
       class="action-copy"
@@ -106,11 +105,9 @@
 
 <script>
 import common from '@/utils/common';
-import FDGridPanel from '@/components/form-design/FDGridPanel';
 
 export default {
   components: {
-    FDGridPanel
   },
   props: {
     formAttr: {
@@ -175,7 +172,7 @@ export default {
       this.$store.commit('formDesign/updateActiveKey', copyForm.key);
       if (this.isGrid) {
         this.$emit("syncList", formList, this.FDindex);
-        this.$store.commit('formDesign/updateGrid', this.FDkey, common.deepClone(formList));
+        this.$store.commit('formDesign/updateGrid', { key: this.FDkey, value: common.deepClone(formList) });
       } else {
         this.$emit("syncList", formList);
         this.$store.dispatch("formDesign/setFormList", formList);
@@ -200,7 +197,7 @@ export default {
 
       if (this.isGrid) {
         this.$emit("syncList", formList, this.FDindex);
-        this.$store.commit('formDesign/updateGrid', this.FDkey, common.deepClone(formList));
+        this.$store.commit('formDesign/updateGrid', { key: this.FDkey, value: common.deepClone(formList) });
       } else {
         this.$emit("syncList", formList);
         this.$store.dispatch("formDesign/setFormList", formList);

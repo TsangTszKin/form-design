@@ -14,10 +14,11 @@
           v-for="(item, i) in $store.state.formDesign.formList"
           :key="i"
           @syncList="syncList"
+          :formAttr="formAttr"
         />
       </draggable>
     </el-form>
-    <!-- 表单未空的时候默认是一个空容器 -->
+    <!-- 表单为空的时候默认是一个空容器 -->
     <draggable
       class="dragArea-empty"
       @change="log"
@@ -33,6 +34,7 @@ import Cell from '@/components/form-design/Cell.vue';
 import draggable from "vuedraggable";
 import common from '@/utils/common';
 import bus from '@/utils/bus';
+import FDGridPanel from '@/components/form-design/FDGridPanel';
 
 export default {
   props: {
@@ -49,7 +51,8 @@ export default {
   },
   components: {
     Cell,
-    draggable
+    draggable,
+    FDGridPanel
   },
   mounted() {
     window.localStorage.formList = [];
@@ -61,7 +64,7 @@ export default {
     return {
       "list": [
       ],
-      rules:{
+      rules: {
         e878f1c6_3c5c_b1b3_b785_9897b52a904f: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
       }
     }
@@ -82,7 +85,7 @@ export default {
         this.$store.commit('formDesign/updateShowType', form.type);
         this.$store.commit('formDesign/updateActiveKey', form.key);
         this.$store.commit('formDesign/updateActiveForm', common.deepClone(form));
-        this.$store.dispatch('formDesign/setFormList', newFormList);
+        this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList));
       }
       if (evt.moved) {
         form = evt.moved.element;

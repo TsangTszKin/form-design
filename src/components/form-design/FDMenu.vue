@@ -89,7 +89,7 @@ export default {
               label: '邮箱地址'
             }]
           },
-          key: common.getGuid()
+          key: ''
         },
         {
           title: '多行文本',
@@ -103,7 +103,7 @@ export default {
             placeholder: "",
             regEx: '',
           },
-          key: common.getGuid()
+          key: ''
         },
         {
           title: '计数器',
@@ -116,7 +116,7 @@ export default {
             required: false,
             disabled: false,
           },
-          key: common.getGuid()
+          key: ''
         },
         {
           title: '单选框组',
@@ -137,7 +137,7 @@ export default {
               label: "选项3"
             }],
           },
-          key: common.getGuid()
+          key: ''
         },
         {
           title: '多选框组',
@@ -158,7 +158,7 @@ export default {
               label: "选项3"
             }],
           },
-          key: common.getGuid()
+          key: ''
         },
         {
           title: '时间选择器',
@@ -172,7 +172,7 @@ export default {
             disabled: false,
             placeholder: "",
           },
-          key: common.getGuid()
+          key: ''
         },
         {
           title: '下拉选择框',
@@ -195,7 +195,7 @@ export default {
               label: "选项3"
             }]
           },
-          key: common.getGuid()
+          key: ''
 
         },
         {
@@ -207,7 +207,7 @@ export default {
             required: false,
             disabled: false,
           },
-          key: common.getGuid()
+          key: ''
         }]
       },
       senior: {
@@ -217,17 +217,37 @@ export default {
           type: 'img',
           icon: '/src/assets/img/form-design/img.png'
         }],
-        key: common.getGuid()
+        key: ''
       },
       layout: {
         title: '布局字段',
         child: [{
           title: '栅格布局',
           type: 'grid',
-          icon: '/src/assets/img/form-design/grid.png'
+          icon: '/src/assets/img/form-design/grid.png',
+          cols: [{
+            span: 12,
+            list: [{
+          title: '多行文本',
+          type: 'textarea',
+          icon: '/src/assets/img/form-design/textarea.png',
+          options: {
+            width: "100%",
+            defaultValue: "",
+            required: false,
+            disabled: false,
+            placeholder: "",
+            regEx: '',
+          },
+          key: ''
+        },]
+          }, {
+            span: 12,
+            list: []
+          }],
+          key: ''
         }],
-
-        key: common.getGuid()
+        key: ''
       }
     }
   },

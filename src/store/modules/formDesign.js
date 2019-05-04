@@ -7,7 +7,8 @@ export default {
     activeKey: '',
     formList: [],
     activeForm: null,
-    rules: {}
+    rules: {},
+    grid: {}
   },
   mutations: {
     updateShowType(state, value) {
@@ -24,6 +25,9 @@ export default {
     },
     updateRules(state, value) {
       state.rules = value;
+    },
+    updateGrid(state, value) {
+      state.grid[value.key] = value.value;
     }
   },
   actions: {
