@@ -87,7 +87,7 @@
           :disabled="data.options.disabled"
         ></el-date-picker>
       </el-form-item>
-      <FDGridPanel v-else :data="data" :formAttr="formAttr"/>
+      <FDGridPanel v-else :data="data" :formAttr="formAttr" :FDkey="data.key"/>
     </div>
     <i
       class="action-copy"

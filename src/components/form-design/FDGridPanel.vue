@@ -100,6 +100,31 @@ export default {
     log: function (evt) {
       console.log("FDGridPanel")
       window.console.log(evt);
+      // let newFormList = common.deepClone(this.$store.state.formDesign.grid[this.FDkey]);
+      // console.log("newFormList", newFormList)
+      // let form;
+      // if (evt.added) {
+      //   form = evt.added.element;
+      //   let newIndex = evt.added.newIndex;
+      //   form.key = common.getGuid();
+      //   newFormList.splice(newIndex, 0, form);
+      //   this.$store.commit('formDesign/updateShowType', form.type);
+      //   this.$store.commit('formDesign/updateActiveKey', form.key);
+      //   this.$store.commit('formDesign/updateActiveForm', common.deepClone(form));
+      //   this.$store.commit('formDesign/updateGrid', this.FDkey, common.deepClone(newFormList));
+      // }
+      // if (evt.moved) {
+      //   form = evt.moved.element;
+      //   let newIndex = evt.moved.newIndex;
+      //   let oldIndex = evt.moved.oldIndex;
+      //   //先直接在新位置插入表单，然后旧位置索引+1的位置表单直接减掉
+      //   // newFormList.splice(newIndex, 0, form);
+      //   // newFormList.splice(oldIndex, oldIndex + 1);
+      //   this.$store.commit('formDesign/updateShowType', form.type);
+      //   this.$store.commit('formDesign/updateActiveKey', form.key);
+      //   this.$store.commit('formDesign/updateActiveForm', common.deepClone(form));
+      //   this.$store.commit('formDesign/updateGrid', this.FDkey, common.deepClone(newFormList));
+      // }
     },
     syncList(value, index) {
       this.data.cols[index] = common.deepClone(value);
@@ -110,18 +135,28 @@ export default {
   watch: {
     data: {
       handler: function (value, oldValue) {
-        for (let i = 0; i < value.cols.length; i++) {
-          const element = value.cols[i];
+        console.log("value", value);
+        let newData = common.deepClone(value);
+        let haveEmptyKey = false;
+        for (let i = 0; i < newData.cols.length; i++) {
+          const element = newData.cols[i];
           for (let j = 0; j < element.list.length; j++) {
             const element2 = element.list[j];
             if (common.isEmpty(element2.key)) {
               element2.key = common.getGuid();
               this.$store.commit('formDesign/updateActiveKey', element2.key);
+              haveEmptyKey = true;
+
             }
           }
         }
-        console.log("value.key, common.deepClone(value)", this.FDkey, common.deepClone(value))
-        this.$store.commit('formDesign/updateGrid', { key: this.FDkey, value: common.deepClone(value) });
+        if (haveEmptyKey) {
+          this.data = newData;
+        }
+        console.log("newData.key", this.FDkey)
+        console.log("this.$store.state.formDesign.activeKey", this.$store.state.formDesign.activeKey);
+        console.log("this.$store.state.formDesign.grid", this.$store.state.formDesign.grid);
+        this.$store.commit('formDesign/updateGrid', { key: this.FDkey, value: common.deepClone(newData) });
 
       },
       deep: true

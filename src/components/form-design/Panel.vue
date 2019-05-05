@@ -73,8 +73,6 @@ export default {
     log: function (evt) {
       console.log("panel")
       window.console.log(evt);
-      let formSimple;
-      let insertIndex = this.$store.state.formDesign.formList.length;
       let newFormList = common.deepClone(this.$store.state.formDesign.formList);
       let form;
       if (evt.added) {
