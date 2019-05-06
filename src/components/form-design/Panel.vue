@@ -35,6 +35,7 @@ import draggable from "vuedraggable";
 import common from '@/utils/common';
 import bus from '@/utils/bus';
 import FDGridPanel from '@/components/form-design/FDGridPanel';
+import { connect } from 'net';
 
 export default {
   props: {
@@ -57,6 +58,7 @@ export default {
   mounted() {
     window.localStorage.formList = [];
     bus.$on('formDesign.syncList', (list) => {
+      console.log("list", list)
       this.syncList(list);
     })
   },
@@ -73,7 +75,17 @@ export default {
     log: function (evt) {
       console.log("panel")
       window.console.log(evt);
+      console.log("common.deepClone(this.$store.state.formDesign.formList)", common.deepClone(this.$store.state.formDesign.formList))
       let newFormList = common.deepClone(this.$store.state.formDesign.formList);
+      for (let i = 0; i < this.$store.state.formDesign.formList.length; i++) {
+        const element = this.$store.state.formDesign.formList[i];
+        if (element.type === 'grid') {
+          newFormList[i] = common.deepClone(this.$store.state.formDesign.grid[element.key]);
+          console.log("this.$store.state.formDesign.grid", this.$store.state.formDesign.grid)
+        }
+      }
+      console.log("newFormList", common.deepClone(newFormList))
+
       let form;
       if (evt.added) {
         form = evt.added.element;
@@ -84,6 +96,7 @@ export default {
         this.$store.commit('formDesign/updateActiveKey', form.key);
         this.$store.commit('formDesign/updateActiveForm', common.deepClone(form));
         this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList));
+        this.syncList(newFormList);
       }
       if (evt.moved) {
         form = evt.moved.element;
@@ -96,6 +109,7 @@ export default {
         this.$store.commit('formDesign/updateActiveKey', form.key);
         this.$store.commit('formDesign/updateActiveForm', common.deepClone(form));
         this.$store.dispatch('formDesign/setFormList', common.deepClone(this.list));
+        this.syncList(newFormList);
       }
       // let rules = {};
       // this.$store.state.formDesign.formList.forEach(element => {
@@ -105,6 +119,7 @@ export default {
       // this.$store.commit('formDesign/updateRules', common.deepClone(rules));
     },
     syncList(value) {
+      console.log("common.deepClone(value)", common.deepClone(value))
       this.list = common.deepClone(value);
     }
   },

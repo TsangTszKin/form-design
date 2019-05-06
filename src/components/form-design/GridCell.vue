@@ -152,11 +152,16 @@ export default {
   methods: {
     copyForm() {
       let formList;
+      let grid;
+      let formListAll = common.deepClone(this.$store.state.formDesign.formList);
+
       if (this.isGrid) {
-        formList = common.deepClone(this.$store.state.formDesign.grid[this.FDkey]);
+        formList = common.deepClone(this.$store.state.formDesign.grid[this.FDkey]).cols[this.FDindex].list;
+        grid = common.deepClone(this.$store.state.formDesign.grid[this.FDkey]);
       } else {
         let formList = common.deepClone(this.$store.state.formDesign.formList);
       }
+      console.log("formList", formList)
       let newIndex;
       for (let i = 0; i < formList.length; i++) {
         const element = formList[i];
@@ -170,18 +175,25 @@ export default {
       formList.splice(newIndex + 1, 0, copyForm);
       this.$store.commit('formDesign/updateActiveForm', common.deepClone(copyForm))
       this.$store.commit('formDesign/updateActiveKey', copyForm.key);
+      console.log("formList2", formList)
       if (this.isGrid) {
+        grid.cols[this.FDindex].list = formList;
+        this.$store.commit('formDesign/updateGrid', { key: this.FDkey, value: common.deepClone(grid) });
+        formListAll[this.FDindex] = common.deepClone(grid);
+        this.$store.dispatch("formDesign/setFormList", common.deepClone(formListAll));
+
         this.$emit("syncList", formList, this.FDindex);
-        this.$store.commit('formDesign/updateGrid', { key: this.FDkey, value: common.deepClone(formList) });
       } else {
-        this.$emit("syncList", formList);
         this.$store.dispatch("formDesign/setFormList", formList);
+        this.$emit("syncList", formList);
       }
     },
     deleteForm() {
       let formList;
+      let grid;
+      let formListAll = common.deepClone(this.$store.state.formDesign.formList);
       if (this.isGrid) {
-        formList = common.deepClone(this.$store.state.formDesign.grid[this.FDkey]);
+        formList = common.deepClone(this.$store.state.formDesign.grid[this.FDkey]).cols[this.FDindex].list;
       } else {
         let formList = common.deepClone(this.$store.state.formDesign.formList);
       }

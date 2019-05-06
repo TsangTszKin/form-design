@@ -227,20 +227,22 @@ export default {
           icon: '/src/assets/img/form-design/grid.png',
           cols: [{
             span: 12,
-            list: [{
-          title: '多行文本',
-          type: 'textarea',
-          icon: '/src/assets/img/form-design/textarea.png',
-          options: {
-            width: "100%",
-            defaultValue: "",
-            required: false,
-            disabled: false,
-            placeholder: "",
-            regEx: '',
-          },
-          key: ''
-        },]
+            list: [
+              // {
+              //   title: '多行文本',
+              //   type: 'textarea',
+              //   icon: '/src/assets/img/form-design/textarea.png',
+              //   options: {
+              //     width: "100%",
+              //     defaultValue: "",
+              //     required: false,
+              //     disabled: false,
+              //     placeholder: "",
+              //     regEx: '',
+              //   },
+              //   key: ''
+              // },
+            ]
           }, {
             span: 12,
             list: []

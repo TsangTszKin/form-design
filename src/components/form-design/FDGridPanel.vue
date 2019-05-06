@@ -4,8 +4,8 @@
       <draggable class="dragArea" @change="log" :list="col.list" :group="{ name: 'form-design'}">
         <GridCell
           :data="item"
-          v-for="(item, i) in col.list"
-          :key="i"
+          v-for="(item, j) in col.list"
+          :key="j"
           @syncList="syncList"
           :formAttr="formAttr"
           :isGrid="true"
@@ -36,7 +36,7 @@ export default {
   props: {
     formAttr: {
       type: Object,
-      default: function() {
+      default: function () {
         return {
           align: "top",
           size: "medium",
@@ -50,7 +50,7 @@ export default {
     },
     propData: {
       type: Object,
-      default: function() {
+      default: function () {
         return {
           title: "栅格布局",
           type: "grid",
@@ -59,20 +59,20 @@ export default {
             {
               span: 12,
               list: [
-                {
-                  title: "多行文本",
-                  type: "textarea",
-                  icon: "/src/assets/img/form-design/textarea.png",
-                  options: {
-                    width: "100%",
-                    defaultValue: "",
-                    required: false,
-                    disabled: false,
-                    placeholder: "",
-                    regEx: ""
-                  },
-                  key: ""
-                }
+                // {
+                //   title: "多行文本",
+                //   type: "textarea",
+                //   icon: "/src/assets/img/form-design/textarea.png",
+                //   options: {
+                //     width: "100%",
+                //     defaultValue: "",
+                //     required: false,
+                //     disabled: false,
+                //     placeholder: "",
+                //     regEx: ""
+                //   },
+                //   key: ""
+                // }
               ]
             },
             {
@@ -106,7 +106,7 @@ export default {
     };
   },
   methods: {
-    log: function(evt) {
+    log: function (evt) {
       console.log("FDGridPanel");
       window.console.log(evt);
       // let newFormList = common.deepClone(this.$store.state.formDesign.grid[this.FDkey]);
@@ -136,7 +136,16 @@ export default {
       // }
     },
     syncList(value, index) {
-      this.data.cols[index] = common.deepClone(value);
+      this.data.cols[index].list = common.deepClone(value);
+      let formList = common.deepClone(this.$store.state.formDesign.formList);
+      for (let i = 0; i < this.$store.state.formDesign.formList.length; i++) {
+        const element = this.$store.state.formDesign.formList[i];
+        if (element.key == this.FDkey) {
+          formList[i] = this.data;
+        }
+      }
+      bus.$emit('formDesign.syncList', common.deepClone(formList));
+      console.log("formList", formList);
     },
     activeCell() {
       this.$store.commit("formDesign/updateActiveKey", this.FDkey);
@@ -147,10 +156,10 @@ export default {
       );
     }
   },
-  mounted() {},
+  mounted() { },
   watch: {
     data: {
-      handler: function(value, oldValue) {
+      handler: function (value, oldValue) {
         console.log("value", value);
         let newData = common.deepClone(value);
         let haveEmptyKey = false;
@@ -185,11 +194,11 @@ export default {
       deep: true
     },
     propData: {
-      handler: function(value) {
+      handler: function (value) {
         this.data = common.deepClone(value);
       },
-      deep: true
-      // immediate: true
+      deep: true,
+      immediate: true
     }
   }
 };
