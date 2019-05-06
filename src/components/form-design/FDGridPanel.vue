@@ -17,15 +17,16 @@
           <el-input :readonly="true"></el-input>
         </el-form-item>-->
       </draggable>
+      <div class="bottom-area" @click="activeCell"></div>
     </el-col>
   </el-row>
 </template>
 
 <script>
-import GridCell from '@/components/form-design/GridCell';
+import GridCell from "@/components/form-design/GridCell";
 import draggable from "vuedraggable";
-import common from '@/utils/common';
-import bus from '@/utils/bus';
+import common from "@/utils/common";
+import bus from "@/utils/bus";
 
 export default {
   components: {
@@ -35,70 +36,78 @@ export default {
   props: {
     formAttr: {
       type: Object,
-      default: function () {
+      default: function() {
         return {
-          align: 'top',
-          size: 'medium',
+          align: "top",
+          size: "medium",
           labelWidth: 80
-        }
+        };
       }
     },
     FDkey: {
       type: String,
-      default: ''
+      default: ""
     },
     propData: {
       type: Object,
-      default: function () {
+      default: function() {
         return {
-          title: '栅格布局',
-          type: 'grid',
-          icon: '/src/assets/img/form-design/grid.png',
-          cols: [{
-            span: 12,
-            list: [{
-              title: '多行文本',
-              type: 'textarea',
-              icon: '/src/assets/img/form-design/textarea.png',
-              options: {
-                width: "100%",
-                defaultValue: "",
-                required: false,
-                disabled: false,
-                placeholder: "",
-                regEx: '',
-              },
-              key: ''
-            }]
-          }, {
-            span: 12,
-            list: []
-          }],
+          title: "栅格布局",
+          type: "grid",
+          icon: "/src/assets/img/form-design/grid.png",
+          cols: [
+            {
+              span: 12,
+              list: [
+                {
+                  title: "多行文本",
+                  type: "textarea",
+                  icon: "/src/assets/img/form-design/textarea.png",
+                  options: {
+                    width: "100%",
+                    defaultValue: "",
+                    required: false,
+                    disabled: false,
+                    placeholder: "",
+                    regEx: ""
+                  },
+                  key: ""
+                }
+              ]
+            },
+            {
+              span: 12,
+              list: []
+            }
+          ],
           key: common.getGuid()
-        }
+        };
       }
     }
   },
   data() {
     return {
       data: {
-        title: '栅格布局',
-        type: 'grid',
-        icon: '/src/assets/img/form-design/grid.png',
-        cols: [{
-          span: 12,
-          list: []
-        }, {
-          span: 12,
-          list: []
-        }],
+        title: "栅格布局",
+        type: "grid",
+        icon: "/src/assets/img/form-design/grid.png",
+        cols: [
+          {
+            span: 12,
+            list: []
+          },
+          {
+            span: 12,
+            list: []
+          }
+        ],
         key: common.getGuid()
       }
-    }
+    };
   },
   methods: {
-    log: function (evt) {
-      console.log("FDGridPanel")
+    log: function(evt) {
+      console.log("FDGridPanel");
       window.console.log(evt);
       // let newFormList = common.deepClone(this.$store.state.formDesign.grid[this.FDkey]);
       // console.log("newFormList", newFormList)
@@ -128,13 +137,20 @@ export default {
     },
     syncList(value, index) {
       this.data.cols[index] = common.deepClone(value);
+    },
+    activeCell() {
+      this.$store.commit("formDesign/updateActiveKey", this.FDkey);
+      this.$store.commit("formDesign/updateShowType", "grid");
+      this.$store.commit(
+        "formDesign/updateActiveForm",
+        common.deepClone(this.data)
+      );
     }
   },
-  mounted() {
-  },
+  mounted() {},
   watch: {
     data: {
-      handler: function (value, oldValue) {
+      handler: function(value, oldValue) {
         console.log("value", value);
         let newData = common.deepClone(value);
         let haveEmptyKey = false;
@@ -144,32 +160,39 @@ export default {
             const element2 = element.list[j];
             if (common.isEmpty(element2.key)) {
               element2.key = common.getGuid();
-              this.$store.commit('formDesign/updateActiveKey', element2.key);
+              this.$store.commit("formDesign/updateActiveKey", element2.key);
               haveEmptyKey = true;
-
             }
           }
         }
         if (haveEmptyKey) {
           this.data = newData;
         }
-        console.log("newData.key", this.FDkey)
-        console.log("this.$store.state.formDesign.activeKey", this.$store.state.formDesign.activeKey);
-        console.log("this.$store.state.formDesign.grid", this.$store.state.formDesign.grid);
-        this.$store.commit('formDesign/updateGrid', { key: this.FDkey, value: common.deepClone(newData) });
-
+        console.log("newData.key", this.FDkey);
+        console.log(
+          "this.$store.state.formDesign.activeKey",
+          this.$store.state.formDesign.activeKey
+        );
+        console.log(
+          "this.$store.state.formDesign.grid",
+          this.$store.state.formDesign.grid
+        );
+        this.$store.commit("formDesign/updateGrid", {
+          key: this.FDkey,
+          value: common.deepClone(newData)
+        });
       },
       deep: true
     },
     propData: {
-      handler: function (value) {
+      handler: function(value) {
         this.data = common.deepClone(value);
       },
-      deep: true,
+      deep: true
       // immediate: true
-    },
+    }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -177,6 +200,10 @@ export default {
   min-height: 100px;
   outline: 1px dashed;
   /* margin: 10px; */
+}
+.bottom-area {
+  width: 100%;
+  height: 50px;
 }
 .dragArea {
   min-height: 100px;

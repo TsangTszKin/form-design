@@ -1,10 +1,11 @@
 <template>
   <div class="cell" :class="{'cell-active': data.key === $store.state.formDesign.activeKey}">
-    <div @click="activeCell">
+    <div>
       <el-form-item
         v-if="data.type !== 'grid'"
         :label="data.title+`${data.options.required?'（必填）':''}`"
         :prop="data.key"
+        @click="activeCell"
       >
         <el-input
           v-if="data.type === 'input'"
@@ -105,8 +106,8 @@
 </template>
 
 <script>
-import common from '@/utils/common';
-import FDGridPanel from '@/components/form-design/FDGridPanel';
+import common from "@/utils/common";
+import FDGridPanel from "@/components/form-design/FDGridPanel";
 
 export default {
   components: {
@@ -115,48 +116,50 @@ export default {
   props: {
     formAttr: {
       type: Object,
-      default: function () {
+      default: function() {
         return {
-          align: 'top',
-          size: 'medium',
+          align: "top",
+          size: "medium",
           labelWidth: 80
-        }
+        };
       }
     },
     data: {
       type: Object,
-      default: function () {
+      default: function() {
         return {
-          "type": "",
-          "name": "",
-          "options": {
-            "width": "100%",
-            "defaultValue": "",
-            "required": false,
-            "dataType": "string",
-            "placeholder": ""
+          type: "",
+          name: "",
+          options: {
+            width: "100%",
+            defaultValue: "",
+            required: false,
+            dataType: "string",
+            placeholder: ""
           },
-          "key": "1556775967000_4898"
-        }
+          key: "1556775967000_4898"
+        };
       }
     },
     isGrid: {
       type: Boolean,
-      default: false,
+      default: false
     },
     FDkey: {
       type: String,
-      default: '',
+      default: ""
     },
     FDindex: {
       type: Number
-    },
+    }
   },
   methods: {
     copyForm() {
       let formList;
       if (this.isGrid) {
-        formList = common.deepClone(this.$store.state.formDesign.grid[this.FDkey]);
+        formList = common.deepClone(
+          this.$store.state.formDesign.grid[this.FDkey]
+        );
       } else {
         let formList = common.deepClone(this.$store.state.formDesign.formList);
       }
@@ -171,11 +174,18 @@ export default {
       let copyForm = common.deepClone(formList[newIndex]);
       copyForm.key = common.getGuid();
       formList.splice(newIndex + 1, 0, copyForm);
-      this.$store.commit('formDesign/updateActiveForm', common.deepClone(copyForm))
-      this.$store.commit('formDesign/updateActiveKey', copyForm.key);
+      this.$store.commit(
+        "formDesign/updateActiveForm",
+        common.deepClone(copyForm)
+      );
+      this.$store.commit("formDesign/updateActiveKey", copyForm.key);
       if (this.isGrid) {
         this.$emit("syncList", formList, this.FDindex);
-        this.$store.commit('formDesign/updateGrid', this.FDkey, common.deepClone(formList));
+        this.$store.commit(
+          "formDesign/updateGrid",
+          this.FDkey,
+          common.deepClone(formList)
+        );
       } else {
         this.$emit("syncList", formList);
         this.$store.dispatch("formDesign/setFormList", formList);
@@ -184,7 +194,9 @@ export default {
     deleteForm() {
       let formList;
       if (this.isGrid) {
-        formList = common.deepClone(this.$store.state.formDesign.grid[this.FDkey]);
+        formList = common.deepClone(
+          this.$store.state.formDesign.grid[this.FDkey]
+        );
       } else {
         let formList = common.deepClone(this.$store.state.formDesign.formList);
       }
@@ -200,28 +212,44 @@ export default {
 
       if (this.isGrid) {
         this.$emit("syncList", formList, this.FDindex);
-        this.$store.commit('formDesign/updateGrid', this.FDkey, common.deepClone(formList));
+        this.$store.commit(
+          "formDesign/updateGrid",
+          this.FDkey,
+          common.deepClone(formList)
+        );
       } else {
         this.$emit("syncList", formList);
         this.$store.dispatch("formDesign/setFormList", formList);
       }
 
       if (newIndex != 0) {
-        this.$store.commit('formDesign/updateActiveKey', formList[newIndex - 1].key);
-        this.$store.commit('formDesign/updateActiveForm', common.deepClone(formList[newIndex - 1]));
+        this.$store.commit(
+          "formDesign/updateActiveKey",
+          formList[newIndex - 1].key
+        );
+        this.$store.commit(
+          "formDesign/updateActiveForm",
+          common.deepClone(formList[newIndex - 1])
+        );
       } else {
         if (formList.length > 0) {
-          this.$store.commit('formDesign/updateActiveKey', formList[0].key);
-          this.$store.commit('formDesign/updateActiveForm', common.deepClone(formList[0]));
+          this.$store.commit("formDesign/updateActiveKey", formList[0].key);
+          this.$store.commit(
+            "formDesign/updateActiveForm",
+            common.deepClone(formList[0])
+          );
         }
       }
     },
     activeCell() {
-      this.$store.commit('formDesign/updateActiveKey', this.data.key);
-      this.$store.commit('formDesign/updateShowType', this.data.type);
-      this.$store.commit('formDesign/updateActiveForm', common.deepClone(this.data))
+      this.$store.commit("formDesign/updateActiveKey", this.data.key);
+      this.$store.commit("formDesign/updateShowType", this.data.type);
+      this.$store.commit(
+        "formDesign/updateActiveForm",
+        common.deepClone(this.data)
+      );
     }
-  },
+  }
 };
 </script>
 
