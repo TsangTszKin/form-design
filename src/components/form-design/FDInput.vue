@@ -45,7 +45,7 @@ export default {
   props: {
     propData: {
       type: Object,
-      default: function() {
+      default: function () {
         return {
           title: "单行文本",
           type: "input",
@@ -136,16 +136,13 @@ export default {
     };
   },
   methods: {},
-  mounted() {},
+  mounted() { },
   watch: {
     data: {
-      handler: function(value, oldValue) {
-        console.log("FD", value);
+      handler: function (value, oldValue) {
         let newFormList = common.deepClone(
           this.$store.state.formDesign.formList
         );
-        console.log("FDinput newFormList", this.$store.state.formDesign.formList);
-
         let activeIndex;
         for (let i = 0; i < newFormList.length; i++) {
           const element = newFormList[i];
@@ -153,27 +150,20 @@ export default {
             activeIndex = i;
           }
         }
-        // console.log(activeIndex)
-        if (activeIndex) {
-          newFormList[activeIndex] = value;
-          // console.log("newFormList", newFormList)
-          bus.$emit("formDesign.syncList", common.deepClone(newFormList));
-          this.$store.dispatch(
-            "formDesign/setFormList",
-            common.deepClone(newFormList)
-          );
-          this.$store.commit("formDesign/updateActiveKey", value.key);
-        }
+        newFormList[activeIndex] = value;
 
-        // let rules = common.deepClone(this.$store.state.formDesign.rules);
-        // rules[value.key][0].required = value.options.required;
-        // // console.log("watch rules", rules)
-        // this.$store.commit('formDesign/updateRules', common.deepClone(rules));
+        this.$store.commit("formDesign/updateActiveKey", value.key);
+        // console.log("newFormList", newFormList)
+        bus.$emit("formDesign.syncList", common.deepClone(newFormList));
+        this.$store.dispatch(
+          "formDesign/setFormList",
+          common.deepClone(newFormList)
+        );
       },
       deep: true
     },
     propData: {
-      handler: function(value) {
+      handler: function (value) {
         this.data = common.deepClone(value);
       },
       deep: true
