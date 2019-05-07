@@ -36,7 +36,7 @@ export default {
   props: {
     formAttr: {
       type: Object,
-      default: function () {
+      default: function() {
         return {
           align: "top",
           size: "medium",
@@ -50,7 +50,7 @@ export default {
     },
     propData: {
       type: Object,
-      default: function () {
+      default: function() {
         return {
           title: "栅格布局",
           type: "grid",
@@ -106,7 +106,7 @@ export default {
     };
   },
   methods: {
-    log: function (evt) {
+    log: function(evt) {
       console.log("FDGridPanel");
       window.console.log(evt);
       // let newFormList = common.deepClone(this.$store.state.formDesign.grid[this.FDkey]);
@@ -144,7 +144,7 @@ export default {
           formList[i] = this.data;
         }
       }
-      bus.$emit('formDesign.syncList', common.deepClone(formList));
+      bus.$emit("formDesign.syncList", common.deepClone(formList));
       console.log("formList", formList);
     },
     activeCell() {
@@ -156,10 +156,10 @@ export default {
       );
     }
   },
-  mounted() { },
+  mounted() {},
   watch: {
     data: {
-      handler: function (value, oldValue) {
+      handler: function(value, oldValue) {
         console.log("value", value);
         let newData = common.deepClone(value);
         let haveEmptyKey = false;
@@ -176,6 +176,24 @@ export default {
         }
         if (haveEmptyKey) {
           this.data = newData;
+
+          let formListAll = common.deepClone(
+            this.$store.state.formDesign.formList
+          );
+          for (
+            let i = 0;
+            i < this.$store.state.formDesign.formList.length;
+            i++
+          ) {
+            const element = this.$store.state.formDesign.formList[i];
+            if (element.key === this.FDkey) {
+              formListAll[i] = common.deepClone(newData);
+            }
+          }
+          this.$store.dispatch(
+            "formDesign/setFormList",
+            common.deepClone(formListAll)
+          );
         }
         console.log("newData.key", this.FDkey);
         console.log(
@@ -194,7 +212,7 @@ export default {
       deep: true
     },
     propData: {
-      handler: function (value) {
+      handler: function(value) {
         this.data = common.deepClone(value);
       },
       deep: true,
