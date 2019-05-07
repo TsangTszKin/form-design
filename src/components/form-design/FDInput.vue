@@ -38,18 +38,18 @@
 </template>
 
 <script>
-import common from '@/utils/common';
-import bus from '@/utils/bus';
+import common from "@/utils/common";
+import bus from "@/utils/bus";
 
 export default {
   props: {
     propData: {
       type: Object,
-      default: function () {
+      default: function() {
         return {
-          title: '单行文本',
-          type: 'input',
-          icon: '/src/assets/img/form-design/input.png',
+          title: "单行文本",
+          type: "input",
+          icon: "/src/assets/img/form-design/input.png",
           options: {
             width: "100%",
             defaultValue: "",
@@ -57,38 +57,45 @@ export default {
             disabled: false,
             dataType: "string",
             placeholder: "",
-            regEx: '',
-            option: [{
-              value: 'string',
-              label: '字符串'
-            }, {
-              value: 'bool',
-              label: '布尔值'
-            }, {
-              value: 'int',
-              label: '整数'
-            }, {
-              value: 'float',
-              label: '浮点数'
-            }, {
-              value: 'url',
-              label: 'URL地址'
-            }, {
-              value: 'email',
-              label: '邮箱地址'
-            }]
+            regEx: "",
+            option: [
+              {
+                value: "string",
+                label: "字符串"
+              },
+              {
+                value: "bool",
+                label: "布尔值"
+              },
+              {
+                value: "int",
+                label: "整数"
+              },
+              {
+                value: "float",
+                label: "浮点数"
+              },
+              {
+                value: "url",
+                label: "URL地址"
+              },
+              {
+                value: "email",
+                label: "邮箱地址"
+              }
+            ]
           },
           key: common.getGuid()
-        }
+        };
       }
     }
   },
   data() {
     return {
       data: {
-        title: '单行文本',
-        type: 'input',
-        icon: '/src/assets/img/form-design/input.png',
+        title: "单行文本",
+        type: "input",
+        icon: "/src/assets/img/form-design/input.png",
         options: {
           width: "100%",
           defaultValue: "",
@@ -96,40 +103,49 @@ export default {
           disabled: false,
           dataType: "string",
           placeholder: "",
-          regEx: '',
-          option: [{
-            value: 'string',
-            label: '字符串'
-          }, {
-            value: 'bool',
-            label: '布尔值'
-          }, {
-            value: 'int',
-            label: '整数'
-          }, {
-            value: 'float',
-            label: '浮点数'
-          }, {
-            value: 'url',
-            label: 'URL地址'
-          }, {
-            value: 'email',
-            label: '邮箱地址'
-          }]
+          regEx: "",
+          option: [
+            {
+              value: "string",
+              label: "字符串"
+            },
+            {
+              value: "bool",
+              label: "布尔值"
+            },
+            {
+              value: "int",
+              label: "整数"
+            },
+            {
+              value: "float",
+              label: "浮点数"
+            },
+            {
+              value: "url",
+              label: "URL地址"
+            },
+            {
+              value: "email",
+              label: "邮箱地址"
+            }
+          ]
         },
         key: common.getGuid()
       }
-    }
+    };
   },
-  methods: {
-  },
-  mounted() {
-  },
+  methods: {},
+  mounted() {},
   watch: {
     data: {
-      handler: function (value, oldValue) {
-        console.log("FD", value)
-        let newFormList = common.deepClone(this.$store.state.formDesign.formList);
+      handler: function(value, oldValue) {
+        console.log("FD", value);
+        let newFormList = common.deepClone(
+          this.$store.state.formDesign.formList
+        );
+        console.log("FDinput newFormList", this.$store.state.formDesign.formList);
+
         let activeIndex;
         for (let i = 0; i < newFormList.length; i++) {
           const element = newFormList[i];
@@ -138,29 +154,33 @@ export default {
           }
         }
         // console.log(activeIndex)
-        newFormList[activeIndex] = value;
-        // console.log("newFormList", newFormList)
-        bus.$emit('formDesign.syncList', common.deepClone(newFormList));
-        this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList));
-        this.$store.commit('formDesign/updateActiveKey', value.key);
+        if (activeIndex) {
+          newFormList[activeIndex] = value;
+          // console.log("newFormList", newFormList)
+          bus.$emit("formDesign.syncList", common.deepClone(newFormList));
+          this.$store.dispatch(
+            "formDesign/setFormList",
+            common.deepClone(newFormList)
+          );
+          this.$store.commit("formDesign/updateActiveKey", value.key);
+        }
 
         // let rules = common.deepClone(this.$store.state.formDesign.rules);
         // rules[value.key][0].required = value.options.required;
         // // console.log("watch rules", rules)
         // this.$store.commit('formDesign/updateRules', common.deepClone(rules));
-
       },
       deep: true
     },
     propData: {
-      handler: function (value) {
+      handler: function(value) {
         this.data = common.deepClone(value);
       },
-      deep: true,
+      deep: true
       // immediate: true
     }
   }
-}
+};
 </script>
 
 <style>

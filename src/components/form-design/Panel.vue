@@ -119,7 +119,6 @@ export default {
       // this.$store.commit('formDesign/updateRules', common.deepClone(rules));
     },
     syncList(value) {
-      console.log("common.deepClone(value)", common.deepClone(value))
       this.list = common.deepClone(value);
     }
   },
@@ -127,7 +126,7 @@ export default {
     list: {
       handler: function (value) {
         console.log("watch list", value);
-        // this.$store.dispatch('formDesign/setFormList', common.deepClone(value));
+        this.$store.dispatch('formDesign/setFormList', common.deepClone(value));
       },
       deep: true
     }

@@ -199,13 +199,9 @@ export default {
       let formList;
       let grid;
       let formListAll = common.deepClone(this.$store.state.formDesign.formList);
-      if (this.isGrid) {
-        formList = common.deepClone(
-          this.$store.state.formDesign.grid[this.FDkey]
-        ).cols[this.FDindex].list;
-      } else {
-        let formList = common.deepClone(this.$store.state.formDesign.formList);
-      }
+      formList = common.deepClone(this.$store.state.formDesign.grid[this.FDkey])
+        .cols[this.FDindex].list;
+      grid = common.deepClone(this.$store.state.formDesign.grid[this.FDkey]);
       let newIndex;
       for (let i = 0; i < formList.length; i++) {
         const element = formList[i];
@@ -215,17 +211,17 @@ export default {
         }
       }
       formList.splice(newIndex, 1);
+      grid.cols[this.FDindex].list = formList;
+      console.log("formList", formList);
+      console.log("grid", grid);
+      console.log("formListAll", formListAll);
 
-      if (this.isGrid) {
-        this.$emit("syncList", formList, this.FDindex);
-        this.$store.commit("formDesign/updateGrid", {
-          key: this.FDkey,
-          value: common.deepClone(formList)
-        });
-      } else {
-        this.$emit("syncList", formList);
-        this.$store.dispatch("formDesign/setFormList", formList);
-      }
+      this.$emit("syncList", formList, this.FDindex);
+
+      this.$store.commit("formDesign/updateGrid", {
+        key: this.FDkey,
+        value: common.deepClone(grid)
+      });
 
       if (newIndex != 0) {
         this.$store.commit(
