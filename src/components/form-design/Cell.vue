@@ -88,7 +88,7 @@
           :disabled="data.options.disabled"
         ></el-date-picker>
       </el-form-item>
-      <FDGridPanel v-else :propData="data" :formAttr="formAttr" :FDkey="data.key"/>
+      <FDGridPanel v-else :propData="data" :formAttr="formAttr" :FDkey="data.key" @syncList="syncList"/>
     </div>
     <i
       class="action-copy"
@@ -213,6 +213,9 @@ export default {
         "formDesign/updateActiveForm",
         common.deepClone(this.data)
       );
+    },
+    syncList(value) {
+       this.$emit("syncList", value);
     }
   }
 };

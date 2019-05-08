@@ -1,16 +1,23 @@
 <template>
-  <draggable class="dragArea" tag="ul" :list="tasks" :group="{ name: 'form-design' }" @change="log">
-    <el-row>
-      <el-col :span="col.span" v-for="(col, i) in data.cols" :key="i" class="col">
-        aaa
-      </el-col>
-    </el-row>
-  </draggable>
+  <el-form label-position="top" label-width="80px">
+    <el-form-item label="列配置项（每行占比总和最多为24）">
+      <div v-for="(item, i) in data.cols" :key="i">
+        <el-input-number v-model="item.span" :min="1" :max="24" label="列占比" size="small"></el-input-number>
+        <i class="el-icon-circle-close" style="color: red;" @click="subOption(i)"></i>
+      </div>
+
+      <div style="width: 100%;">
+        <i class="el-icon-circle-plus" style="color: #17B3A3;" title="增加选项" @click="addOption"></i>
+      </div>
+    </el-form-item>
+
+    <!-- <el-form-item label="数据绑定key">
+      <el-input v-model="data.width" size="small" :disabled="true"></el-input>
+    </el-form-item> -->
+  </el-form>
 </template>
 
 <script>
-import Cell from '@/components/form-design/Cell.vue';
-import draggable from "vuedraggable";
 import common from '@/utils/common';
 import bus from '@/utils/bus';
 
@@ -25,12 +32,12 @@ export default {
           icon: '/src/assets/img/form-design/grid.png',
           cols: [{
             span: 12,
-            list: []
+            list: [
+            ]
           }, {
             span: 12,
             list: []
           }],
-          key: common.getGuid()
         }
       }
     }
@@ -43,18 +50,27 @@ export default {
         icon: '/src/assets/img/form-design/grid.png',
         cols: [{
           span: 12,
-          list: []
+          list: [
+          ]
         }, {
           span: 12,
           list: []
         }],
         key: common.getGuid()
       }
-    }
+    };
   },
   methods: {
-  },
-  mounted() {
+    addOption() {
+      this.data.cols.push({
+        span: 12,
+        list: [
+        ]
+      });
+    },
+    subOption(index) {
+      this.data.cols.splice(index, 1);
+    }
   },
   watch: {
     data: {
@@ -67,10 +83,12 @@ export default {
             activeIndex = i;
           }
         }
-        newFormList[activeIndex] = value;
-        bus.$emit('formDesign.syncList', common.deepClone(newFormList));
-        this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList));
-        this.$store.commit('formDesign/updateActiveKey', value.key);
+        if (!common.isEmpty(activeIndex)) {
+          newFormList[activeIndex] = value;
+          this.$store.commit("formDesign/updateActiveKey", value.key);
+          this.$store.dispatch("formDesign/setFormList", common.deepClone(newFormList));
+          bus.$emit("formDesign.syncList", common.deepClone(newFormList));
+        }
       },
       deep: true
     },
@@ -82,13 +100,8 @@ export default {
       // immediate: true
     }
   }
-}
+};
 </script>
 
-<style scoped>
-.col {
-  min-height: 100px;
-  outline: 1px dashed;
-  margin: 10px;
-}
+<style>
 </style>

@@ -3,12 +3,12 @@
     <el-form
       ref="form"
       :label-position="formAttr.align"
-      :label-width="formAttr.labelWidth | labelWidth"
+      :label-width="formAttr.labelWidth"
       :size="formAttr.size"
       :class="{'dragArea-empty':$store.state.formDesign.formList.length > 0}"
-      :rules="$store.getters.getFormRules"
+      :rules="$store.state.formDesign.rules"
     >
-      <draggable class="dragArea" @change="log" :list="list" :group="{ name: 'form-design'}">
+      <draggable class="dragArea dragArea-empty" @change="log" :list="list" :group="{ name: 'form-design'}">
         <Cell
           :data="item"
           v-for="(item, i) in $store.state.formDesign.formList"
@@ -19,13 +19,13 @@
       </draggable>
     </el-form>
     <!-- 表单为空的时候默认是一个空容器 -->
-    <draggable
+    <!-- <draggable
       class="dragArea-empty"
       @change="log"
       :list="list"
       :group="{ name: 'form-design', pull: 'move' }"
       v-if="$store.state.formDesign.formList.length == 0"
-    ></draggable>
+    ></draggable> -->
   </div>
 </template>
 
@@ -125,8 +125,26 @@ export default {
   watch: {
     list: {
       handler: function (value) {
-        console.log("watch list", value);
-        this.$store.dispatch('formDesign/setFormList', common.deepClone(value));
+        // console.log("watch list", value);
+        // let newData = common.deepClone(value);
+        // let haveEmptyKey = false;
+
+        // for (let i = 0; i < newData.length; i++) {
+        //   const element = newData[i];
+        //   if (common.isEmpty(element.key)) {
+        //     element.key = common.getGuid();
+        //     this.$store.commit("formDesign/updateActiveKey", element.key);
+        //     haveEmptyKey = true;
+        //   }
+        // }
+
+        // if (haveEmptyKey) {
+        //   this.list = newData;
+
+        //   this.$store.dispatch('formDesign/setFormList', common.deepClone(newData));
+        // }
+
+
       },
       deep: true
     }

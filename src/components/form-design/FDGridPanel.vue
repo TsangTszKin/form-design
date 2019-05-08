@@ -136,7 +136,7 @@ export default {
       // }
     },
     syncList(value, index) {
-      this.data.cols[index].list = common.deepClone(value);
+      // this.data.cols[index].list = common.deepClone(value);
       let formList = common.deepClone(this.$store.state.formDesign.formList);
       for (let i = 0; i < this.$store.state.formDesign.formList.length; i++) {
         const element = this.$store.state.formDesign.formList[i];
@@ -144,8 +144,8 @@ export default {
           formList[i] = this.data;
         }
       }
-      bus.$emit("formDesign.syncList", common.deepClone(formList));
       console.log("formList", formList);
+      this.$emit("syncList", formList);
     },
     activeCell() {
       this.$store.commit("formDesign/updateActiveKey", this.FDkey);

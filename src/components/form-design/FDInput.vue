@@ -140,25 +140,38 @@ export default {
   watch: {
     data: {
       handler: function (value, oldValue) {
+        console.log("FDinput watch")
         let newFormList = common.deepClone(
           this.$store.state.formDesign.formList
         );
         let activeIndex;
         for (let i = 0; i < newFormList.length; i++) {
           const element = newFormList[i];
-          if (element.key === this.$store.state.formDesign.activeKey) {
-            activeIndex = i;
+          if (element.type !== 'grid') {
+            if (element.key === this.$store.state.formDesign.activeKey) {
+              activeIndex = i;
+            }
+          } else {
+            for (let j = 0; j < element.cols.length; j++) {
+              const element2 = element.cols[j];
+              for (let k = 0; k < element2.list.length; k++) {
+                const element3 = element2.list[k];
+                if (element3.key === this.$store.state.formDesign.activeKey) {
+                  activeIndex = i;
+                }
+              }
+            }
           }
-        }
-        newFormList[activeIndex] = value;
 
-        this.$store.commit("formDesign/updateActiveKey", value.key);
-        // console.log("newFormList", newFormList)
-        bus.$emit("formDesign.syncList", common.deepClone(newFormList));
-        this.$store.dispatch(
-          "formDesign/setFormList",
-          common.deepClone(newFormList)
-        );
+        }
+
+        if (!common.isEmpty(activeIndex)) {
+          newFormList[activeIndex] = value;
+          this.$store.commit("formDesign/updateActiveKey", value.key);
+          this.$store.dispatch("formDesign/setFormList", common.deepClone(newFormList));
+          bus.$emit("formDesign.syncList", common.deepClone(newFormList));
+        }
+
       },
       deep: true
     },

@@ -61,6 +61,7 @@ export default {
           title: '单行文本',
           type: 'input',
           icon: '/src/assets/img/form-design/input.png',
+          value: '',
           options: {
             width: "100%",
             defaultValue: "",
@@ -95,6 +96,7 @@ export default {
           title: '多行文本',
           type: 'textarea',
           icon: '/src/assets/img/form-design/textarea.png',
+          value: '',
           options: {
             width: "100%",
             defaultValue: "",
@@ -109,6 +111,7 @@ export default {
           title: '计数器',
           type: 'number',
           icon: '/src/assets/img/form-design/number.png',
+          value: '',
           options: {
             width: "120px",
             min: 0,
@@ -122,6 +125,7 @@ export default {
           title: '单选框组',
           type: 'radio',
           icon: '/src/assets/img/form-design/radio.png',
+          value: '',
           options: {
             width: "100%",
             required: false,
@@ -143,6 +147,7 @@ export default {
           title: '多选框组',
           type: 'checkbox',
           icon: '/src/assets/img/form-design/checkbox.png',
+          value: '',
           options: {
             width: "100%",
             required: false,
@@ -164,6 +169,7 @@ export default {
           title: '时间选择器',
           type: 'datetime',
           icon: '/src/assets/img/form-design/datetime.png',
+          value: '',
           options: {
             width: "100%",
             type: ['ymd', 'yyyy-MM-dd'],
@@ -178,6 +184,7 @@ export default {
           title: '下拉选择框',
           type: 'select',
           icon: '/src/assets/img/form-design/select.png',
+          value: '',
           options: {
             width: "100%",
             defaultValue: "",
@@ -202,6 +209,7 @@ export default {
           title: '开关',
           type: 'switch',
           icon: '/src/assets/img/form-design/switch.png',
+          value: false,
           options: {
             defaultValue: false,
             required: false,
@@ -228,20 +236,6 @@ export default {
           cols: [{
             span: 12,
             list: [
-              // {
-              //   title: '多行文本',
-              //   type: 'textarea',
-              //   icon: '/src/assets/img/form-design/textarea.png',
-              //   options: {
-              //     width: "100%",
-              //     defaultValue: "",
-              //     required: false,
-              //     disabled: false,
-              //     placeholder: "",
-              //     regEx: '',
-              //   },
-              //   key: ''
-              // },
             ]
           }, {
             span: 12,

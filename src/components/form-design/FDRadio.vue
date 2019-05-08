@@ -114,10 +114,12 @@ export default {
             activeIndex = i;
           }
         }
-        newFormList[activeIndex] = value;
-        bus.$emit('formDesign.syncList', common.deepClone(newFormList));
-        this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList));
-        this.$store.commit('formDesign/updateActiveKey', value.key);
+        if (!common.isEmpty(activeIndex)) {
+          newFormList[activeIndex] = value;
+          this.$store.commit("formDesign/updateActiveKey", value.key);
+          this.$store.dispatch("formDesign/setFormList", common.deepClone(newFormList));
+          bus.$emit("formDesign.syncList", common.deepClone(newFormList));
+        }
       },
       deep: true
     },

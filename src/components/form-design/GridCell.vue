@@ -88,7 +88,7 @@
         ></el-date-picker>
       </el-form-item>
     </div>
-    <i
+    <!-- <i
       class="action-copy"
       title="复制"
       v-show="data.key === $store.state.formDesign.activeKey && data.type != 'grid'"
@@ -99,7 +99,7 @@
       title="删除"
       v-show="data.key === $store.state.formDesign.activeKey"
       @click="deleteForm"
-    ></i>
+    ></i> -->
   </div>
 </template>
 
@@ -215,6 +215,7 @@ export default {
       console.log("formList", formList);
       console.log("grid", grid);
       console.log("formListAll", formListAll);
+      console.log("this.FDindex", this.FDindex);
 
       this.$emit("syncList", formList, this.FDindex);
 

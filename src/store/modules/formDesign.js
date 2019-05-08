@@ -8,7 +8,8 @@ export default {
     formList: [],
     activeForm: null,
     rules: {},
-    grid: {}
+    grid: {},
+    // ruleForm: {}
   },
   mutations: {
     updateShowType(state, value) {
@@ -19,6 +20,19 @@ export default {
     },
     updateFormList(state, value) {
       state.formList = value;
+      value.forEach(element => {
+        if (element.type !== 'grid') {
+          state.rules[element.key] = [{ required: element.options.required, message: '必填项不能为空', trigger: 'blur' }]
+        } else {
+          element.cols.forEach(element2 => {
+            element2.list.forEach(element3 => {
+              state.rules[element3.key] = [{ required: element3.options.required, message: '必填项不能为空', trigger: 'blur' }]
+            });
+          });
+        }
+        // state.ruleForm[element.key] = element.value
+      });
+      console.log("state.rules", state.rules);
     },
     updateActiveForm(state, value) {
       state.activeForm = value;
@@ -71,7 +85,7 @@ export default {
       state.formList.forEach(element => {
         rules[element.key] = [{ required: element.options.required, message: '必填项不能为空', trigger: 'blur' }]
       });
-      // console.log("rules", rules)
+      console.log("rules", rules)
       return rules
     },
   }
