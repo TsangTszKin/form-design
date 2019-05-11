@@ -160,19 +160,40 @@ export default {
   watch: {
     data: {
       handler: function (value, oldValue) {
-        let newFormList = common.deepClone(this.$store.state.formDesign.formList);
+        let newFormList = common.deepClone(
+          this.$store.state.formDesign.formList
+        );
         let activeIndex;
-        for (let i = 0; i < newFormList.length; i++) {
+        for (let i = 0; i < this.$store.state.formDesign.formList.length; i++) {
           const element = newFormList[i];
-          if (element.key === this.$store.state.formDesign.activeKey) {
-            activeIndex = i;
+          if (element.type !== 'grid') {
+            if (element.key === this.$store.state.formDesign.activeKey) {
+              activeIndex = i;
+
+              newFormList[i] = value;
+              this.$store.commit("formDesign/updateActiveKey", element.key);
+              this.$store.dispatch("formDesign/setFormList", common.deepClone(newFormList));
+              bus.$emit("formDesign.syncList", common.deepClone(newFormList));
+              break;
+            }
+          } else {
+            for (let j = 0; j < element.cols.length; j++) {
+              const element2 = element.cols[j];
+              for (let k = 0; k < element2.list.length; k++) {
+                const element3 = element2.list[k];
+                if (element3.key === this.$store.state.formDesign.activeKey) {
+                  activeIndex = i;
+
+                  newFormList[i].cols[j].list[k] = value;
+                  this.$store.commit("formDesign/updateActiveKey", element3.key);
+                  this.$store.dispatch("formDesign/setFormList", common.deepClone(newFormList));
+                  bus.$emit("formDesign.syncList", common.deepClone(newFormList));
+                  break;
+                }
+              }
+            }
           }
-        }
-        if (!common.isEmpty(activeIndex)) {
-          newFormList[activeIndex] = value;
-          this.$store.commit("formDesign/updateActiveKey", value.key);
-          this.$store.dispatch("formDesign/setFormList", common.deepClone(newFormList));
-          bus.$emit("formDesign.syncList", common.deepClone(newFormList));
+
         }
       },
       deep: true

@@ -181,7 +181,7 @@
             ></el-date-picker>
           </el-form-item>
           <el-row v-if="item.type === 'grid'">
-            <el-col :span="col.span" v-for="(col, j) in item.cols" :key="j" class="col">
+            <el-col :span="col.span" v-for="(col, j) in item.cols" :key="j" class="col" style="padding: 5px;">
               <template v-for="(item2, j) in col.list" >
                 <el-form-item :label="item2.title" :prop="item2.key">
                   <el-input

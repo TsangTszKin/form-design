@@ -88,7 +88,7 @@
         ></el-date-picker>
       </el-form-item>
     </div>
-    <!-- <i
+    <i
       class="action-copy"
       title="复制"
       v-show="data.key === $store.state.formDesign.activeKey && data.type != 'grid'"
@@ -99,7 +99,7 @@
       title="删除"
       v-show="data.key === $store.state.formDesign.activeKey"
       @click="deleteForm"
-    ></i> -->
+    ></i>
   </div>
 </template>
 
@@ -111,7 +111,7 @@ export default {
   props: {
     formAttr: {
       type: Object,
-      default: function() {
+      default: function () {
         return {
           align: "top",
           size: "medium",
@@ -121,7 +121,7 @@ export default {
     },
     data: {
       type: Object,
-      default: function() {
+      default: function () {
         return {
           type: "",
           name: "",
@@ -153,7 +153,6 @@ export default {
       let formList;
       let grid;
       let formListAll = common.deepClone(this.$store.state.formDesign.formList);
-
       formList = common.deepClone(this.$store.state.formDesign.grid[this.FDkey])
         .cols[this.FDindex].list;
       grid = common.deepClone(this.$store.state.formDesign.grid[this.FDkey]);
@@ -179,7 +178,6 @@ export default {
         key: this.FDkey,
         value: common.deepClone(grid)
       });
-      // formListAll[this.FDindex] = common.deepClone(grid);
       for (let i = 0; i < this.$store.state.formDesign.formList.length; i++) {
         const element = this.$store.state.formDesign.formList[i];
         if (element.key === this.FDkey) {
@@ -190,9 +188,6 @@ export default {
         "formDesign/setFormList",
         common.deepClone(formListAll)
       );
-      console.log("formList2", formList);
-      console.log("grid", grid);
-      console.log("formListAll", formListAll);
       this.$emit("syncList", formList, this.FDindex);
     },
     deleteForm() {
@@ -217,7 +212,20 @@ export default {
       console.log("formListAll", formListAll);
       console.log("this.FDindex", this.FDindex);
 
-      this.$emit("syncList", formList, this.FDindex);
+
+      for (let i = 0; i < this.$store.state.formDesign.formList.length; i++) {
+        const element = this.$store.state.formDesign.formList[i];
+        if (element.key == this.FDkey) {
+          formListAll[i] = grid;
+        }
+      }
+
+      this.$store.dispatch(
+        "formDesign/setFormList",
+        common.deepClone(formListAll)
+      );
+
+      // this.$emit("syncList", formList, this.FDindex);
 
       this.$store.commit("formDesign/updateGrid", {
         key: this.FDkey,
