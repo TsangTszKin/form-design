@@ -8,7 +8,12 @@
       :class="{'dragArea-empty':$store.state.formDesign.formList.length > 0}"
       :rules="$store.state.formDesign.rules"
     >
-      <draggable class="dragArea dragArea-empty" @change="log" :list="list" :group="{ name: 'form-design'}">
+      <draggable
+        class="dragArea dragArea-empty"
+        @change="log"
+        :list="list"
+        :group="{ name: 'form-design'}"
+      >
         <Cell
           :data="item"
           v-for="(item, i) in $store.state.formDesign.formList"
@@ -25,7 +30,7 @@
       :list="list"
       :group="{ name: 'form-design', pull: 'move' }"
       v-if="$store.state.formDesign.formList.length == 0"
-    ></draggable> -->
+    ></draggable>-->
   </div>
 </template>
 
@@ -120,6 +125,7 @@ export default {
     },
     syncList(value) {
       this.list = common.deepClone(value);
+      bus.$emit('formMenu.init');
     }
   },
   watch: {
