@@ -8,3 +8,7 @@
 - (账号密码：admin/admin)
 
 ![效果图](demo-screenshot/03.png)
+
+<video id="video" controls="" preload="none" poster="demo-screenshot/03.png">
+<source id="mp4" src="demo-screenshot/20190511_204448.mp4" type="video/mp4">
+</video>
