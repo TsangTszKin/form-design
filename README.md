@@ -1,5 +1,5 @@
 ## form-design
-- form-design本人基于基于vue、element-ui，vuedraggable构建开发，实现用拖拉拽和自主配置来实现动态表单设计功能功能，提供一套更优的前端解决方案
+- form-design本人基于vue、element-ui，vuedraggable构建开发，实现用拖拉拽和自主配置来实现动态表单设计功能功能，提供一套更优的前端解决方案
 - 支持拖拉拽控件，支持二次拖来拽
 - 支持自定义配置和栅格布局
 - 支持表单验证和表单预览
@@ -7,4 +7,4 @@
 
 - (账号密码：admin/admin)
 
-![demo-screenshot_02](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/03.png)
+![效果图](demo-screenshot/03.png)
