@@ -2,7 +2,7 @@
   <div class="cell" :class="{'cell-active': data.key === $store.state.formDesign.activeKey}">
     <div @click="activeCell">
       <el-form-item
-        v-if="data.type"
+        v-if="data.type !== 'title'"
         :label="data.title+`${data.options.required?'（必填）':''}`"
         :prop="data.key"
       >
@@ -87,6 +87,11 @@
           :disabled="data.options.disabled"
         ></el-date-picker>
       </el-form-item>
+      <p
+        v-if="data.type === 'title'"
+        :style="{'text-align': data.options.align, 'font-size': data.options.fontSize}"
+        @click="activeCell"
+      >{{data.value}}</p>
     </div>
     <i
       class="action-copy"

@@ -2,7 +2,7 @@
   <div class="cell" :class="{'cell-active': data.key === $store.state.formDesign.activeKey}">
     <div>
       <el-form-item
-        v-if="data.type !== 'grid'"
+        v-if="data.type !== 'grid' && data.type !== 'title'"
         :label="data.title+`${data.options.required?'（必填）':''}`"
         :prop="data.key"
         @click.native="activeCell"
@@ -80,15 +80,19 @@
           :readonly="true"
           :disabled="data.options.disabled"
         ></el-switch>
-        <el-date-picker
-          type="datetime"
-          v-if="data.type === 'datetime'"
-          :placeholder="data.options.placeholder"
-          :style="{width: data.options.width}"
-          :disabled="data.options.disabled"
-        ></el-date-picker>
       </el-form-item>
-      <FDGridPanel v-else :propData="data" :formAttr="formAttr" :FDkey="data.key" @syncList="syncList"/>
+      <p
+        v-if="data.type === 'title'"
+        :style="{'text-align': data.options.align, 'font-size': data.options.fontSize}"
+        @click="activeCell"
+      >{{data.value}}</p>
+      <FDGridPanel
+        v-if="data.type === 'grid'"
+        :propData="data"
+        :formAttr="formAttr"
+        :FDkey="data.key"
+        @syncList="syncList"
+      />
     </div>
     <i
       class="action-copy"
@@ -215,7 +219,7 @@ export default {
       );
     },
     syncList(value) {
-       this.$emit("syncList", value);
+      this.$emit("syncList", value);
     }
   }
 };

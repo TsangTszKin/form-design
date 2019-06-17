@@ -61,6 +61,10 @@
               v-show="$store.state.formDesign.showType === 'img'"
               :propData="$store.state.formDesign.activeForm"
             />
+            <FDTitle
+              v-show="$store.state.formDesign.showType === 'title'"
+              :propData="$store.state.formDesign.activeForm"
+            />
             <FDGrid
               v-show="$store.state.formDesign.showType === 'grid'"
               :propData="$store.state.formDesign.activeForm"
@@ -99,8 +103,12 @@
         :size="formAttr.size"
         :rules="$store.state.formDesign.rules"
       >
-        <template v-for="(item, i) in this.$store.state.formDesign.formList" >
-          <el-form-item :label="item.title" :prop="item.key" v-if="item.type !== 'grid'">
+        <template v-for="(item, i) in this.$store.state.formDesign.formList">
+          <el-form-item
+            :label="item.title"
+            :prop="item.key"
+            v-if="item.type !== 'grid' && item.type !== 'title'"
+          >
             <el-input
               v-if="item.type === 'input'"
               :placeholder="item.options.placeholder"
@@ -180,10 +188,20 @@
               :disabled="item.options.disabled"
             ></el-date-picker>
           </el-form-item>
+          <p
+            v-if="item.type === 'title'"
+            :style="{'text-align': item.options.align, 'font-size': item.options.fontSize, 'margin-bottom': '5px'}"
+          >{{item.value}}</p>
           <el-row v-if="item.type === 'grid'">
-            <el-col :span="col.span" v-for="(col, j) in item.cols" :key="j" class="col" style="padding: 5px;">
-              <template v-for="(item2, j) in col.list" >
-                <el-form-item :label="item2.title" :prop="item2.key">
+            <el-col
+              :span="col.span"
+              v-for="(col, j) in item.cols"
+              :key="j"
+              class="col"
+              style="padding: 5px;"
+            >
+              <template v-for="(item2, j) in col.list">
+                <el-form-item :label="item2.title" :prop="item2.key" v-if="item2.type !== 'title'">
                   <el-input
                     v-if="item2.type === 'input'"
                     :placeholder="item2.options.placeholder"
@@ -263,6 +281,10 @@
                     :disabled="item2.options.disabled"
                   ></el-date-picker>
                 </el-form-item>
+                <p
+                  v-if="item2.type === 'title'"
+                  :style="{'text-align': item2.options.align, 'font-size': item2.options.fontSize, 'margin-bottom': '5px'}"
+                >{{item2.value}}</p>
               </template>
             </el-col>
           </el-row>
@@ -281,6 +303,7 @@
 
 <script>
 import FDInput from '@/components/form-design/FDInput';
+import FDTitle from '@/components/form-design/FDTitle';
 import FDTextArea from '@/components/form-design/FDTextArea';
 import FDNumber from '@/components/form-design/FDNumber';
 import FDRadio from '@/components/form-design/FDRadio';
@@ -310,7 +333,8 @@ export default {
     Test,
     FDMenu,
     nestedExample,
-    FDGrid
+    FDGrid,
+    FDTitle
   },
   data() {
     return {

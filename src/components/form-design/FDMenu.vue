@@ -42,6 +42,20 @@
         </div>
       </draggable>
     </el-collapse-item>
+    <el-collapse-item title="其它字段" name="3">
+      <draggable
+        :list="elseItem.child"
+        :group="{ name: 'form-design', pull: 'clone', put: false }"
+        @change="log"
+      >
+        <div class="cell" v-for="(item, i) in elseItem.child" :key="i">
+          <p class="left">
+            <img :src="item.icon">
+          </p>
+          <p class="right">{{item.title}}</p>
+        </div>
+      </draggable>
+    </el-collapse-item>
   </el-collapse>
 </template>
 
@@ -235,6 +249,21 @@ const layout = {
       span: 12,
       list: []
     }],
+    key: ''
+  }],
+  key: ''
+}
+const elseItem = {
+  title: '其它字段',
+  child: [{
+    title: '表单标题',
+    type: 'title',
+    icon: '/src/assets/img/form-design/title.png',
+    value: '标题',
+    options: {
+      align: "center",
+      fontSize: '18px'
+    },
     key: ''
   }],
   key: ''
@@ -434,10 +463,25 @@ export default {
           key: ''
         }],
         key: ''
-      }
+      },
+      elseItem: {
+        title: '其它字段',
+        child: [{
+          title: '表单标题',
+          type: 'title',
+          icon: '/src/assets/img/form-design/title.png',
+          value: '标题',
+          options: {
+            align: "center",
+            fontSize: '18px'
+          },
+          key: ''
+        }],
+        key: ''
+      },
     }
   },
-  mounted(){
+  mounted() {
     bus.$on('formMenu.init', () => {
       this.initMenu();
     })
@@ -452,6 +496,7 @@ export default {
       this.base = common.deepClone(base);
       this.senior = common.deepClone(senior);
       this.layout = common.deepClone(layout);
+      this.elseItem = common.deepClone(elseItem);
     }
   }
 }
