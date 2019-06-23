@@ -10,21 +10,31 @@
         :class="{'fd-main': $store.state.formDesign.formList.length == 0}"
       >
         <div style="padding: 10px;">
-          <a @click="dialogFormVisible = true">预览</a>
+          <a @click="showPreview">预览</a>
         </div>
-        <Panel :formAttr="formAttr"/>
+        <Panel :formAttr="formAttr" v-if="!formAttr.isTabs"/>
+        <el-tabs :type="formAttr.tabType" v-else v-model="tabIndex" @tab-click="tabHandleClick">
+          <el-tab-pane
+            :label="item.name"
+            :name="String(i)"
+            v-for="(item, i) in formAttr.tabs"
+            :key="i"
+          >
+            <Panel ref="Panel" :formAttr="formAttr" @callBack="formListCallBack"/>
+          </el-tab-pane>
+        </el-tabs>
 
         <!-- <nestedExample /> -->
       </el-col>
       <el-col :span="6">
         <el-tabs
-          v-show="$store.state.formDesign.showType"
+         
           class="form-design"
           v-model="activeName"
           @tab-click="handleClick"
           style="border-left: 1px solid #eee;padding: 0 10px;overflow: scroll;height: 100%;"
         >
-          <el-tab-pane label="字段属性" name="1">
+          <el-tab-pane v-if="$store.state.formDesign.showType" label="字段属性" name="1"  >
             <FDInput
               v-show="$store.state.formDesign.showType === 'input'"
               :propData="$store.state.formDesign.activeForm"
@@ -90,6 +100,40 @@
               <el-form-item label="表单字段宽度">
                 <el-input v-model="formAttr.labelWidth"></el-input>
               </el-form-item>
+
+              <el-form-item label="启用tab表单">
+                <el-switch v-model="formAttr.isTabs"></el-switch>
+              </el-form-item>
+              <el-form-item label="tab模式" v-show="formAttr.isTabs">
+                <el-radio-group v-model="formAttr.tabType">
+                  <el-radio-button label>简洁</el-radio-button>
+                  <el-radio-button label="card">选项卡</el-radio-button>
+                  <el-radio-button label="border-card ">卡片化</el-radio-button>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item label="tab选项配置" v-show="formAttr.isTabs">
+                <div >
+                  <ul>
+                    <li v-for="(item, i) in formAttr.tabs" :key="i">
+                      <el-input
+                        size="small"
+                        style="width:200px;"
+                        :title="item.name"
+                        v-model="item.name"
+                      ></el-input>
+                      <i class="el-icon-circle-close" style="color: red;" @click="subOption(i)"></i>
+                    </li>
+                    <li style="margin: 10px;">
+                      <i
+                        class="el-icon-circle-plus"
+                        style="color: #17B3A3;"
+                        title="增加选项"
+                        @click="addOption"
+                      ></i>
+                    </li>
+                  </ul>
+                </div>
+              </el-form-item>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -102,8 +146,9 @@
         :label-width="formAttr.labelWidth"
         :size="formAttr.size"
         :rules="$store.state.formDesign.rules"
+        v-if="!formAttr.isTabs"
       >
-        <template v-for="(item, i) in this.$store.state.formDesign.formList">
+        <template v-for="(item, i) in $store.state.formDesign.formList">
           <el-form-item
             :label="item.title"
             :prop="item.key"
@@ -293,6 +338,216 @@
           <el-button type="primary" @click="submitForm('rules')">模拟提交表单</el-button>
         </el-form-item>
       </el-form>
+      <el-tabs :type="formAttr.tabType" v-else @tab-click="tabHandleClick_preview"  v-model="tabIndex">
+        <el-tab-pane
+          :label="item.name"
+          :name="String(i)"
+          v-for="(item, i) in formAttr.tabs"
+          :key="i"
+        >
+          <el-form
+            :label-position="formAttr.align"
+            :label-width="formAttr.labelWidth"
+            :size="formAttr.size"
+            :rules="$store.state.formDesign.rules"
+          >
+            <template v-for="(item, i) in $store.state.formDesign.formList">
+              <el-form-item
+                :label="item.title"
+                :prop="item.key"
+                v-if="item.type !== 'grid' && item.type !== 'title'"
+              >
+                <el-input
+                  v-if="item.type === 'input'"
+                  :placeholder="item.options.placeholder"
+                  :disabled="item.options.disabled"
+                  :readonly="item.options.readonly"
+                  :style="{width: item.options.width}"
+                ></el-input>
+                <el-input
+                  v-if="item.type === 'textarea'"
+                  :placeholder="item.options.placeholder"
+                  :disabled="item.options.disabled"
+                  :readonly="item.options.readonly"
+                  type="textarea"
+                  :rows="5"
+                  :style="{width: item.options.width}"
+                ></el-input>
+                <el-input-number
+                  v-if="item.type === 'number'"
+                  :disabled="item.options.disabled"
+                  :readonly="item.options.readonly"
+                  :style="{width: item.options.width}"
+                ></el-input-number>
+                <el-radio-group
+                  v-if="item.type === 'radio'"
+                  v-model="item.options.defaultValue"
+                  :disabled="item.options.disabled"
+                  :readonly="item.options.readonly"
+                  :style="{width: item.options.width}"
+                >
+                  <el-radio
+                    v-for="(item, i) in item.options.option"
+                    :label="item.value"
+                    :key="i"
+                  >{{item.label}}</el-radio>
+                </el-radio-group>
+                <el-checkbox-group
+                  v-if="item.type === 'checkbox'"
+                  v-model="item.options.defaultValue"
+                  :disabled="item.options.disabled"
+                  :readonly="item.options.readonly"
+                  :style="{width: item.options.width}"
+                >
+                  <el-checkbox
+                    v-for="(item, i) in item.options.option"
+                    :label="item.value"
+                    :key="i"
+                  >{{item.label}}</el-checkbox>
+                </el-checkbox-group>
+                <el-select
+                  v-if="item.type === 'select'"
+                  :placeholder="item.options.placeholder"
+                  :style="{width: item.options.width}"
+                  :readonly="item.options.readonly"
+                  :disabled="item.options.disabled"
+                >
+                  <el-option
+                    v-for="(item, i) in item.options.option"
+                    :key="i"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </el-select>
+                <el-switch
+                  v-if="item.type === 'switch'"
+                  v-model="item.options.defaultValue"
+                  active-color="#13ce66"
+                  inactive-color="#EEEEEE"
+                  :style="{width: item.options.width}"
+                  :readonly="item.options.readonly"
+                  :disabled="item.options.disabled"
+                ></el-switch>
+                <el-date-picker
+                  type="datetime"
+                  v-if="item.type === 'datetime'"
+                  :placeholder="item.options.placeholder"
+                  :style="{width: item.options.width}"
+                  :disabled="item.options.disabled"
+                ></el-date-picker>
+              </el-form-item>
+              <p
+                v-if="item.type === 'title'"
+                :style="{'text-align': item.options.align, 'font-size': item.options.fontSize, 'margin-bottom': '5px'}"
+              >{{item.value}}</p>
+              <el-row v-if="item.type === 'grid'">
+                <el-col
+                  :span="col.span"
+                  v-for="(col, j) in item.cols"
+                  :key="j"
+                  class="col"
+                  style="padding: 5px;"
+                >
+                  <template v-for="(item2, j) in col.list">
+                    <el-form-item
+                      :label="item2.title"
+                      :prop="item2.key"
+                      v-if="item2.type !== 'title'"
+                    >
+                      <el-input
+                        v-if="item2.type === 'input'"
+                        :placeholder="item2.options.placeholder"
+                        :disabled="item2.options.disabled"
+                        :readonly="item2.options.readonly"
+                        :style="{width: item2.options.width}"
+                      ></el-input>
+                      <el-input
+                        v-if="item2.type === 'textarea'"
+                        :placeholder="item2.options.placeholder"
+                        :disabled="item2.options.disabled"
+                        :readonly="item2.options.readonly"
+                        type="textarea"
+                        :rows="5"
+                        :style="{width: item2.options.width}"
+                      ></el-input>
+                      <el-input-number
+                        v-if="item2.type === 'number'"
+                        :disabled="item2.options.disabled"
+                        :readonly="item2.options.readonly"
+                        :style="{width: item2.options.width}"
+                      ></el-input-number>
+                      <el-radio-group
+                        v-if="item2.type === 'radio'"
+                        v-model="item2.options.defaultValue"
+                        :disabled="item2.options.disabled"
+                        :readonly="item2.options.readonly"
+                        :style="{width: item2.options.width}"
+                      >
+                        <el-radio
+                          v-for="(item2, i) in item2.options.option"
+                          :label="item2.value"
+                          :key="i"
+                        >{{item.label}}</el-radio>
+                      </el-radio-group>
+                      <el-checkbox-group
+                        v-if="item2.type === 'checkbox'"
+                        v-model="item2.options.defaultValue"
+                        :disabled="item2.options.disabled"
+                        :readonly="item2.options.readonly"
+                        :style="{width: item2.options.width}"
+                      >
+                        <el-checkbox
+                          v-for="(item2, i) in item2.options.option"
+                          :label="item2.value"
+                          :key="i"
+                        >{{item2.label}}</el-checkbox>
+                      </el-checkbox-group>
+                      <el-select
+                        v-if="item2.type === 'select'"
+                        :placeholder="item2.options.placeholder"
+                        :style="{width: item2.options.width}"
+                        :readonly="item2.options.readonly"
+                        :disabled="item2.options.disabled"
+                      >
+                        <el-option
+                          v-for="(item2, i) in item2.options.option"
+                          :key="i"
+                          :label="item2.label"
+                          :value="item2.value"
+                        ></el-option>
+                      </el-select>
+                      <el-switch
+                        v-if="item2.type === 'switch'"
+                        v-model="item2.options.defaultValue"
+                        active-color="#13ce66"
+                        inactive-color="#EEEEEE"
+                        :style="{width: item2.options.width}"
+                        :readonly="iitem2tem.options.readonly"
+                        :disabled="item2.options.disabled"
+                      ></el-switch>
+                      <el-date-picker
+                        type="datetime"
+                        v-if="item2.type === 'datetime'"
+                        :placeholder="item2.options.placeholder"
+                        :style="{width: item2.options.width}"
+                        :disabled="item2.options.disabled"
+                      ></el-date-picker>
+                    </el-form-item>
+                    <p
+                      v-if="item2.type === 'title'"
+                      :style="{'text-align': item2.options.align, 'font-size': item2.options.fontSize, 'margin-bottom': '5px'}"
+                    >{{item2.value}}</p>
+                  </template>
+                </el-col>
+              </el-row>
+            </template>
+            <el-form-item>
+              <el-button type="primary" @click="submitForm('rules')">模拟提交表单</el-button>
+            </el-form-item>
+          </el-form>
+        </el-tab-pane>
+      </el-tabs>
+
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
@@ -317,6 +572,7 @@ import Test from '@/components/form-design/Test';
 import FDMenu from '@/components/form-design/FDMenu';
 import FDGrid from '@/components/form-design/FDGrid';
 import nestedExample from '@/components/form-design/nestedExample';
+import common from '@/utils/common'
 
 export default {
   components: {
@@ -338,16 +594,44 @@ export default {
   },
   data() {
     return {
-      activeName: '1',
+      activeName: '2',
       formAttr: {
-        align: 'top',
+        align: 'left',
         size: 'medium',
-        labelWidth: '80px'
+        labelWidth: '80px',
+        isTabs: false,
+        tabType: 'card',
+        tabs: [
+          {
+            name: 'tab1',
+            formList: []
+          }
+        ]
       },
-      dialogFormVisible: false
+      dialogFormVisible: false,
+      tabIndex: '0'
     }
   },
   methods: {
+    showPreview() {
+      this.tabIndex = '0'
+      this.dialogFormVisible = true
+      this.$store.dispatch('formDesign/setFormList', this.formAttr.tabs[0].formList);
+    },
+    formListCallBack(formList) {
+      this.formAttr.tabs[Number(this.tabIndex)].formList = this.$store.state.formDesign.formList;
+      console.log("this.formAttr", this.formAttr)
+    },
+    tabHandleClick(tab, event) {
+      console.log("this.$store.state.formDesign.formList = ", this.$store.state.formDesign.formList);
+      console.log(tab, event);
+      this.$refs.Panel[Number(this.tabIndex)].init(common.deepClone(this.formAttr.tabs[Number(this.tabIndex)].formList));
+      // this.$refs.Panel[Number(this.tabIndex)].init(this.$store.state.formDesign.formList);
+    },
+    tabHandleClick_preview(tab, event) {
+      console.log('tab.index', tab.index);
+      this.$store.dispatch('formDesign/setFormList', common.deepClone(this.formAttr.tabs[Number(tab.index)].formList));
+    },
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -364,6 +648,15 @@ export default {
         }
       });
     },
+    addOption() {
+      this.formAttr.tabs.push({
+        name: `tab${this.formAttr.tabs.length + 1}`,
+        formList: []
+      });
+    },
+    subOption(index) {
+      this.formAttr.tabs.splice(index, 1);
+    }
   },
   mounted() {
 

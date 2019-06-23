@@ -126,6 +126,12 @@ export default {
     syncList(value) {
       this.list = common.deepClone(value);
       bus.$emit('formMenu.init');
+      this.$emit('callBack', value)
+    },
+    init(value){
+      this.list = value;
+      bus.$emit('formMenu.init');
+      this.$store.dispatch("formDesign/setFormList", common.deepClone(value));
     }
   },
   watch: {

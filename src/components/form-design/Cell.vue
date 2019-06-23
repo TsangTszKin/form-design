@@ -112,6 +112,7 @@
 <script>
 import common from "@/utils/common";
 import FDGridPanel from "@/components/form-design/FDGridPanel";
+import bus from '@/utils/bus';
 
 export default {
   components: {
@@ -220,6 +221,7 @@ export default {
     },
     syncList(value) {
       this.$emit("syncList", value);
+      // bus.$emit("formDesign.syncList", value);
     }
   }
 };

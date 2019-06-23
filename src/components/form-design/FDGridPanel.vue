@@ -208,6 +208,8 @@ export default {
           key: this.FDkey,
           value: common.deepClone(newData)
         });
+
+        this.$emit('syncList', this.$store.state.formDesign.formList)
       },
       deep: true
     },
