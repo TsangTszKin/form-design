@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import common from '@/utils/common';
-import bus from '@/utils/bus';
+import common from '@/utils/common'
+import bus from '@/utils/bus'
 
 export default {
   props: {
@@ -48,59 +48,59 @@ export default {
           type: 'radio',
           icon: '/src/assets/img/form-design/radio.png',
           options: {
-            width: "100%",
+            width: '100%',
             required: false,
             disabled: false,
             option: [{
-              value: "值1",
-              label: "选项1"
+              value: '值1',
+              label: '选项1'
             }, {
-              value: "值2",
-              label: "选项2"
+              value: '值2',
+              label: '选项2'
             }, {
-              value: "值3",
-              label: "选项3"
-            }],
+              value: '值3',
+              label: '选项3'
+            }]
           },
           key: common.getGuid()
         }
       }
     }
   },
-  data() {
+  data () {
     return {
       data: {
         title: '单选框组',
         type: 'radio',
         icon: '/src/assets/img/form-design/radio.png',
         options: {
-          width: "100%",
+          width: '100%',
           required: false,
           disabled: false,
           option: [{
-            value: "值1",
-            label: "选项1"
+            value: '值1',
+            label: '选项1'
           }, {
-            value: "值2",
-            label: "选项2"
+            value: '值2',
+            label: '选项2'
           }, {
-            value: "值3",
-            label: "选项3"
-          }],
+            value: '值3',
+            label: '选项3'
+          }]
         },
         key: common.getGuid()
       }
-    };
+    }
   },
   methods: {
-    addOption() {
+    addOption () {
       this.data.options.option.push({
         value: `值${this.data.options.option.length + 1}`,
         label: `选项${this.data.options.option.length + 1}`
-      });
+      })
     },
-    subOption(index) {
-      this.data.options.option.splice(index, 1);
+    subOption (index) {
+      this.data.options.option.splice(index, 1)
     }
   },
   watch: {
@@ -108,51 +108,51 @@ export default {
       handler: function (value, oldValue) {
         let newFormList = common.deepClone(
           this.$store.state.formDesign.formList
-        );
-        let activeIndex;
+        )
+        // eslint-disable-next-line no-unused-vars
+        let activeIndex
         for (let i = 0; i < this.$store.state.formDesign.formList.length; i++) {
-          const element = newFormList[i];
+          const element = newFormList[i]
           if (element.type !== 'grid') {
             if (element.key === this.$store.state.formDesign.activeKey) {
-              activeIndex = i;
+              activeIndex = i
 
-              newFormList[i] = value;
-              this.$store.commit("formDesign/updateActiveKey", element.key);
-              this.$store.dispatch("formDesign/setFormList", common.deepClone(newFormList));
-              bus.$emit("formDesign.syncList", common.deepClone(newFormList));
-              break;
+              newFormList[i] = value
+              this.$store.commit('formDesign/updateActiveKey', element.key)
+              this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList))
+              bus.$emit('formDesign.syncList', common.deepClone(newFormList))
+              break
             }
           } else {
             for (let j = 0; j < element.cols.length; j++) {
-              const element2 = element.cols[j];
+              const element2 = element.cols[j]
               for (let k = 0; k < element2.list.length; k++) {
-                const element3 = element2.list[k];
+                const element3 = element2.list[k]
                 if (element3.key === this.$store.state.formDesign.activeKey) {
-                  activeIndex = i;
+                  activeIndex = i
 
-                  newFormList[i].cols[j].list[k] = value;
-                  this.$store.commit("formDesign/updateActiveKey", element3.key);
-                  this.$store.dispatch("formDesign/setFormList", common.deepClone(newFormList));
-                  bus.$emit("formDesign.syncList", common.deepClone(newFormList));
-                  break;
+                  newFormList[i].cols[j].list[k] = value
+                  this.$store.commit('formDesign/updateActiveKey', element3.key)
+                  this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList))
+                  bus.$emit('formDesign.syncList', common.deepClone(newFormList))
+                  break
                 }
               }
             }
           }
-
         }
       },
       deep: true
     },
     propData: {
       handler: function (value) {
-        this.data = common.deepClone(value);
+        this.data = common.deepClone(value)
       },
-      deep: true,
+      deep: true
       // immediate: true
     }
   }
-};
+}
 </script>
 
 <style>

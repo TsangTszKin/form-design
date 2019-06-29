@@ -10,17 +10,17 @@
 </template>
 
 <script>
-import nestedDraggable from "./nested";
-import rawDisplayer from "./raw-displayer.vue";
+import nestedDraggable from './nested'
+import rawDisplayer from './raw-displayer.vue'
 export default {
-  name: "nested-example",
-  display: "Nested",
+  name: 'nested-example',
+  display: 'Nested',
   order: 15,
   components: {
     nestedDraggable,
     rawDisplayer
   },
-  data() {
+  data () {
     return {
       rows: [
         {
@@ -31,14 +31,14 @@ export default {
               cols: [{
                 name: '111',
                 span: 12,
-                rows: [],
+                rows: []
               }]
-            }],
+            }]
           }, {
             name: '12',
             span: 12,
-            rows: [],
-          }],
+            rows: []
+          }]
         },
         {
           cols: [{
@@ -46,12 +46,12 @@ export default {
             span: 12,
             rows: [{
               cols: []
-            }],
-          }],
-        },
+            }]
+          }]
+        }
       ]
-    };
+    }
   }
-};
+}
 </script>
 <style scoped></style>

@@ -9,7 +9,7 @@
   </draggable>
 </template>
 <script>
-import draggable from "vuedraggable";
+import draggable from 'vuedraggable'
 
 export default {
   props: {
@@ -21,13 +21,13 @@ export default {
   components: {
     draggable
   },
-  name: "nested-draggable",
+  name: 'nested-draggable',
   methods: {
-    log(e) {
-      console.log("nested change", e)
+    log (e) {
+      console.log('nested change', e)
     }
   }
-};
+}
 </script>
 <style scoped>
 .dragArea {

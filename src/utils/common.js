@@ -1,3 +1,5 @@
+ /* eslint-disable */
+// @ts-nocheck
 const STORAGE_USER_KEY = 'STORAGE_USER_KEY'
 // const STORAGE_CARTLIST_KEY = 'STORAGE_CARTLIST_KEY'
 // const STORAGE_QUERYMYLIST_KEY = 'STORAGE_QUERYMYLIST_KEY'
@@ -19,6 +21,9 @@ export default {
     return JSON.parse(window.localStorage.getItem(key))
   },
   // 设置用
+  /**
+   * @param {any} res
+   */
   setLocal(res, key = STORAGE_USER_KEY, isSaveOldData = false) {
     //第三个参数是true的话,会增加数据而不是重新设置,res必须是数组
     if (isSaveOldData) {
@@ -29,6 +34,9 @@ export default {
     }
     return window.localStorage.setItem(key, JSON.stringify(res))
   },
+  /**
+   * @param {any[]} obj
+   */
   deepClone(obj) {
     var o;
     if (typeof obj == "object") {
@@ -58,6 +66,9 @@ export default {
     }
     return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
   },
+  /**
+   * @param {string} value
+   */
   isEmpty(value) {
     let result = false;
     if (value == null || value == undefined) {
@@ -71,6 +82,9 @@ export default {
     }
     return result;
   },
+  /**
+   * @param {any} time
+   */
   formatTime(time) {
     //   格式：yyyy-MM-dd hh:mm:ss
     let date = new Date(Number(time));
@@ -82,6 +96,9 @@ export default {
     let s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
     return Y + M + D + h + m + s;
   },
+  /**
+   * @param {any} time
+   */
   formatDate(time) {
     //   格式：yyyy-MM-dd
     let date = new Date(Number(time));
@@ -125,8 +142,8 @@ export default {
   /**
    * 火星坐标系 (GCJ-02) 与百度坐标系 (BD-09) 的转换
    * 即谷歌、高德 转 百度
-   * @param lng
-   * @param lat
+   * @param {number} lng
+   * @param {number} lat
    * @returns {*[]}
    */
   gcj02tobd09(lng, lat) {
@@ -136,6 +153,9 @@ export default {
     var bd_lat = z * Math.sin(theta) + 0.006;
     return [bd_lng, bd_lat]
   },
+  /**
+   * @param {string} value
+   */
   isPhone(value) {
     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
     if (!myreg.test(value)) {
@@ -144,6 +164,9 @@ export default {
       return true;
     }
   },
+  /**
+   * @param {string} value
+   */
   isIDCardNo(value) {
     var myreg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
     if (!myreg.test(value)) {

@@ -1,12 +1,11 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="6">
+      <el-col style="width: 230px;position: fixed;top: 127px;">
         <FDMenu/>
       </el-col>
       <el-col
-        :span="12"
-        style="height:100%;"
+        style="height:100%; width: calc(100% - 480px); margin-left:230px;"
         :class="{'fd-main': $store.state.formDesign.formList.length == 0}"
       >
         <div style="padding: 10px;">
@@ -26,15 +25,14 @@
 
         <!-- <nestedExample /> -->
       </el-col>
-      <el-col :span="6">
+      <el-col style="width: 250px;position: fixed;top: 127px;right: 0;">
         <el-tabs
-         
           class="form-design"
           v-model="activeName"
           @tab-click="handleClick"
-          style="border-left: 1px solid #eee;padding: 0 10px;overflow: scroll;height: 100%;"
+          style="border-left: 1px solid #eee;padding: 0 10px;overflow-y: auto;height: 100%;"
         >
-          <el-tab-pane v-if="$store.state.formDesign.showType" label="字段属性" name="1"  >
+          <el-tab-pane v-if="$store.state.formDesign.showType" label="字段属性" name="1">
             <FDInput
               v-show="$store.state.formDesign.showType === 'input'"
               :propData="$store.state.formDesign.activeForm"
@@ -112,7 +110,7 @@
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="tab选项配置" v-show="formAttr.isTabs">
-                <div >
+                <div>
                   <ul>
                     <li v-for="(item, i) in formAttr.tabs" :key="i">
                       <el-input
@@ -338,7 +336,12 @@
           <el-button type="primary" @click="submitForm('rules')">模拟提交表单</el-button>
         </el-form-item>
       </el-form>
-      <el-tabs :type="formAttr.tabType" v-else @tab-click="tabHandleClick_preview"  v-model="tabIndex">
+      <el-tabs
+        :type="formAttr.tabType"
+        v-else
+        @tab-click="tabHandleClick_preview"
+        v-model="tabIndex"
+      >
         <el-tab-pane
           :label="item.name"
           :name="String(i)"
@@ -557,21 +560,21 @@
 </template>
 
 <script>
-import FDInput from '@/components/form-design/FDInput';
-import FDTitle from '@/components/form-design/FDTitle';
-import FDTextArea from '@/components/form-design/FDTextArea';
-import FDNumber from '@/components/form-design/FDNumber';
-import FDRadio from '@/components/form-design/FDRadio';
-import FDCheckbox from '@/components/form-design/FDCheckbox';
-import FDDateTime from '@/components/form-design/FDDateTime';
-import FDSelect from '@/components/form-design/FDSelect';
-import FDSwitch from '@/components/form-design/FDSwitch';
-import FDImg from '@/components/form-design/FDImg';
-import Panel from '@/components/form-design/Panel';
-import Test from '@/components/form-design/Test';
-import FDMenu from '@/components/form-design/FDMenu';
-import FDGrid from '@/components/form-design/FDGrid';
-import nestedExample from '@/components/form-design/nestedExample';
+import FDInput from '@/components/form-design/FDInput'
+import FDTitle from '@/components/form-design/FDTitle'
+import FDTextArea from '@/components/form-design/FDTextArea'
+import FDNumber from '@/components/form-design/FDNumber'
+import FDRadio from '@/components/form-design/FDRadio'
+import FDCheckbox from '@/components/form-design/FDCheckbox'
+import FDDateTime from '@/components/form-design/FDDateTime'
+import FDSelect from '@/components/form-design/FDSelect'
+import FDSwitch from '@/components/form-design/FDSwitch'
+import FDImg from '@/components/form-design/FDImg'
+import Panel from '@/components/form-design/Panel'
+import Test from '@/components/form-design/Test'
+import FDMenu from '@/components/form-design/FDMenu'
+import FDGrid from '@/components/form-design/FDGrid'
+import nestedExample from '@/components/form-design/nestedExample'
 import common from '@/utils/common'
 
 export default {
@@ -592,7 +595,7 @@ export default {
     FDGrid,
     FDTitle
   },
-  data() {
+  data () {
     return {
       activeName: '2',
       formAttr: {
@@ -613,56 +616,56 @@ export default {
     }
   },
   methods: {
-    showPreview() {
+    showPreview () {
       this.tabIndex = '0'
       this.dialogFormVisible = true
-      this.$store.dispatch('formDesign/setFormList', this.formAttr.tabs[0].formList);
+      this.$store.dispatch('formDesign/setFormList', this.formAttr.tabs[0].formList)
     },
-    formListCallBack(formList) {
-      this.formAttr.tabs[Number(this.tabIndex)].formList = this.$store.state.formDesign.formList;
-      console.log("this.formAttr", this.formAttr)
+    formListCallBack (formList) {
+      this.formAttr.tabs[Number(this.tabIndex)].formList = this.$store.state.formDesign.formList
+      console.log('this.formAttr', this.formAttr)
     },
-    tabHandleClick(tab, event) {
-      console.log("this.$store.state.formDesign.formList = ", this.$store.state.formDesign.formList);
-      console.log(tab, event);
-      this.$refs.Panel[Number(this.tabIndex)].init(common.deepClone(this.formAttr.tabs[Number(this.tabIndex)].formList));
+    tabHandleClick (tab, event) {
+      console.log('this.$store.state.formDesign.formList = ', this.$store.state.formDesign.formList)
+      console.log(tab, event)
+      this.$refs.Panel[Number(this.tabIndex)].init(common.deepClone(this.formAttr.tabs[Number(this.tabIndex)].formList))
       // this.$refs.Panel[Number(this.tabIndex)].init(this.$store.state.formDesign.formList);
     },
-    tabHandleClick_preview(tab, event) {
-      console.log('tab.index', tab.index);
-      this.$store.dispatch('formDesign/setFormList', common.deepClone(this.formAttr.tabs[Number(tab.index)].formList));
+    tabHandleClick_preview (tab, event) {
+      console.log('tab.index', tab.index)
+      this.$store.dispatch('formDesign/setFormList', common.deepClone(this.formAttr.tabs[Number(tab.index)].formList))
     },
-    handleClick(tab, event) {
-      console.log(tab, event);
+    handleClick (tab, event) {
+      console.log(tab, event)
     },
-    sendMesgToIframe(data) {
-      document.getElementById('iframe').contentWindow.postMessage(data, '*');
+    sendMesgToIframe (data) {
+      document.getElementById('iframe').contentWindow.postMessage(data, '*')
     },
-    submitForm(formName) {
+    submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
+          alert('submit!')
         } else {
-          console.log('error submit!!');
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
-    addOption() {
+    addOption () {
       this.formAttr.tabs.push({
         name: `tab${this.formAttr.tabs.length + 1}`,
         formList: []
-      });
+      })
     },
-    subOption(index) {
-      this.formAttr.tabs.splice(index, 1);
+    subOption (index) {
+      this.formAttr.tabs.splice(index, 1)
     }
   },
-  mounted() {
+  mounted () {
 
   },
   filters: {
-    labelWidth(value) {
+    labelWidth (value) {
       return `${value}px`
     }
   }

@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       name: '图片上传',
       url: '',
@@ -31,11 +31,11 @@ export default {
       height: '',
       key: '',
       required: false,
-      disabled: false,
+      disabled: false
     }
   },
   methods: {
-    packData() {
+    packData () {
       return {
         name: this.name,
         url: this.url,
@@ -43,7 +43,7 @@ export default {
         height: this.height,
         key: this.key,
         required: this.required,
-        disabled: this.disabled,
+        disabled: this.disabled
       }
     }
   }

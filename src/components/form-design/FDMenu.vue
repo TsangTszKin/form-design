@@ -60,9 +60,9 @@
 </template>
 
 <script>
-import draggable from "vuedraggable";
-import common from '@/utils/common';
-import bus from "@/utils/bus";
+import draggable from 'vuedraggable'
+import common from '@/utils/common'
+import bus from '@/utils/bus'
 const base = {
   title: '基础字段',
   child: [{
@@ -71,12 +71,12 @@ const base = {
     icon: '/src/assets/img/form-design/input.png',
     value: '',
     options: {
-      width: "100%",
-      defaultValue: "",
+      width: '100%',
+      defaultValue: '',
       required: false,
       disabled: false,
-      dataType: "string",
-      placeholder: "",
+      dataType: 'string',
+      placeholder: '',
       regEx: '',
       option: [{
         value: 'string',
@@ -106,12 +106,12 @@ const base = {
     icon: '/src/assets/img/form-design/textarea.png',
     value: '',
     options: {
-      width: "100%",
-      defaultValue: "",
+      width: '100%',
+      defaultValue: '',
       required: false,
       disabled: false,
-      placeholder: "",
-      regEx: '',
+      placeholder: '',
+      regEx: ''
     },
     key: ''
   },
@@ -121,11 +121,11 @@ const base = {
     icon: '/src/assets/img/form-design/number.png',
     value: '',
     options: {
-      width: "120px",
+      width: '120px',
       min: 0,
       max: 100,
       required: false,
-      disabled: false,
+      disabled: false
     },
     key: ''
   },
@@ -135,19 +135,19 @@ const base = {
     icon: '/src/assets/img/form-design/radio.png',
     value: '',
     options: {
-      width: "100%",
+      width: '100%',
       required: false,
       disabled: false,
       option: [{
-        value: "值1",
-        label: "选项1"
+        value: '值1',
+        label: '选项1'
       }, {
-        value: "值2",
-        label: "选项2"
+        value: '值2',
+        label: '选项2'
       }, {
-        value: "值3",
-        label: "选项3"
-      }],
+        value: '值3',
+        label: '选项3'
+      }]
     },
     key: ''
   },
@@ -157,19 +157,19 @@ const base = {
     icon: '/src/assets/img/form-design/checkbox.png',
     value: '',
     options: {
-      width: "100%",
+      width: '100%',
       required: false,
       disabled: false,
       option: [{
-        value: "值1",
-        label: "选项1"
+        value: '值1',
+        label: '选项1'
       }, {
-        value: "值2",
-        label: "选项2"
+        value: '值2',
+        label: '选项2'
       }, {
-        value: "值3",
-        label: "选项3"
-      }],
+        value: '值3',
+        label: '选项3'
+      }]
     },
     key: ''
   },
@@ -179,12 +179,12 @@ const base = {
     icon: '/src/assets/img/form-design/datetime.png',
     value: '',
     options: {
-      width: "100%",
+      width: '100%',
       type: ['ymd', 'yyyy-MM-dd'],
-      defaultValue: "",
+      defaultValue: '',
       required: false,
       disabled: false,
-      placeholder: "",
+      placeholder: ''
     },
     key: ''
   },
@@ -194,20 +194,20 @@ const base = {
     icon: '/src/assets/img/form-design/select.png',
     value: '',
     options: {
-      width: "100%",
-      defaultValue: "",
+      width: '100%',
+      defaultValue: '',
       required: false,
       disabled: false,
-      placeholder: "",
+      placeholder: '',
       option: [{
-        value: "值1",
-        label: "选项1"
+        value: '值1',
+        label: '选项1'
       }, {
-        value: "值2",
-        label: "选项2"
+        value: '值2',
+        label: '选项2'
       }, {
-        value: "值3",
-        label: "选项3"
+        value: '值3',
+        label: '选项3'
       }]
     },
     key: ''
@@ -221,7 +221,7 @@ const base = {
     options: {
       defaultValue: false,
       required: false,
-      disabled: false,
+      disabled: false
     },
     key: ''
   }]
@@ -261,7 +261,7 @@ const elseItem = {
     icon: '/src/assets/img/form-design/title.png',
     value: '标题',
     options: {
-      align: "center",
+      align: 'center',
       fontSize: '18px'
     },
     key: ''
@@ -272,7 +272,7 @@ export default {
   components: {
     draggable
   },
-  data() {
+  data () {
     return {
       base: {
         title: '基础字段',
@@ -282,12 +282,12 @@ export default {
           icon: '/src/assets/img/form-design/input.png',
           value: '',
           options: {
-            width: "100%",
-            defaultValue: "",
+            width: '100%',
+            defaultValue: '',
             required: false,
             disabled: false,
-            dataType: "string",
-            placeholder: "",
+            dataType: 'string',
+            placeholder: '',
             regEx: '',
             option: [{
               value: 'string',
@@ -317,12 +317,12 @@ export default {
           icon: '/src/assets/img/form-design/textarea.png',
           value: '',
           options: {
-            width: "100%",
-            defaultValue: "",
+            width: '100%',
+            defaultValue: '',
             required: false,
             disabled: false,
-            placeholder: "",
-            regEx: '',
+            placeholder: '',
+            regEx: ''
           },
           key: ''
         },
@@ -332,11 +332,11 @@ export default {
           icon: '/src/assets/img/form-design/number.png',
           value: '',
           options: {
-            width: "120px",
+            width: '120px',
             min: 0,
             max: 100,
             required: false,
-            disabled: false,
+            disabled: false
           },
           key: ''
         },
@@ -346,19 +346,19 @@ export default {
           icon: '/src/assets/img/form-design/radio.png',
           value: '',
           options: {
-            width: "100%",
+            width: '100%',
             required: false,
             disabled: false,
             option: [{
-              value: "值1",
-              label: "选项1"
+              value: '值1',
+              label: '选项1'
             }, {
-              value: "值2",
-              label: "选项2"
+              value: '值2',
+              label: '选项2'
             }, {
-              value: "值3",
-              label: "选项3"
-            }],
+              value: '值3',
+              label: '选项3'
+            }]
           },
           key: ''
         },
@@ -368,19 +368,19 @@ export default {
           icon: '/src/assets/img/form-design/checkbox.png',
           value: '',
           options: {
-            width: "100%",
+            width: '100%',
             required: false,
             disabled: false,
             option: [{
-              value: "值1",
-              label: "选项1"
+              value: '值1',
+              label: '选项1'
             }, {
-              value: "值2",
-              label: "选项2"
+              value: '值2',
+              label: '选项2'
             }, {
-              value: "值3",
-              label: "选项3"
-            }],
+              value: '值3',
+              label: '选项3'
+            }]
           },
           key: ''
         },
@@ -390,12 +390,12 @@ export default {
           icon: '/src/assets/img/form-design/datetime.png',
           value: '',
           options: {
-            width: "100%",
+            width: '100%',
             type: ['ymd', 'yyyy-MM-dd'],
-            defaultValue: "",
+            defaultValue: '',
             required: false,
             disabled: false,
-            placeholder: "",
+            placeholder: ''
           },
           key: ''
         },
@@ -405,20 +405,20 @@ export default {
           icon: '/src/assets/img/form-design/select.png',
           value: '',
           options: {
-            width: "100%",
-            defaultValue: "",
+            width: '100%',
+            defaultValue: '',
             required: false,
             disabled: false,
-            placeholder: "",
+            placeholder: '',
             option: [{
-              value: "值1",
-              label: "选项1"
+              value: '值1',
+              label: '选项1'
             }, {
-              value: "值2",
-              label: "选项2"
+              value: '值2',
+              label: '选项2'
             }, {
-              value: "值3",
-              label: "选项3"
+              value: '值3',
+              label: '选项3'
             }]
           },
           key: ''
@@ -432,7 +432,7 @@ export default {
           options: {
             defaultValue: false,
             required: false,
-            disabled: false,
+            disabled: false
           },
           key: ''
         }]
@@ -472,31 +472,30 @@ export default {
           icon: '/src/assets/img/form-design/title.png',
           value: '标题',
           options: {
-            align: "center",
+            align: 'center',
             fontSize: '18px'
           },
           key: ''
         }],
         key: ''
-      },
+      }
     }
   },
-  mounted() {
+  mounted () {
     bus.$on('formMenu.init', () => {
-      this.initMenu();
+      this.initMenu()
     })
   },
   methods: {
     log: function (evt) {
-      console.log("menu")
-      window.console.log(evt);
-
+      console.log('menu')
+      window.console.log(evt)
     },
-    initMenu() {
-      this.base = common.deepClone(base);
-      this.senior = common.deepClone(senior);
-      this.layout = common.deepClone(layout);
-      this.elseItem = common.deepClone(elseItem);
+    initMenu () {
+      this.base = common.deepClone(base)
+      this.senior = common.deepClone(senior)
+      this.layout = common.deepClone(layout)
+      this.elseItem = common.deepClone(elseItem)
     }
   }
 }

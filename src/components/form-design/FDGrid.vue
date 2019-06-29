@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import common from '@/utils/common';
-import bus from '@/utils/bus';
+import common from '@/utils/common'
+import bus from '@/utils/bus'
 
 export default {
   props: {
@@ -37,12 +37,12 @@ export default {
           }, {
             span: 12,
             list: []
-          }],
+          }]
         }
       }
     }
   },
-  data() {
+  data () {
     return {
       data: {
         title: '栅格布局',
@@ -58,49 +58,49 @@ export default {
         }],
         key: common.getGuid()
       }
-    };
+    }
   },
   methods: {
-    addOption() {
+    addOption () {
       this.data.cols.push({
         span: 12,
         list: [
         ]
-      });
+      })
     },
-    subOption(index) {
-      this.data.cols.splice(index, 1);
+    subOption (index) {
+      this.data.cols.splice(index, 1)
     }
   },
   watch: {
     data: {
       handler: function (value, oldValue) {
-        let newFormList = common.deepClone(this.$store.state.formDesign.formList);
-        let activeIndex;
+        let newFormList = common.deepClone(this.$store.state.formDesign.formList)
+        let activeIndex
         for (let i = 0; i < newFormList.length; i++) {
-          const element = newFormList[i];
+          const element = newFormList[i]
           if (element.key === this.$store.state.formDesign.activeKey) {
-            activeIndex = i;
+            activeIndex = i
           }
         }
         if (!common.isEmpty(activeIndex)) {
-          newFormList[activeIndex] = value;
-          this.$store.commit("formDesign/updateActiveKey", value.key);
-          this.$store.dispatch("formDesign/setFormList", common.deepClone(newFormList));
-          bus.$emit("formDesign.syncList", common.deepClone(newFormList));
+          newFormList[activeIndex] = value
+          this.$store.commit('formDesign/updateActiveKey', value.key)
+          this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList))
+          bus.$emit('formDesign.syncList', common.deepClone(newFormList))
         }
       },
       deep: true
     },
     propData: {
       handler: function (value) {
-        this.data = common.deepClone(value);
+        this.data = common.deepClone(value)
       },
-      deep: true,
+      deep: true
       // immediate: true
     }
   }
-};
+}
 </script>
 
 <style>
