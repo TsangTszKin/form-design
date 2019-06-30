@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col style="width: 230px;position: fixed;top: 127px;">
-        <FDMenu/>
+        <FDMenu />
       </el-col>
       <el-col
         style="height:100%; width: calc(100% - 480px); margin-left:230px;"
@@ -11,7 +11,7 @@
         <div style="padding: 10px;">
           <a @click="showPreview">预览</a>
         </div>
-        <Panel :formAttr="formAttr" v-if="!formAttr.isTabs"/>
+        <Panel :formAttr="formAttr" v-if="!formAttr.isTabs" />
         <el-tabs :type="formAttr.tabType" v-else v-model="tabIndex" @tab-click="tabHandleClick">
           <el-tab-pane
             :label="item.name"
@@ -19,7 +19,7 @@
             v-for="(item, i) in formAttr.tabs"
             :key="i"
           >
-            <Panel ref="Panel" :formAttr="formAttr" @callBack="formListCallBack"/>
+            <Panel ref="Panel" :formAttr="formAttr" @callBack="formListCallBack" />
           </el-tab-pane>
         </el-tabs>
 
@@ -100,7 +100,7 @@
               </el-form-item>
 
               <el-form-item label="启用tab表单">
-                <el-switch v-model="formAttr.isTabs"></el-switch>
+                <el-switch v-model="formAttr.isTabs" @change="changeTabMode"></el-switch>
               </el-form-item>
               <el-form-item label="tab模式" v-show="formAttr.isTabs">
                 <el-radio-group v-model="formAttr.tabType">
@@ -143,7 +143,7 @@
         :label-position="formAttr.align"
         :label-width="formAttr.labelWidth"
         :size="formAttr.size"
-        :rules="$store.state.formDesign.rules"
+        :rules="rules"
         v-if="!formAttr.isTabs"
       >
         <template v-for="(item, i) in $store.state.formDesign.formList">
@@ -352,7 +352,7 @@
             :label-position="formAttr.align"
             :label-width="formAttr.labelWidth"
             :size="formAttr.size"
-            :rules="$store.state.formDesign.rules"
+            :rules="rules"
           >
             <template v-for="(item, i) in $store.state.formDesign.formList">
               <el-form-item
@@ -612,14 +612,18 @@ export default {
         ]
       },
       dialogFormVisible: false,
-      tabIndex: '0'
+      tabIndex: '0',
+      rules: {}
     }
   },
   methods: {
     showPreview () {
-      this.tabIndex = '0'
       this.dialogFormVisible = true
-      this.$store.dispatch('formDesign/setFormList', this.formAttr.tabs[0].formList)
+      this.tabIndex = '0'
+      if (this.formAttr.isTabs) {
+        this.$store.dispatch('formDesign/setFormList', this.formAttr.tabs[0].formList)
+      }
+      this.initFormRule()
     },
     formListCallBack (formList) {
       this.formAttr.tabs[Number(this.tabIndex)].formList = this.$store.state.formDesign.formList
@@ -634,6 +638,14 @@ export default {
     tabHandleClick_preview (tab, event) {
       console.log('tab.index', tab.index)
       this.$store.dispatch('formDesign/setFormList', common.deepClone(this.formAttr.tabs[Number(tab.index)].formList))
+      let formList = this.formAttr.tabs[Number(tab.index)].formList
+      let rules = {}
+      formList.forEach(element => {
+        if (element.options.required) {
+          rules[element.key] = [{ required: element.options.required, message: '必填项不能为空', trigger: 'blur' }]
+        }
+      })
+      this.rules = rules
     },
     handleClick (tab, event) {
       console.log(tab, event)
@@ -659,6 +671,32 @@ export default {
     },
     subOption (index) {
       this.formAttr.tabs.splice(index, 1)
+    },
+    changeTabMode (value) {
+      if (value) {
+        this.formAttr.tabs[0].formList = this.$store.state.formDesign.formList
+      }
+    },
+    initFormRule () {
+      if (this.formAttr.isTabs) {
+        let formList = this.formAttr.tabs[0].formList
+        let rules = {}
+        formList.forEach(element => {
+          if (element.options.required) {
+            rules[element.key] = [{ required: element.options.required, message: '必填项不能为空', trigger: 'blur' }]
+          }
+        })
+        this.rules = rules
+      } else {
+        let formList = this.$store.state.formDesign.formList
+        let rules = {}
+        formList.forEach(element => {
+          if (element.options.required) {
+            rules[element.key] = [{ required: element.options.required, message: '必填项不能为空', trigger: 'blur' }]
+          }
+        })
+        this.rules = rules
+      }
     }
   },
   mounted () {
@@ -667,6 +705,13 @@ export default {
   filters: {
     labelWidth (value) {
       return `${value}px`
+    }
+  },
+  watch: {
+    formAttr: {
+      handler: function (value, oldValue) {
+      },
+      deep: true
     }
   }
 }
