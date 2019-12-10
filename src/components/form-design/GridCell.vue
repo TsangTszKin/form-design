@@ -2,21 +2,21 @@
   <div class="cell" :class="{'cell-active': data.key === $store.state.formDesign.activeKey}">
     <div @click="activeCell">
       <el-form-item
-        v-if="data.type !== 'title'"
+        v-show="data.type !== 'title'"
         :label="data.title+`${data.options.required?'（必填）':''}`"
         :prop="data.key"
       >
         <el-input
-          v-if="data.type === 'input'"
-          v-model="data.options.defaultValue"
+          v-show="data.type === 'input'"
+          value=""
           :placeholder="data.options.placeholder"
           :disabled="data.options.disabled"
           :readonly="true"
           :style="{width: data.options.width}"
         ></el-input>
         <el-input
-          v-if="data.type === 'textarea'"
-          v-model="data.options.defaultValue"
+          v-show="data.type === 'textarea'"
+          value=""
           :placeholder="data.options.placeholder"
           :disabled="data.options.disabled"
           :readonly="true"
@@ -25,14 +25,13 @@
           :style="{width: data.options.width}"
         ></el-input>
         <el-input-number
-          v-if="data.type === 'number'"
+          v-show="data.type === 'number'"
           :disabled="data.options.disabled"
           :readonly="true"
           :style="{width: data.options.width}"
         ></el-input-number>
         <el-radio-group
-          v-if="data.type === 'radio'"
-          v-model="data.options.defaultValue"
+          v-show="data.type === 'radio'"
           :disabled="data.options.disabled"
           :readonly="true"
           :style="{width: data.options.width}"
@@ -44,8 +43,7 @@
           >{{item.label}}</el-radio>
         </el-radio-group>
         <el-checkbox-group
-          v-if="data.type === 'checkbox'"
-          v-model="data.options.defaultValue"
+          v-show="data.type === 'checkbox'"
           :disabled="data.options.disabled"
           :readonly="true"
           :style="{width: data.options.width}"
@@ -57,7 +55,7 @@
           >{{item.label}}</el-checkbox>
         </el-checkbox-group>
         <el-select
-          v-if="data.type === 'select'"
+          v-show="data.type === 'select'"
           :placeholder="data.options.placeholder"
           :style="{width: data.options.width}"
           :readonly="true"
@@ -71,8 +69,7 @@
           ></el-option>
         </el-select>
         <el-switch
-          v-if="data.type === 'switch'"
-          v-model="data.options.defaultValue"
+          v-show="data.type === 'switch'"
           active-color="#13ce66"
           inactive-color="#EEEEEE"
           :style="{width: data.options.width}"
@@ -81,14 +78,26 @@
         ></el-switch>
         <el-date-picker
           type="datetime"
-          v-if="data.type === 'datetime'"
+          v-show="data.type === 'datetime'"
           :placeholder="data.options.placeholder"
           :style="{width: data.options.width}"
           :disabled="data.options.disabled"
         ></el-date-picker>
+        <el-upload
+          v-show="data.type === 'img'"
+          class="upload-demo"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :limit="1"
+          :file-list="[]"
+          :disabled="data.options.disabled"
+          :readonly="true"
+        >
+          <el-button size="small" type="primary">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
       </el-form-item>
-      <p
-        v-if="data.type === 'title'"
+       <p
+        v-show="data.type === 'title'"
         :style="{'text-align': data.options.align, 'font-size': data.options.fontSize}"
         @click="activeCell"
       >{{data.value}}</p>
@@ -171,6 +180,7 @@ export default {
       }
       let copyForm = common.deepClone(formList[newIndex])
       copyForm.key = common.getGuid()
+      copyForm.code = `code_${common.getGuid2()}`
       formList.splice(newIndex + 1, 0, copyForm)
       this.$store.commit(
         'formDesign/updateActiveForm',
@@ -196,6 +206,8 @@ export default {
       this.$emit('syncList', formList, this.FDindex)
     },
     deleteForm () {
+      console.warn('this.FDkey', this.FDkey)
+      console.warn('this.$store.state.formDesign.grid', this.$store.state.formDesign.grid)
       let formList
       let grid
       let formListAll = common.deepClone(this.$store.state.formDesign.formList)

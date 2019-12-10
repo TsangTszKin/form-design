@@ -1,8 +1,8 @@
 <!--
  * @Description: In User Settings Edit
  * @Author: your name
- * @Date: 2019-07-03 08:37:07
- * @LastEditTime: 2019-10-14 10:36:17
+ * @Date: 2019-09-30 12:28:12
+ * @LastEditTime: 2019-10-14 10:51:10
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -20,7 +20,7 @@
       <el-input-number
         v-model="data.options.maxlength"
         :min="1"
-        :max="50"
+        :max="300"
         label="最大长度"
         size="small"
       ></el-input-number>
@@ -29,42 +29,29 @@
       <el-input v-model="data.options.placeholder" size="small"></el-input>
     </el-form-item>
     <el-form-item label="默认值">
-      <el-popover placement="bottom" title="系统默认值" width="200" trigger="click">
-        <el-table :data="defaultValueList">
-          <el-table-column width="50" label="序号" header-align="center" type="index"></el-table-column>
-          <el-table-column header-align="center" prop="label" label="值类型">
-            <template slot-scope="scope">
-              <a
-                href="javascript:void(0);"
-                @click="data.options.defaultValue = scope.row.val"
-              >{{scope.row.label}}</a>
-            </template>
-          </el-table-column>
-        </el-table>
-        <el-input v-model="data.options.defaultValue" size="small" slot="reference"></el-input>
-      </el-popover>
+      <el-select
+        v-model="data.options.defaultValue"
+        allow-create
+        title="自定义值按回车确定"
+        placeholder="请输入选择默认值"
+        size="small"
+      >
+        <el-option
+          v-for="(item, i) in defaultValueList"
+          :key="i"
+          :label="item.label"
+          :value="item.val"
+        ></el-option>
+      </el-select>
     </el-form-item>
     <el-form-item label="数据绑定key">
       <el-input v-model="data.key" size="small" :disabled="true"></el-input>
-    </el-form-item>
-    <el-form-item label="数据类型">
-      <el-select v-model="data.options.dataType" placeholder="请选择">
-        <el-option
-          v-for="item in data.options.option"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        ></el-option>
-      </el-select>
     </el-form-item>
     <el-form-item label="是否必填">
       <el-switch v-model="data.options.required" active-color="#13ce66" inactive-color="#EEEEEE"></el-switch>
     </el-form-item>
     <el-form-item label="是否禁用">
       <el-switch v-model="data.options.disabled" active-color="#13ce66" inactive-color="#EEEEEE"></el-switch>
-    </el-form-item>
-    <el-form-item label="正则表达式">
-      <el-input v-model="data.options.regEx" size="small"></el-input>
     </el-form-item>
   </el-form>
 </template>
@@ -79,99 +66,39 @@ export default {
       type: Object,
       default: function () {
         return {
-          title: '单行文本',
-          type: 'input',
+          title: '意见框落款',
+          type: 'idea',
           code: '',
-          icon: '/static/img/form-design/input.png',
+          icon: '/static/img/form-design/textarea.png',
           options: {
             width: '100%',
             defaultValue: '',
             required: false,
             disabled: false,
-            dataType: 'string',
             placeholder: '',
-            maxlength: 30,
             regEx: '',
-            option: [
-              {
-                value: 'string',
-                label: '字符串'
-              },
-              {
-                value: 'bool',
-                label: '布尔值'
-              },
-              {
-                value: 'int',
-                label: '整数'
-              },
-              {
-                value: 'float',
-                label: '浮点数'
-              },
-              {
-                value: 'url',
-                label: 'URL地址'
-              },
-              {
-                value: 'email',
-                label: '邮箱地址'
-              }
-            ]
+            maxlength: 300
           },
           key: common.getGuid()
         }
-      }
-    },
-    defaultValueList: {
-      type: Array,
-      default: function () {
-        return []
       }
     }
   },
   data () {
     return {
       data: {
-        title: '单行文本',
-        type: 'input',
+        title: '意见框落款',
+        type: 'idea',
         code: '',
-        icon: '/static/img/form-design/input.png',
+        icon: '/static/img/form-design/textarea.png',
         options: {
           width: '100%',
           defaultValue: '',
           required: false,
           disabled: false,
-          dataType: 'string',
           placeholder: '',
           regEx: '',
-          maxlength: 30,
-          option: [
-            {
-              value: 'string',
-              label: '字符串'
-            },
-            {
-              value: 'bool',
-              label: '布尔值'
-            },
-            {
-              value: 'int',
-              label: '整数'
-            },
-            {
-              value: 'float',
-              label: '浮点数'
-            },
-            {
-              value: 'url',
-              label: 'URL地址'
-            },
-            {
-              value: 'email',
-              label: '邮箱地址'
-            }
-          ]
+          maxlength: 300
         },
         key: common.getGuid()
       }

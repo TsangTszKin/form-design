@@ -1,7 +1,17 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-03 08:37:07
+ * @LastEditTime: 2019-10-18 12:35:15
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
-  <el-form label-position="top" label-width="80px">
+  <el-form label-position="top" label-width="80px" size="mini">
     <el-form-item label="标题">
       <el-input v-model="data.title" size="small"></el-input>
+    </el-form-item>
+    <el-form-item label="表字段code">
+      <el-input v-model="data.code" size="small"></el-input>
     </el-form-item>
     <el-form-item label="宽度">
       <el-input v-model="data.options.width" size="small"></el-input>
@@ -14,8 +24,8 @@
       <el-checkbox-group class="clearfix">
         <div v-for="(item, i) in data.options.option" :key="i" style="clearfix">
           <el-checkbox :label="item.value" style="float: left;">
-            <el-input size="small" style="width:80px;" v-model="item.label" title="删除选项"></el-input>
-            <el-input size="small" style="width:80px;" v-model="item.value" title="删除选项"></el-input>
+            <el-input size="small" style="width:80px!important;" v-model="item.label" title="删除选项"></el-input>
+            <el-input size="small" style="width:80px!important;" v-model="item.value" title="删除选项"></el-input>
             <i class="el-icon-circle-close" style="color: red;" @click="subOption(i)"></i>
           </el-checkbox>
         </div>
@@ -46,11 +56,13 @@ export default {
         return {
           title: '多选框组',
           type: 'checkbox',
-          icon: '/src/assets/img/form-design/checkbox.png',
+          code: '',
+          icon: '/static/img/form-design/checkbox.png',
           options: {
             width: '100%',
             required: false,
             disabled: false,
+            defaultValue: [],
             option: [{
               value: '值1',
               label: '选项1'
@@ -72,8 +84,10 @@ export default {
       data: {
         title: '多选框组',
         type: 'checkbox',
-        icon: '/src/assets/img/form-design/checkbox.png',
+        code: '',
+        icon: '/static/img/form-design/checkbox.png',
         options: {
+          defaultValue: [],
           width: '100%',
           required: false,
           disabled: false,

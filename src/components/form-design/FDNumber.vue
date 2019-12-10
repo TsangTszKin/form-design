@@ -1,7 +1,17 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-03 08:37:07
+ * @LastEditTime: 2019-12-10 11:29:24
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
-  <el-form label-position="top" label-width="80px">
+  <el-form label-position="top" label-width="80px"  size="mini">
     <el-form-item label="标题">
       <el-input v-model="data.title" size="small"></el-input>
+    </el-form-item>
+    <el-form-item label="表字段code">
+      <el-input v-model="data.code" size="small"></el-input>
     </el-form-item>
     <el-form-item label="宽度">
       <el-input v-model="data.options.width" size="small"></el-input>
@@ -34,9 +44,10 @@ export default {
       type: Object,
       default: function () {
         return {
-          title: '计数器',
+          title: '数字文本框',
           type: 'number',
-          icon: '/src/assets/img/form-design/number.png',
+          code: '',
+          icon: '/static/img/form-design/number.png',
           options: {
             width: '120px',
             min: 0,
@@ -52,9 +63,10 @@ export default {
   data () {
     return {
       data: {
-        title: '计数器',
+        title: '数字文本框',
         type: 'number',
-        icon: '/src/assets/img/form-design/number.png',
+        code: '',
+        icon: '/static/img/form-design/number.png',
         options: {
           width: '120px',
           min: 0,

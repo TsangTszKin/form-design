@@ -1,7 +1,17 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-03 08:37:07
+ * @LastEditTime: 2019-10-14 10:52:57
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
-  <el-form label-position="top" label-width="80px">
+  <el-form label-position="top" label-width="80px" size="mini">
     <el-form-item label="标题">
       <el-input v-model="data.title" size="small"></el-input>
+    </el-form-item>
+    <el-form-item label="表字段code">
+      <el-input v-model="data.code" size="small"></el-input>
     </el-form-item>
     <el-form-item label="宽度">
       <el-input v-model="data.options.width" size="small"></el-input>
@@ -39,7 +49,8 @@ export default {
         return {
           title: '时间选择器',
           type: 'datetime',
-          icon: '/src/assets/img/form-design/datetime.png',
+          code: '',
+          icon: '/static/img/form-design/datetime.png',
           options: {
             width: '100%',
             type: ['ymd', 'yyyy-MM-dd'],
@@ -58,7 +69,8 @@ export default {
       data: {
         title: '时间选择器',
         type: 'datetime',
-        icon: '/src/assets/img/form-design/datetime.png',
+        code: '',
+        icon: '/static/img/form-design/datetime.png',
         options: {
           width: '100%',
           type: ['ymd', 'yyyy-MM-dd'],
@@ -70,93 +82,125 @@ export default {
         key: common.getGuid()
       },
 
-      dateTimeTypeOptions: [{
-        value: 'y',
-        label: '年',
-        children: [{
-          value: 'yyyy',
-          label: 'yyyy'
-        }, {
-          value: 'yyyy年',
-          label: 'yyyy年'
-        }]
-      }, {
-        value: 'ym',
-        label: '年月',
-        children: [{
-          value: 'yyyy-MM',
-          label: 'yyyy-MM'
-        }, {
-          value: 'yyyy/MM',
-          label: 'yyyy/MM'
-        }, {
-          value: 'yyyy年MM月',
-          label: 'yyyy年MM月'
-        }]
-      }, {
-        value: 'ymd',
-        label: '年月日',
-        children: [{
-          value: 'yyyy-MM-dd',
-          label: 'yyyy-MM-dd'
-        }, {
-          value: 'yyyy/MM/dd',
-          label: 'yyyy/MM/dd'
-        }, {
-          value: 'yyyy年MM月dd日',
-          label: 'yyyy年MM月dd日'
-        }]
-      }, {
-        value: 'hm',
-        label: '时分',
-        children: [{
-          value: 'HH:mm',
-          label: 'HH:mm'
-        }, {
-          value: 'HH时mm分',
-          label: 'HH时mm分'
-        }]
-      }, {
-        value: 'hms',
-        label: '时分秒',
-        children: [{
-          value: 'HH:mm:ss',
-          label: 'HH:mm:ss'
-        }, {
-          value: 'HH时mm分ss秒',
-          label: 'HH时mm分ss秒'
-        }]
-      }, {
-        value: 'ymdhm',
-        label: '年月日时分',
-        children: [{
-          value: 'yyyy-MM-dd HH:mm',
-          label: 'yyyy-MM-dd HH:mm'
-        }, {
-          value: 'yyyy/MM/dd HH:mm',
-          label: 'yyyy/MM/dd HH:mm'
-        }, {
-          value: 'yyyy年MM月dd日 HH时mm分',
-          label: 'yyyy年MM月dd日 HH时mm分'
-        }]
-      }, {
-        value: 'ymdhms',
-        label: '年月日时分秒',
-        children: [{
-          value: 'yyyy-MM-dd HH:mm:ss',
-          label: 'yyyy-MM-dd HH:mm:ss'
-        }, {
-          value: 'yyyy/MM/dd HH:mm:ss',
-          label: 'yyyy/MM/dd HH:mm:ss'
-        }, {
-          value: 'yyyy年MM月dd日 HH时mm分ss秒',
-          label: 'yyyy年MM月dd日 HH时mm分ss秒'
-        }]
-      }]
+      dateTimeTypeOptions: [
+        {
+          value: 'y',
+          label: '年',
+          children: [
+            {
+              value: 'yyyy',
+              label: 'yyyy'
+            },
+            {
+              value: 'yyyy年',
+              label: 'yyyy年'
+            }
+          ]
+        },
+        {
+          value: 'ym',
+          label: '年月',
+          children: [
+            {
+              value: 'yyyy-MM',
+              label: 'yyyy-MM'
+            },
+            {
+              value: 'yyyy/MM',
+              label: 'yyyy/MM'
+            },
+            {
+              value: 'yyyy年MM月',
+              label: 'yyyy年MM月'
+            }
+          ]
+        },
+        {
+          value: 'ymd',
+          label: '年月日',
+          children: [
+            {
+              value: 'yyyy-MM-dd',
+              label: 'yyyy-MM-dd'
+            },
+            {
+              value: 'yyyy/MM/dd',
+              label: 'yyyy/MM/dd'
+            },
+            {
+              value: 'yyyy年MM月dd日',
+              label: 'yyyy年MM月dd日'
+            }
+          ]
+        },
+        {
+          value: 'hm',
+          label: '时分',
+          children: [
+            {
+              value: 'HH:mm',
+              label: 'HH:mm'
+            },
+            {
+              value: 'HH时mm分',
+              label: 'HH时mm分'
+            }
+          ]
+        },
+        {
+          value: 'hms',
+          label: '时分秒',
+          children: [
+            {
+              value: 'HH:mm:ss',
+              label: 'HH:mm:ss'
+            },
+            {
+              value: 'HH时mm分ss秒',
+              label: 'HH时mm分ss秒'
+            }
+          ]
+        },
+        {
+          value: 'ymdhm',
+          label: '年月日时分',
+          children: [
+            {
+              value: 'yyyy-MM-dd HH:mm',
+              label: 'yyyy-MM-dd HH:mm'
+            },
+            {
+              value: 'yyyy/MM/dd HH:mm',
+              label: 'yyyy/MM/dd HH:mm'
+            },
+            {
+              value: 'yyyy年MM月dd日 HH时mm分',
+              label: 'yyyy年MM月dd日 HH时mm分'
+            }
+          ]
+        },
+        {
+          value: 'ymdhms',
+          label: '年月日时分秒',
+          children: [
+            {
+              value: 'yyyy-MM-dd HH:mm:ss',
+              label: 'yyyy-MM-dd HH:mm:ss'
+            },
+            {
+              value: 'yyyy/MM/dd HH:mm:ss',
+              label: 'yyyy/MM/dd HH:mm:ss'
+            },
+            {
+              value: 'yyyy年MM月dd日 HH时mm分ss秒',
+              label: 'yyyy年MM月dd日 HH时mm分ss秒'
+            }
+          ]
+        }
+      ]
     }
   },
-  methods: {
-  },
+  methods: {},
   watch: {
     data: {
       handler: function (value, oldValue) {
@@ -173,7 +217,10 @@ export default {
 
               newFormList[i] = value
               this.$store.commit('formDesign/updateActiveKey', element.key)
-              this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList))
+              this.$store.dispatch(
+                'formDesign/setFormList',
+                common.deepClone(newFormList)
+              )
               bus.$emit('formDesign.syncList', common.deepClone(newFormList))
               break
             }
@@ -186,9 +233,18 @@ export default {
                   activeIndex = i
 
                   newFormList[i].cols[j].list[k] = value
-                  this.$store.commit('formDesign/updateActiveKey', element3.key)
-                  this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList))
-                  bus.$emit('formDesign.syncList', common.deepClone(newFormList))
+                  this.$store.commit(
+                    'formDesign/updateActiveKey',
+                    element3.key
+                  )
+                  this.$store.dispatch(
+                    'formDesign/setFormList',
+                    common.deepClone(newFormList)
+                  )
+                  bus.$emit(
+                    'formDesign.syncList',
+                    common.deepClone(newFormList)
+                  )
                   break
                 }
               }

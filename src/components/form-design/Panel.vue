@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-03 08:37:07
+ * @LastEditTime: 2019-10-12 17:30:04
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <div class="main">
     <el-form
@@ -39,7 +46,6 @@ import Cell from '@/components/form-design/Cell.vue'
 import draggable from 'vuedraggable'
 import common from '@/utils/common'
 import bus from '@/utils/bus'
-import FDGridPanel from '@/components/form-design/FDGridPanel'
 
 export default {
   props: {
@@ -56,8 +62,7 @@ export default {
   },
   components: {
     Cell,
-    draggable,
-    FDGridPanel
+    draggable
   },
   mounted () {
     window.localStorage.formList = []
@@ -95,6 +100,7 @@ export default {
         form = evt.added.element
         let newIndex = evt.added.newIndex
         form.key = common.getGuid()
+        form.code = `code_${common.getGuid2()}`
         newFormList.splice(newIndex, 0, form)
         this.$store.commit('formDesign/updateShowType', form.type)
         this.$store.commit('formDesign/updateActiveKey', form.key)
@@ -123,6 +129,14 @@ export default {
       // });
       // console.log("rules", rules);
       // this.$store.commit('formDesign/updateRules', common.deepClone(rules));
+
+      // 处理从外部拖进栅格的表单元素,
+      if (evt.removed && sessionStorage.outToIn) {
+        newFormList = newFormList.filter(el => el.key !== evt.removed.element.key)
+        this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList))
+        this.syncList(newFormList)
+        sessionStorage.removeItem('outToIn')
+      }
     },
     syncList (value) {
       this.list = common.deepClone(value)
@@ -177,6 +191,7 @@ export default {
 }
 .dragArea-empty {
   min-height: 500px;
+  margin-bottom: 100px;
 }
 </style>
 

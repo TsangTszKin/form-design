@@ -3,13 +3,13 @@
     <div>
       <el-form-item
         v-if="data.type !== 'grid' && data.type !== 'title'"
-        :label="data.title+`${data.options.required?'（必填）':''}`"
+        :label="data.title"
         :prop="data.key"
         @click.native="activeCell"
       >
         <el-input
           v-if="data.type === 'input'"
-          v-model="data.options.defaultValue"
+          value=""
           :placeholder="data.options.placeholder"
           :disabled="data.options.disabled"
           :readonly="true"
@@ -17,7 +17,6 @@
         ></el-input>
         <el-input
           v-if="data.type === 'textarea'"
-          v-model="data.options.defaultValue"
           :placeholder="data.options.placeholder"
           :disabled="data.options.disabled"
           :readonly="true"
@@ -25,6 +24,18 @@
           :rows="5"
           :style="{width: data.options.width}"
         ></el-input>
+        <template v-if="data.type === 'idea'">
+          <el-input
+            :placeholder="data.options.placeholder"
+            :disabled="data.options.disabled"
+            :readonly="true"
+            type="textarea"
+            :rows="5"
+            :style="{width: data.options.width}"
+            :id="data.key"
+          ></el-input>
+          <el-button type="text" @click="ideaDialogVisible = true; markIdeaKey(data.key);">选择快捷意见</el-button>
+        </template>
         <el-input-number
           v-if="data.type === 'number'"
           :disabled="data.options.disabled"
@@ -33,7 +44,6 @@
         ></el-input-number>
         <el-radio-group
           v-if="data.type === 'radio'"
-          v-model="data.options.defaultValue"
           :disabled="data.options.disabled"
           :readonly="true"
           :style="{width: data.options.width}"
@@ -46,7 +56,6 @@
         </el-radio-group>
         <el-checkbox-group
           v-if="data.type === 'checkbox'"
-          v-model="data.options.defaultValue"
           :disabled="data.options.disabled"
           :readonly="true"
           :style="{width: data.options.width}"
@@ -73,13 +82,31 @@
         </el-select>
         <el-switch
           v-if="data.type === 'switch'"
-          v-model="data.options.defaultValue"
           active-color="#13ce66"
           inactive-color="#EEEEEE"
           :style="{width: data.options.width}"
           :readonly="true"
           :disabled="data.options.disabled"
         ></el-switch>
+        <el-date-picker
+          type="datetime"
+          v-if="data.type === 'datetime'"
+          :placeholder="data.options.placeholder"
+          :style="{width: data.options.width}"
+          :disabled="data.options.disabled"
+        ></el-date-picker>
+        <el-upload
+          v-if="data.type === 'img'"
+          class="upload-demo"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :limit="1"
+          :file-list="[]"
+          :disabled="data.options.disabled"
+          :readonly="true"
+        >
+          <el-button size="small" type="primary">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
       </el-form-item>
       <p
         v-if="data.type === 'title'"
@@ -87,7 +114,7 @@
         @click="activeCell"
       >{{data.value}}</p>
       <FDGridPanel
-        v-if="data.type === 'grid'"
+        v-else
         :propData="data"
         :formAttr="formAttr"
         :FDkey="data.key"
@@ -106,12 +133,53 @@
       v-show="data.key === $store.state.formDesign.activeKey"
       @click="deleteForm"
     ></i>
+
+    <el-dialog
+      title="选择意见"
+      :visible.sync="ideaDialogVisible"
+      append-to-body
+      modal-append-to-body
+      width="30%"
+    >
+      <el-tabs v-model="ideaTabIndex">
+        <el-tab-pane label="个人意见" name="1">
+          <el-table :data="idea.personal" style="width: 100%">
+            <el-table-column type="index" label="序号" width="180"></el-table-column>
+            <el-table-column prop="ideaNotes" label="意见内容" width="180">
+              <template slot-scope="scope">
+                <a
+                  href="javascript:void(0);"
+                  @click="appendNote(scope.row.ideaNotes)"
+                >{{scope.row.ideaNotes}}</a>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+        <el-tab-pane label="公共意见" name="2">
+          <el-table :data="idea.public" style="width: 100%">
+            <el-table-column type="index" label="序号" width="180"></el-table-column>
+            <el-table-column prop="ideaNotes" label="意见内容" width="180">
+              <template slot-scope="scope">
+                <a
+                  href="javascript:void(0);"
+                  @click="appendNote(scope.row.ideaNotes)"
+                >{{scope.row.ideaNotes}}</a>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+      </el-tabs>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="ideaDialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import common from '@/utils/common'
 import FDGridPanel from '@/components/form-design/FDGridPanel'
+import bus from '@/utils/bus'
 
 export default {
   components: {
@@ -134,6 +202,7 @@ export default {
         return {
           type: '',
           name: '',
+          code: '',
           options: {
             width: '100%',
             defaultValue: '',
@@ -151,6 +220,33 @@ export default {
     },
     FDindex: {
       type: Number
+    },
+    idea: {
+      type: Object,
+      default: function () {
+        return {
+          personal: [
+            {
+              'ideaId': '402880ee6c3df518016c3e5251980008',
+              'mainType': 1,
+              'userId': null,
+              'ideaNotes': '这是一条模拟个人意见文本',
+              'sortOrder': null,
+              'state': 1
+            }
+          ],
+          public: [
+            {
+              'ideaId': '402880ee6c3df518016c3e5251980008',
+              'mainType': 1,
+              'userId': null,
+              'ideaNotes': '这是一条模拟公共意见文本',
+              'sortOrder': null,
+              'state': 1
+            }
+          ]
+        }
+      }
     }
   },
   methods: {
@@ -167,6 +263,7 @@ export default {
       }
       let copyForm = common.deepClone(formList[newIndex])
       copyForm.key = common.getGuid()
+      copyForm.code = `code_${common.getGuid2()}`
       formList.splice(newIndex + 1, 0, copyForm)
       this.$store.commit(
         'formDesign/updateActiveForm',
@@ -189,7 +286,10 @@ export default {
       formList.splice(newIndex, 1)
 
       this.$emit('syncList', formList)
-      this.$store.dispatch('formDesign/setFormList', common.deepClone(formList))
+      this.$store.dispatch(
+        'formDesign/setFormList',
+        common.deepClone(formList)
+      )
 
       if (newIndex !== 0) {
         this.$store.commit(
@@ -211,6 +311,7 @@ export default {
       }
     },
     activeCell () {
+      bus.$emit('update.activeName', '1')
       this.$store.commit('formDesign/updateActiveKey', this.data.key)
       this.$store.commit('formDesign/updateShowType', this.data.type)
       this.$store.commit(
@@ -220,7 +321,34 @@ export default {
     },
     syncList (value) {
       this.$emit('syncList', value)
-      // bus.$emit("formDesign.syncList", value);
+    },
+    markIdeaKey (ideaKey) {
+      sessionStorage.ideaKey = ideaKey
+    },
+    appendNote (note) {
+      const realname = '管理员'
+      const nowDate = common.formatDateCN(new Date().getTime())
+      const result = `${note}\n\n                                                  ${realname}\n                                                  ${nowDate}`
+      // let newFormList = common.deepClone(this.$store.state.formDesign.formList)
+      // newFormList.forEach((el) => {
+      //   if (el.type === 'idea' && el.key === sessionStorage.ideaKey) {
+      //     el.options.defaultValue = result
+      //     this.$emit('syncList', newFormList)
+      //     this.$store.dispatch(
+      //       'formDesign/setFormList',
+      //       common.deepClone(newFormList)
+      //     )
+      //   }
+      // })
+
+      this.ideaDialogVisible = false
+      window.document.getElementById(sessionStorage.ideaKey).value = result
+    }
+  },
+  data () {
+    return {
+      ideaDialogVisible: false,
+      ideaTabIndex: '1'
     }
   }
 }

@@ -1,413 +1,415 @@
-var chartId = 1;
-var definition = "";
-var nodes = [];
-var role = "owner";
-var cateType = "flow";
-var userId = "xxxx";
-var userName = "admin";
-var time = "1505873895344";
-var dock = "metric";
-var tutorial = false;
-var locale = "zh";
-var showToolbar = true;
-var cstatus = "private";
-var dateFormat = "yyyy-MM-dd hh:mm";
-var showCommentIco = true;
-var localRuntime = false;
-var chartVersion = 2;
+var chartId = 1
+var definition = '';
+var nodes = []
+var role = 'owner';
+var cateType = 'flow';
+var userId = 'xxxx';
+var userName = 'admin';
+var time = '1505873895344';
+var dock = 'metric';
+var tutorial = false
+var locale = 'zh';
+var showToolbar = true
+var cstatus = 'private';
+var dateFormat = 'yyyy-MM-dd hh:mm';
+var showCommentIco = true
+var localRuntime = false
+var chartVersion = 2
 
 var categorys = {
-	'base': {
-		title: '基础字段', child: [
-			{
-				name: 'input',
-				title: '单行文本',
-				icon: '<img class="icon" src="../../../img/form-design/单行文本.png" style="height: 15px;">',
-				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
-				status: 0,
-				fontStyle: {
-					fontFamily: "微软雅黑",
-					size: 13,
-					color: "255,255,255",
-					bold: false,
-					italic: false,
-					underline: false,
-					textAlign: "center",
-					vAlign: "middle",
-					orientation: "vertical"
-				},
-				lineStyle: {
-					lineWidth: 1,
-					lineColor: "228,75,78",
-					lineStyle: "solid"
-				},
-				fillStyle: {
-					type: "solid",
-					color: "228,75,78"
-				},
-			},
-			{
-				name: 'textarea',
-				title: '多行文本',
-				icon: '<img class="icon" src="../../../img/form-design/多行文本.png" style="height: 15px;">',
-				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
-				status: 0,
-				fontStyle: {
-					fontFamily: "微软雅黑",
-					size: 13,
-					color: "255,255,255",
-					bold: false,
-					italic: false,
-					underline: false,
-					textAlign: "center",
-					vAlign: "middle",
-					orientation: "vertical"
-				},
-				lineStyle: {
-					lineWidth: 1,
-					lineColor: "228,75,78",
-					lineStyle: "solid"
-				},
-				fillStyle: {
-					type: "solid",
-					color: "228,75,78"
-				},
-			},
-			{
-				name: 'number',
-				title: '计数器',
-				icon: '<img class="icon" src="../../../img/form-design/计数标签.png" style="height: 15px;">',
-				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
-				status: 0,
-				fontStyle: {
-					fontFamily: "微软雅黑",
-					size: 13,
-					color: "255,255,255",
-					bold: false,
-					italic: false,
-					underline: false,
-					textAlign: "center",
-					vAlign: "middle",
-					orientation: "vertical"
-				},
-				lineStyle: {
-					lineWidth: 1,
-					lineColor: "228,75,78",
-					lineStyle: "solid"
-				},
-				fillStyle: {
-					type: "solid",
-					color: "228,75,78"
-				},
-			},
-			{
-				name: 'radio',
-				title: '单选框组',
-				icon: '<img class="icon" src="../../../img/form-design/单选框.png" style="height: 15px;">',
-				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
-				status: 0,
-				fontStyle: {
-					fontFamily: "微软雅黑",
-					size: 13,
-					color: "255,255,255",
-					bold: false,
-					italic: false,
-					underline: false,
-					textAlign: "center",
-					vAlign: "middle",
-					orientation: "vertical"
-				},
-				lineStyle: {
-					lineWidth: 1,
-					lineColor: "228,75,78",
-					lineStyle: "solid"
-				},
-				fillStyle: {
-					type: "solid",
-					color: "228,75,78"
-				},
-			},
-			{
-				name: 'checkbox',
-				title: '多选框组',
-				icon: '<img class="icon" src="../../../img/form-design/多选框.png" style="height: 15px;">',
-				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
-				status: 0,
-				fontStyle: {
-					fontFamily: "微软雅黑",
-					size: 13,
-					color: "255,255,255",
-					bold: false,
-					italic: false,
-					underline: false,
-					textAlign: "center",
-					vAlign: "middle",
-					orientation: "vertical"
-				},
-				lineStyle: {
-					lineWidth: 1,
-					lineColor: "228,75,78",
-					lineStyle: "solid"
-				},
-				fillStyle: {
-					type: "solid",
-					color: "228,75,78"
-				},
-			},
-			{
-				name: 'dateTime',
-				title: '时间日期选择器',
-				icon: '<img class="icon" src="../../../img/form-design/时间选择器.png" style="height: 15px;">',
-				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
-				status: 0,
-				fontStyle: {
-					fontFamily: "微软雅黑",
-					size: 13,
-					color: "255,255,255",
-					bold: false,
-					italic: false,
-					underline: false,
-					textAlign: "center",
-					vAlign: "middle",
-					orientation: "vertical"
-				},
-				lineStyle: {
-					lineWidth: 1,
-					lineColor: "228,75,78",
-					lineStyle: "solid"
-				},
-				fillStyle: {
-					type: "solid",
-					color: "228,75,78"
-				},
-			},
-			{
-				name: 'select',
-				title: '下拉选择框',
-				icon: '<img class="icon" src="../../../img/form-design/下拉选择.png" style="height: 15px;">',
-				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
-				status: 0,
-				fontStyle: {
-					fontFamily: "微软雅黑",
-					size: 13,
-					color: "255,255,255",
-					bold: false,
-					italic: false,
-					underline: false,
-					textAlign: "center",
-					vAlign: "middle",
-					orientation: "vertical"
-				},
-				lineStyle: {
-					lineWidth: 1,
-					lineColor: "228,75,78",
-					lineStyle: "solid"
-				},
-				fillStyle: {
-					type: "solid",
-					color: "228,75,78"
-				},
-			},
-			{
-				name: 'switch',
-				title: '开关',
-				icon: '<img class="icon" src="../../../img/form-design/开关.png" style="height: 15px;">',
-				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
-				status: 0,
-				fontStyle: {
-					fontFamily: "微软雅黑",
-					size: 13,
-					color: "255,255,255",
-					bold: false,
-					italic: false,
-					underline: false,
-					textAlign: "center",
-					vAlign: "middle",
-					orientation: "vertical"
-				},
-				lineStyle: {
-					lineWidth: 1,
-					lineColor: "228,75,78",
-					lineStyle: "solid"
-				},
-				fillStyle: {
-					type: "solid",
-					color: "228,75,78"
-				},
-			}
-		]
-	},
-	'senior': {
-		title: '高级字段', child: [
-			{
-				name: 'img',
-				title: '图片上传',
-				icon: '<img class="icon" src="../../../img/form-design/图片上传.png" style="height: 15px;">',
-				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
-				status: 0,
-				fontStyle: {
-					fontFamily: "微软雅黑",
-					size: 13,
-					color: "255,255,255",
-					bold: false,
-					italic: false,
-					underline: false,
-					textAlign: "center",
-					vAlign: "middle",
-					orientation: "vertical"
-				},
-				lineStyle: {
-					lineWidth: 1,
-					lineColor: "228,75,78",
-					lineStyle: "solid"
-				},
-				fillStyle: {
-					type: "solid",
-					color: "228,75,78"
-				},
-			}
-		]
-	},
-	'layout': {
-		title: '布局字段', child: [
-			{
-				name: 'grid',
-				title: '栅格布局',
-				icon: '<img class="icon" src="../../../img/form-design/布局.png" style="height: 15px;">',
-				selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
-				status: 0,
-				fontStyle: {
-					fontFamily: "微软雅黑",
-					size: 13,
-					color: "255,255,255",
-					bold: false,
-					italic: false,
-					underline: false,
-					textAlign: "center",
-					vAlign: "middle",
-					orientation: "vertical"
-				},
-				lineStyle: {
-					lineWidth: 1,
-					lineColor: "228,75,78",
-					lineStyle: "solid"
-				},
-				fillStyle: {
-					type: "solid",
-					color: "228,75,78"
-				},
-			}
-		]
-	}
+  'base': {
+  title: '基础字段',
+child: [
+  {
+    name: 'input',
+    title: '单行文本',
+    icon: '<img class="icon" src="../../../img/form-design/单行文本.png" style="height: 15px;">',
+    selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
+    status: 0,
+    fontStyle: {
+  fontFamily: '微软雅黑',
+  size: 13,
+  color: '255,255,255',
+  bold: false,
+  italic: false,
+  underline: false,
+  textAlign: 'center',
+  vAlign: 'middle',
+  orientation: 'vertical'
+},
+    lineStyle: {
+  lineWidth: 1,
+  lineColor: '228,75,78',
+  lineStyle: 'solid'
+},
+    fillStyle: {
+  type: 'solid',
+  color: '228,75,78'
+}
+  },
+  {
+    name: 'textarea',
+    title: '多行文本',
+    icon: '<img class="icon" src="../../../img/form-design/多行文本.png" style="height: 15px;">',
+    selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
+    status: 0,
+    fontStyle: {
+  fontFamily: '微软雅黑',
+  size: 13,
+  color: '255,255,255',
+  bold: false,
+  italic: false,
+  underline: false,
+  textAlign: 'center',
+  vAlign: 'middle',
+  orientation: 'vertical'
+},
+    lineStyle: {
+  lineWidth: 1,
+  lineColor: '228,75,78',
+  lineStyle: 'solid'
+},
+    fillStyle: {
+  type: 'solid',
+  color: '228,75,78'
+}
+  },
+  {
+    name: 'number',
+    title: '数字文本框',
+    icon: '<img class="icon" src="../../../img/form-design/计数标签.png" style="height: 15px;">',
+    selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
+    status: 0,
+    fontStyle: {
+  fontFamily: '微软雅黑',
+  size: 13,
+  color: '255,255,255',
+  bold: false,
+  italic: false,
+  underline: false,
+  textAlign: 'center',
+  vAlign: 'middle',
+  orientation: 'vertical'
+},
+    lineStyle: {
+  lineWidth: 1,
+  lineColor: '228,75,78',
+  lineStyle: 'solid'
+},
+    fillStyle: {
+  type: 'solid',
+  color: '228,75,78'
+}
+  },
+  {
+    name: 'radio',
+    title: '单选框组',
+    icon: '<img class="icon" src="../../../img/form-design/单选框.png" style="height: 15px;">',
+    selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
+    status: 0,
+    fontStyle: {
+  fontFamily: '微软雅黑',
+  size: 13,
+  color: '255,255,255',
+  bold: false,
+  italic: false,
+  underline: false,
+  textAlign: 'center',
+  vAlign: 'middle',
+  orientation: 'vertical'
+},
+    lineStyle: {
+  lineWidth: 1,
+  lineColor: '228,75,78',
+  lineStyle: 'solid'
+},
+    fillStyle: {
+  type: 'solid',
+  color: '228,75,78'
+}
+  },
+  {
+    name: 'checkbox',
+    title: '多选框组',
+    icon: '<img class="icon" src="../../../img/form-design/多选框.png" style="height: 15px;">',
+    selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
+    status: 0,
+    fontStyle: {
+  fontFamily: '微软雅黑',
+  size: 13,
+  color: '255,255,255',
+  bold: false,
+  italic: false,
+  underline: false,
+  textAlign: 'center',
+  vAlign: 'middle',
+  orientation: 'vertical'
+},
+    lineStyle: {
+  lineWidth: 1,
+  lineColor: '228,75,78',
+  lineStyle: 'solid'
+},
+    fillStyle: {
+  type: 'solid',
+  color: '228,75,78'
+}
+  },
+  {
+    name: 'dateTime',
+    title: '时间日期选择器',
+    icon: '<img class="icon" src="../../../img/form-design/时间选择器.png" style="height: 15px;">',
+    selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
+    status: 0,
+    fontStyle: {
+  fontFamily: '微软雅黑',
+  size: 13,
+  color: '255,255,255',
+  bold: false,
+  italic: false,
+  underline: false,
+  textAlign: 'center',
+  vAlign: 'middle',
+  orientation: 'vertical'
+},
+    lineStyle: {
+  lineWidth: 1,
+  lineColor: '228,75,78',
+  lineStyle: 'solid'
+},
+    fillStyle: {
+  type: 'solid',
+  color: '228,75,78'
+}
+  },
+  {
+    name: 'select',
+    title: '下拉选择框',
+    icon: '<img class="icon" src="../../../img/form-design/下拉选择.png" style="height: 15px;">',
+    selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
+    status: 0,
+    fontStyle: {
+  fontFamily: '微软雅黑',
+  size: 13,
+  color: '255,255,255',
+  bold: false,
+  italic: false,
+  underline: false,
+  textAlign: 'center',
+  vAlign: 'middle',
+  orientation: 'vertical'
+},
+    lineStyle: {
+  lineWidth: 1,
+  lineColor: '228,75,78',
+  lineStyle: 'solid'
+},
+    fillStyle: {
+  type: 'solid',
+  color: '228,75,78'
+}
+  },
+  {
+    name: 'switch',
+    title: '开关',
+    icon: '<img class="icon" src="../../../img/form-design/开关.png" style="height: 15px;">',
+    selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
+    status: 0,
+    fontStyle: {
+  fontFamily: '微软雅黑',
+  size: 13,
+  color: '255,255,255',
+  bold: false,
+  italic: false,
+  underline: false,
+  textAlign: 'center',
+  vAlign: 'middle',
+  orientation: 'vertical'
+},
+    lineStyle: {
+  lineWidth: 1,
+  lineColor: '228,75,78',
+  lineStyle: 'solid'
+},
+    fillStyle: {
+  type: 'solid',
+  color: '228,75,78'
+}
+  }
+]
+},
+  'senior': {
+  title: '高级字段',
+child: [
+  {
+    name: 'img',
+    title: '图片上传',
+    icon: '<img class="icon" src="../../../img/form-design/图片上传.png" style="height: 15px;">',
+    selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
+    status: 0,
+    fontStyle: {
+  fontFamily: '微软雅黑',
+  size: 13,
+  color: '255,255,255',
+  bold: false,
+  italic: false,
+  underline: false,
+  textAlign: 'center',
+  vAlign: 'middle',
+  orientation: 'vertical'
+},
+    lineStyle: {
+  lineWidth: 1,
+  lineColor: '228,75,78',
+  lineStyle: 'solid'
+},
+    fillStyle: {
+  type: 'solid',
+  color: '228,75,78'
+}
+  }
+]
+},
+  'layout': {
+  title: '布局字段',
+child: [
+  {
+    name: 'grid',
+    title: '栅格布局',
+    icon: '<img class="icon" src="../../../img/form-design/布局.png" style="height: 15px;">',
+    selected: ['control', 'query', 'rule', 'ruleSet', 'assign'],
+    status: 0,
+    fontStyle: {
+  fontFamily: '微软雅黑',
+  size: 13,
+  color: '255,255,255',
+  bold: false,
+  italic: false,
+  underline: false,
+  textAlign: 'center',
+  vAlign: 'middle',
+  orientation: 'vertical'
+},
+    lineStyle: {
+  lineWidth: 1,
+  lineColor: '228,75,78',
+  lineStyle: 'solid'
+},
+    fillStyle: {
+  type: 'solid',
+  color: '228,75,78'
+}
+  }
+]
+}
 
-	
-};
+}
 
 $.each(categorys, function (k, v) {
-	Schema.addCategory({
-		name: k,
-		text: v.title,
-		dataAttributes: []
-	});
+  Schema.addCategory({
+  name: k,
+  text: v.title,
+  dataAttributes: []
+})
 	$.each(v.child, function () {
-		var key = this.name;
+  var key = this.name
 		if (this.name === 'start') {
-			Schema.addShape({
-				name: this.name,
-				title: this.title,
-				category: k,
-				icon: this.icon,
-				selected: this.selected,
-				fontStyle: this.fontStyle,
-				lineStyle: this.lineStyle,
-				fillStyle: this.fillStyle,
-				props: { w: 150, h: 40, },
-				path: [{
-					actions: [{ action: "move", x: "Math.min(w,h)/2.5", y: "0" },
-					{ action: "line", x: "w-Math.min(w,h)/2.5", y: "0" },
-					{ action: "curve", x1: "w+Math.min(w,h)/2.5/2.5", y1: "0", x2: "w+Math.min(w,h)/2.5/2.5", y2: "h", x: "w-Math.min(w,h)/2.5", y: "h" },
-					{ action: "line", x: "Math.min(w,h)/2.5", y: "h" },
-					{ action: "curve", x1: "-Math.min(w,h)/2.5/2.5", y1: "h", x2: "-Math.min(w,h)/2.5/2.5", y2: "0", x: "Math.min(w,h)/2.5", y: "0" },
-					{ action: "close" }]
-				}]
-			});
+  Schema.addShape({
+  name: this.name,
+  title: this.title,
+  category: k,
+  icon: this.icon,
+  selected: this.selected,
+  fontStyle: this.fontStyle,
+  lineStyle: this.lineStyle,
+  fillStyle: this.fillStyle,
+  props: { w: 150, h: 40 },
+  path: [{
+  actions: [{ action: 'move', x: 'Math.min(w,h)/2.5', y: '0' },
+					{ action: 'line', x: 'w-Math.min(w,h)/2.5', y: '0' },
+					{ action: 'curve', x1: 'w+Math.min(w,h)/2.5/2.5', y1: '0', x2: 'w+Math.min(w,h)/2.5/2.5', y2: 'h', x: 'w-Math.min(w,h)/2.5', y: 'h' },
+					{ action: 'line', x: 'Math.min(w,h)/2.5', y: 'h' },
+					{ action: 'curve', x1: '-Math.min(w,h)/2.5/2.5', y1: 'h', x2: '-Math.min(w,h)/2.5/2.5', y2: '0', x: 'Math.min(w,h)/2.5', y: '0' },
+					{ action: 'close' }]
+}]
+})
 		} else {
-			Schema.addShape({
-				name: this.name,
-				title: this.title,
-				category: k,
-				icon: this.icon,
-				selected: this.selected,
-				fontStyle: this.fontStyle,
-				lineStyle: this.lineStyle,
-				fillStyle: this.fillStyle,
-				props: { w: 150, h: 40, },
-				path: [{
-					actions: [{ action: "move", x: "Math.min(w,h)/5/5", y: "0" },
-					{ action: "line", x: "w-Math.min(w,h)/5/5", y: "0" },
-					{ action: "curve", x1: "w+Math.min(w,h)/5/5", y1: "0", x2: "w+Math.min(w,h)/5/5", y2: "h", x: "w-Math.min(w,h)/5/5", y: "h" },
-					{ action: "line", x: "Math.min(w,h)/5/5", y: "h" },
-					{ action: "curve", x1: "-Math.min(w,h)/5/5", y1: "h", x2: "-Math.min(w,h)/5/5", y2: "0", x: "Math.min(w,h)/5/5", y: "0" },
-					{ action: "close" }]
-				}]
-			});
+  Schema.addShape({
+  name: this.name,
+  title: this.title,
+  category: k,
+  icon: this.icon,
+  selected: this.selected,
+  fontStyle: this.fontStyle,
+  lineStyle: this.lineStyle,
+  fillStyle: this.fillStyle,
+  props: { w: 150, h: 40 },
+  path: [{
+  actions: [{ action: 'move', x: 'Math.min(w,h)/5/5', y: '0' },
+					{ action: 'line', x: 'w-Math.min(w,h)/5/5', y: '0' },
+					{ action: 'curve', x1: 'w+Math.min(w,h)/5/5', y1: '0', x2: 'w+Math.min(w,h)/5/5', y2: 'h', x: 'w-Math.min(w,h)/5/5', y: 'h' },
+					{ action: 'line', x: 'Math.min(w,h)/5/5', y: 'h' },
+					{ action: 'curve', x1: '-Math.min(w,h)/5/5', y1: 'h', x2: '-Math.min(w,h)/5/5', y2: '0', x: 'Math.min(w,h)/5/5', y: '0' },
+					{ action: 'close' }]
+}]
+})
 		}
 
-		var temp = $('#configure .template');
-		var _div = temp.find('#temp_' + key);
+  var temp = $('#configure .template')
+		var _div = temp.find('#temp_' + key)
 		if (_div.length == 0 && this.formEL) {
-			temp.append('<div id="temp_' + key + '"></div>');
-			_div = temp.find('#temp_' + key);
+  temp.append('<div id="temp_' + key + '"></div>')
+			_div = temp.find('#temp_' + key)
 			$.each(this.formEL, function () {
-				var require = ' <font>*</font>', required = 'required', tipHtml = '<i title_pos="left" title="' + (this.tips || '') + '" class="fa fa-question-circle"></i>';
-				if (this.hide) required = '';
-				if (this.require == false) require = '';
-				if (!this.tips) tipHtml = '';
+  var require = ' <font>*</font>', required = 'required', tipHtml = '<i title_pos="left" title="' + (this.tips || '') + '" class="fa fa-question-circle"></i>'
+				if (this.hide) required = ''
+				if (this.require == false) require = ''
+				if (!this.tips) tipHtml = ''
 
-				var startHtml = '<div class="layui-form-item ' + this.name + '">' + '<label class="layui-form-label">' + this.title + require + '</label>' + '<div class="layui-input-block">';
-				var endHtml = '</div></div>';
+				var startHtml = '<div class="layui-form-item ' + this.name + '">' + '<label class="layui-form-label">' + this.title + require + '</label>' + '<div class="layui-input-block">'
+				var endHtml = '</div></div>'
 
 				//title="'+this.title+'" 
 				if (this.type == 'select') {
-					_div.append(startHtml
-						+ '<select name="' + this.name + '" lay-verify="' + required + '|' + this.name + '" lay-filter="' + (this.filter || '') + '"><option value="">请选择...</option></select>'
-						+ tipHtml + endHtml);
-					var select = _div.find('select[name="' + this.name + '"]');
+  _div.append(startHtml +
+						'<select name="' + this.name + '" lay-verify="' + required + '|' + this.name + '" lay-filter="' + (this.filter || '') + '"><option value="">请选择...</option></select>' +
+						tipHtml + endHtml)
+					var select = _div.find('select[name="' + this.name + '"]')
 					if (this.child)
-						var nn = this.name;
-					$.each(this.child, function () {
-						select.append('<option value="' + this.value + '" xx="{{ d.' + nn + '==\'' + this.value + '\'?\'selected\':\'\' xx}}">' + this.text + '</option>');
-					});
+  {var nn = this.name;}
+  $.each(this.child, function () {
+  select.append('<option value="' + this.value + '" xx="{{ d.' + nn + '==\'' + this.value + '\'?\'selected\':\'\' xx}}">' + this.text + '</option>')
+					})
 				} else if (this.type == 'textarea') {
-					_div.append(startHtml
-						+ '<textarea name="' + this.name + '" class="layui-textarea" lay-verify="' + required + '|' + this.name + '" placeholder="请输入' + this.title + '" class="layui-input">{{ d.' + this.name + '||\'\' }}</textarea>'
-						+ tipHtml + endHtml);
+  _div.append(startHtml +
+						'<textarea name="' + this.name + '" class="layui-textarea" lay-verify="' + required + '|' + this.name + '" placeholder="请输入' + this.title + '" class="layui-input">{{ d.' + this.name + '||\'\' }}</textarea>' +
+						tipHtml + endHtml)
 				} else {
-					var num = this.type;
-					if (this.type != "number") num = '';
-					_div.append(startHtml
-						+ '<input type="' + this.type + '" name="' + this.name + '" value="{{ d.' + this.name + '||\'\' }}" lay-verify="' + required + '|' + (this.name + '|' + num) + '" placeholder="请输入' + this.title + '" class="layui-input" />'
-						+ tipHtml + endHtml);
+  var num = this.type
+					if (this.type != 'number') num = ''
+					_div.append(startHtml +
+						'<input type="' + this.type + '" name="' + this.name + '" value="{{ d.' + this.name + '||\'\' }}" lay-verify="' + required + '|' + (this.name + '|' + num) + '" placeholder="请输入' + this.title + '" class="layui-input" />' +
+						tipHtml + endHtml)
 				}
-				if (this.hide) {
-					_div.find('.' + this.name).hide();
+  if (this.hide) {
+  _div.find('.' + this.name).hide()
 				}
-			});
+})
 		}
-	});
-});
+})
+})
 
 //把下面的layui的代码抽取出有用的出来
-$("a.plus").click(function () {
-	Designer.zoomIn()
+$('a.plus').click(function () {
+  Designer.zoomIn()
 })
-$("a.minus").click(function () {
-	Designer.zoomOut()
+$('a.minus').click(function () {
+  Designer.zoomOut()
 })
 setTimeout(() => {
 	// alert($(window).height())
-	$('#canvas_container').height($(window).height());
-}, 2000);
+  $('#canvas_container').height($(window).height())
+}, 2000)
 
 //layui使用开始
 // layui.use(['layer', 'element', 'form', 'laytpl'], function () {
@@ -598,52 +600,52 @@ setTimeout(() => {
 
 //layui使用结束
 
-function nodeConf(node) {
-	var nodeId = node.id, data = $('#' + nodeId).data('node') || {}, conf = $("#configure");
-	var form = layui.form, laytpl = layui.laytpl;
-	var temp = $('#temp_' + node.name).html();
-	temp = temp.replaceAll('xx="{{', '{{');
-	temp = temp.replaceAll('xx}}"', '}}');
+function nodeConf (node) {
+  var nodeId = node.id, data = $('#' + nodeId).data('node') || {}, conf = $('#configure')
+	var form = layui.form, laytpl = layui.laytpl
+	var temp = $('#temp_' + node.name).html()
+	temp = temp.replaceAll('xx="{{', '{{')
+	temp = temp.replaceAll('xx}}"', '}}')
 	if (node.title && !data.name) {
-		data.name = node.title;
+  data.name = node.title
 	}
-	$('#' + nodeId).find('.text_canvas').val(data.name);
+  $('#' + nodeId).find('.text_canvas').val(data.name)
 
 	laytpl(temp).render(data, function (html) {
-		conf.find('[name="nodeId"').val(nodeId);
-		conf.find('[name="remark"').val(data.remark || '');
-		conf.find('.layui-tab-content .layui-tab-item:eq(0)').html(html);
-		form.render();
-		conf.show();
-		conf.find('.layui-tab-title li:first').click();
-	});
+  conf.find('[name="nodeId"').val(nodeId)
+		conf.find('[name="remark"').val(data.remark || '')
+		conf.find('.layui-tab-content .layui-tab-item:eq(0)').html(html)
+		form.render()
+		conf.show()
+		conf.find('.layui-tab-title li:first').click()
+	})
 }
 
-function showMenu(m) {
-	if ($('.layui-log').length > 0) {
-		m.children().show();
+function showMenu (m) {
+  if ($('.layui-log').length > 0) {
+  m.children().show()
 		m.children('li[ac=log]').unbind('click').click(function () {
-			layer.open({
-				type: 1,
-				title: false,
-				offset: 'auto',
-				area: ['80%', '500px'],
-				content: '<pre class="layui-code layui-code-log" lay-title="日志"></pre>',
-				btn: '关闭',
-				btnAlign: 'c',
-				shade: 0.1,
-				move: 0,
-				shadeClose: true,
-				success: function () {
-					$('.layui-code-log').append($('#log-demo').html());
+  layer.open({
+  type: 1,
+  title: false,
+  offset: 'auto',
+  area: ['80%', '500px'],
+  content: '<pre class="layui-code layui-code-log" lay-title="日志"></pre>',
+  btn: '关闭',
+  btnAlign: 'c',
+  shade: 0.1,
+  move: 0,
+  shadeClose: true,
+  success: function () {
+  $('.layui-code-log').append($('#log-demo').html())
 					layui.use('code', function () {
-						layui.code({
-							title: '日志',
-							about: false,
-						});
-					});
+  layui.code({
+  title: '日志',
+  about: false
+})
+					})
 				}
-			});
-		});
+})
+		})
 	}
 }

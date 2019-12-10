@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-03 08:37:07
+ * @LastEditTime: 2019-10-12 17:02:43
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <el-row>
     <el-col :span="col.span" v-for="(col, i) in data.cols" :key="i" class="col">
@@ -26,6 +33,8 @@
 import GridCell from '@/components/form-design/GridCell'
 import draggable from 'vuedraggable'
 import common from '@/utils/common'
+// eslint-disable-next-line no-unused-vars
+import bus from '@/utils/bus'
 
 export default {
   components: {
@@ -53,7 +62,7 @@ export default {
         return {
           title: '栅格布局',
           type: 'grid',
-          icon: '/src/assets/img/form-design/grid.png',
+          icon: '/static/img/form-design/grid.png',
           cols: [
             {
               span: 12,
@@ -61,7 +70,7 @@ export default {
                 // {
                 //   title: "多行文本",
                 //   type: "textarea",
-                //   icon: "/src/assets/img/form-design/textarea.png",
+                //   icon: "/static/img/form-design/textarea.png",
                 //   options: {
                 //     width: "100%",
                 //     defaultValue: "",
@@ -89,7 +98,7 @@ export default {
       data: {
         title: '栅格布局',
         type: 'grid',
-        icon: '/src/assets/img/form-design/grid.png',
+        icon: '/static/img/form-design/grid.png',
         cols: [
           {
             span: 12,
@@ -133,6 +142,11 @@ export default {
       //   this.$store.commit('formDesign/updateActiveForm', common.deepClone(form));
       //   this.$store.commit('formDesign/updateGrid', this.FDkey, common.deepClone(newFormList));
       // }
+
+      // 处理从外部拖进栅格的表单元素
+      if (evt.added) {
+        sessionStorage.outToIn = 1
+      }
     },
     syncList (value, index) {
       // this.data.cols[index].list = common.deepClone(value);
@@ -168,6 +182,7 @@ export default {
             const element2 = element.list[j]
             if (common.isEmpty(element2.key)) {
               element2.key = common.getGuid()
+              element2.code = `code_${common.getGuid2()}`
               this.$store.commit('formDesign/updateActiveKey', element2.key)
               haveEmptyKey = true
             }
@@ -193,6 +208,28 @@ export default {
             'formDesign/setFormList',
             common.deepClone(formListAll)
           )
+
+          this.$store.state.formDesign.formList.forEach(el => {
+            if (el.type === 'grid') {
+              el.cols.forEach(el2 => {
+                el2.list.forEach(el3 => {
+                  if (el3.key === this.$store.state.formDesign.activeKey) {
+                    this.$store.commit('formDesign/updateShowType', el3.type)
+                    this.$store.commit('formDesign/updateActiveForm', common.deepClone(el3))
+                    // this.$store.commit('formDesign/updateGrid', {
+                    //   key: el.key,
+                    //   value: common.deepClone(el2.list)
+                    // })
+                  }
+                })
+              })
+            } else {
+              if (el.key === this.$store.state.formDesign.activeKey) {
+                this.$store.commit('formDesign/updateShowType', el.type)
+                this.$store.commit('formDesign/updateActiveForm', common.deepClone(el))
+              }
+            }
+          })
         }
         console.log('newData.key', this.FDkey)
         console.log(
@@ -207,7 +244,6 @@ export default {
           key: this.FDkey,
           value: common.deepClone(newData)
         })
-
         this.$emit('syncList', this.$store.state.formDesign.formList)
       },
       deep: true
@@ -225,15 +261,15 @@ export default {
 
 <style scoped>
 .col {
-  min-height: 100px;
+  min-height: 50px;
   outline: 1px dashed;
   /* margin: 10px; */
 }
 .bottom-area {
   width: 100%;
-  height: 50px;
+  height: 25px;
 }
 .dragArea {
-  min-height: 100px;
+  min-height: 50px;
 }
 </style>

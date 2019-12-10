@@ -1,10 +1,22 @@
 <template>
-  <el-form label-position="top" label-width="80px">
+  <el-form label-position="top" label-width="80px"  size="mini">
     <el-form-item label="标题">
       <el-input v-model="data.title" size="small"></el-input>
     </el-form-item>
+    <el-form-item label="表字段code">
+      <el-input v-model="data.code" size="small"></el-input>
+    </el-form-item>
     <el-form-item label="宽度">
       <el-input v-model="data.options.width" size="small"></el-input>
+    </el-form-item>
+    <el-form-item label="最大长度">
+      <el-input-number
+        v-model="data.options.maxlength"
+        :min="1"
+        :max="300"
+        label="最大长度"
+        size="small"
+      ></el-input-number>
     </el-form-item>
     <el-form-item label="占位内容">
       <el-input v-model="data.options.placeholder" size="small"></el-input>
@@ -39,14 +51,16 @@ export default {
         return {
           title: '多行文本',
           type: 'textarea',
-          icon: '/src/assets/img/form-design/textarea.png',
+          code: '',
+          icon: '/static/img/form-design/textarea.png',
           options: {
             width: '100%',
             defaultValue: '',
             required: false,
             disabled: false,
             placeholder: '',
-            regEx: ''
+            regEx: '',
+            maxlength: 100
           },
           key: common.getGuid()
         }
@@ -58,23 +72,23 @@ export default {
       data: {
         title: '多行文本',
         type: 'textarea',
-        icon: '/src/assets/img/form-design/textarea.png',
+        code: '',
+        icon: '/static/img/form-design/textarea.png',
         options: {
           width: '100%',
           defaultValue: '',
           required: false,
           disabled: false,
           placeholder: '',
-          regEx: ''
+          regEx: '',
+          maxlength: 100
         },
         key: common.getGuid()
       }
     }
   },
-  methods: {
-  },
-  mounted () {
-  },
+  methods: {},
+  mounted () {},
   watch: {
     data: {
       handler: function (value, oldValue) {
@@ -91,7 +105,10 @@ export default {
 
               newFormList[i] = value
               this.$store.commit('formDesign/updateActiveKey', element.key)
-              this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList))
+              this.$store.dispatch(
+                'formDesign/setFormList',
+                common.deepClone(newFormList)
+              )
               bus.$emit('formDesign.syncList', common.deepClone(newFormList))
               break
             }
@@ -104,9 +121,18 @@ export default {
                   activeIndex = i
 
                   newFormList[i].cols[j].list[k] = value
-                  this.$store.commit('formDesign/updateActiveKey', element3.key)
-                  this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList))
-                  bus.$emit('formDesign.syncList', common.deepClone(newFormList))
+                  this.$store.commit(
+                    'formDesign/updateActiveKey',
+                    element3.key
+                  )
+                  this.$store.dispatch(
+                    'formDesign/setFormList',
+                    common.deepClone(newFormList)
+                  )
+                  bus.$emit(
+                    'formDesign.syncList',
+                    common.deepClone(newFormList)
+                  )
                   break
                 }
               }

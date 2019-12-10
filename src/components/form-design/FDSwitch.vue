@@ -1,7 +1,17 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-03 08:37:07
+ * @LastEditTime: 2019-07-03 08:37:07
+ * @LastEditors: your name
+ -->
 <template>
-  <el-form label-position="top" label-width="80px">
+  <el-form label-position="top" label-width="80px"  size="mini">
     <el-form-item label="标题">
       <el-input v-model="data.title" size="small"></el-input>
+    </el-form-item>
+    <el-form-item label="表字段code">
+      <el-input v-model="data.code" size="small"></el-input>
     </el-form-item>
     <el-form-item label="默认值">
       <el-switch
@@ -34,7 +44,8 @@ export default {
         return {
           title: '开关',
           type: 'switch',
-          icon: '/src/assets/img/form-design/switch.png',
+          code: '',
+          icon: '/static/img/form-design/switch.png',
           options: {
             defaultValue: false,
             required: false,
@@ -50,7 +61,8 @@ export default {
       data: {
         title: '开关',
         type: 'switch',
-        icon: '/src/assets/img/form-design/switch.png',
+        code: '',
+        icon: '/static/img/form-design/switch.png',
         options: {
           defaultValue: false,
           required: false,
@@ -60,8 +72,7 @@ export default {
       }
     }
   },
-  methods: {
-  },
+  methods: {},
   watch: {
     data: {
       handler: function (value, oldValue) {
@@ -78,7 +89,10 @@ export default {
 
               newFormList[i] = value
               this.$store.commit('formDesign/updateActiveKey', element.key)
-              this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList))
+              this.$store.dispatch(
+                'formDesign/setFormList',
+                common.deepClone(newFormList)
+              )
               bus.$emit('formDesign.syncList', common.deepClone(newFormList))
               break
             }
@@ -91,9 +105,18 @@ export default {
                   activeIndex = i
 
                   newFormList[i].cols[j].list[k] = value
-                  this.$store.commit('formDesign/updateActiveKey', element3.key)
-                  this.$store.dispatch('formDesign/setFormList', common.deepClone(newFormList))
-                  bus.$emit('formDesign.syncList', common.deepClone(newFormList))
+                  this.$store.commit(
+                    'formDesign/updateActiveKey',
+                    element3.key
+                  )
+                  this.$store.dispatch(
+                    'formDesign/setFormList',
+                    common.deepClone(newFormList)
+                  )
+                  bus.$emit(
+                    'formDesign.syncList',
+                    common.deepClone(newFormList)
+                  )
                   break
                 }
               }

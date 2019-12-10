@@ -1,5 +1,12 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-05-15 21:32:27
+ * @LastEditTime: 2019-05-15 21:32:27
+ * @LastEditors: your name
+ -->
 <template>
-  <el-form label-position="top" label-width="80px">
+  <el-form label-position="top" label-width="80px"  size="mini">
     <el-form-item label="列配置项（每行占比总和最多为24）">
       <div v-for="(item, i) in data.cols" :key="i">
         <el-input-number v-model="item.span" :min="1" :max="24" label="列占比" size="small"></el-input-number>
@@ -29,7 +36,7 @@ export default {
         return {
           title: '栅格布局',
           type: 'grid',
-          icon: '/src/assets/img/form-design/grid.png',
+          icon: '/static/img/form-design/grid.png',
           cols: [{
             span: 12,
             list: [
@@ -47,7 +54,7 @@ export default {
       data: {
         title: '栅格布局',
         type: 'grid',
-        icon: '/src/assets/img/form-design/grid.png',
+        icon: '/static/img/form-design/grid.png',
         cols: [{
           span: 12,
           list: [

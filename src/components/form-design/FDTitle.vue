@@ -1,5 +1,5 @@
 <template>
-  <el-form label-position="top" label-width="80px">
+  <el-form label-position="top" label-width="80px"  size="mini">
     <el-form-item label="标题内容">
       <el-input v-model="data.value" size="small"></el-input>
     </el-form-item>
@@ -14,7 +14,7 @@
       </el-radio-group>
     </el-form-item>
     <el-form-item label="数据绑定key">
-      <el-input v-model="data.key" size="small" :disabled="true"></el-input>
+      <el-input :title="data.key" v-model="data.key" size="small" :disabled="true"></el-input>
     </el-form-item>
   </el-form>
 </template>
@@ -29,16 +29,13 @@ export default {
       type: Object,
       default: function () {
         return {
-          title: '多行文本',
-          type: 'textarea',
-          icon: '/src/assets/img/form-design/textarea.png',
+          title: '表单标题',
+          type: 'title',
+          icon: 'biaoti',
+          value: '标题',
           options: {
-            width: '100%',
-            defaultValue: '',
-            required: false,
-            disabled: false,
-            placeholder: '',
-            regEx: ''
+            align: 'center',
+            fontSize: '18px'
           },
           key: common.getGuid()
         }
@@ -48,16 +45,13 @@ export default {
   data () {
     return {
       data: {
-        title: '多行文本',
-        type: 'textarea',
-        icon: '/src/assets/img/form-design/textarea.png',
+        title: '表单标题',
+        type: 'title',
+        icon: 'biaoti',
+        value: '标题',
         options: {
-          width: '100%',
-          defaultValue: '',
-          required: false,
-          disabled: false,
-          placeholder: '',
-          regEx: ''
+          align: 'center',
+          fontSize: '18px'
         },
         key: common.getGuid()
       }
@@ -70,6 +64,7 @@ export default {
   watch: {
     data: {
       handler: function (value, oldValue) {
+        console.log('FDTitle watch', value)
         let newFormList = common.deepClone(
           this.$store.state.formDesign.formList
         )
@@ -110,10 +105,11 @@ export default {
     },
     propData: {
       handler: function (value) {
+        console.log('propData', value)
         this.data = common.deepClone(value)
       },
-      deep: true
-      // immediate: true
+      deep: true,
+      immediate: true
     }
   }
 }

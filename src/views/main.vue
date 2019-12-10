@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2019-12-10 10:46:23
+ * @LastEditTime: 2019-12-10 11:08:38
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \form-design\src\views\main.vue
+ -->
 <template>
   <div
     class="site-wrapper"
@@ -73,17 +81,18 @@
       },
       // 获取当前管理员信息
       getUserInfo () {
-        this.$http({
-          url: this.$http.adornUrl('/sys/user/info'),
-          method: 'get',
-          params: this.$http.adornParams()
-        }).then(({data}) => {
-          if (data && data.code === 0) {
-            this.loading = false
-            this.userId = data.user.userId
-            this.userName = data.user.username
-          }
-        })
+        this.loading = false
+        // this.$http({
+        //   url: this.$http.adornUrl('/sys/user/info'),
+        //   method: 'get',
+        //   params: this.$http.adornParams()
+        // }).then(({data}) => {
+        //   if (data && data.code === 0) {
+        //     this.loading = false
+        //     this.userId = data.user.userId
+        //     this.userName = data.user.username
+        //   }
+        // })
       }
     }
   }
