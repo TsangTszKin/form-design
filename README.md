@@ -6,7 +6,7 @@
  * @Description: In User Settings Edit
  * @FilePath: \form-design\README.md
  -->
-## form-design (react版本请查看我的react-form-design)
+## form-design (react版本，手机版本请查看我的<a target="_blank" href="https://github.com/TsangTszKin/react-form-design">react-form-design</a>)
 - form-design本人基于vue、element-ui，vuedraggable构建开发，实现用拖拉拽和自主配置来实现动态表单设计功能功能，提供一套更优的前端解决方案
 - 自主研发，模仿小幺鸡表单设计器（<a target="_blank" href="http://tools.xiaoyaoji.cn/form/#/">点击查看小幺鸡</a>）
 - 支持拖拉拽控件，支持二次拖来拽
